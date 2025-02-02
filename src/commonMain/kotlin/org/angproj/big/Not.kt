@@ -14,8 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.buf.IntBuffer
-
 public fun BigInt.inv(): BigInt = not()
 
 public fun BigInt.not(): BigInt {

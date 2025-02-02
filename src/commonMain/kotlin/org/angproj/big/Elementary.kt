@@ -14,7 +14,8 @@
  */
 package org.angproj.big
 
-import kotlin.math.*
+import kotlin.math.ceil
+import kotlin.math.sqrt
 
 /**
  * Not ready to be used
