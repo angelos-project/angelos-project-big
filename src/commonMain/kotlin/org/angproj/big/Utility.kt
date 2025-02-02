@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -14,15 +14,16 @@
  */
 package org.angproj.big
 
+import org.angproj.aux.io.TypeBits
 import org.angproj.aux.io.binOf
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.sec.SecureRandom
 
 
 public fun BigInt.Companion.between(start: BigInt, end: BigInt): BigInt {
-    val random = binOf(end.bitLength / 8 + 1)
+    val random = binOf(end.bitLength / TypeBits.byte + 1)
     SecureRandom.read(random)
-    val value = fromByteArray(random.toByteArray()) { m, s -> BigInt(m.toList(), s ) }
+    val value = fromByteArray(random.toByteArray())
     return value.shiftRight(value.bitLength - end.bitLength + 1).abs().add(start)
 }
 

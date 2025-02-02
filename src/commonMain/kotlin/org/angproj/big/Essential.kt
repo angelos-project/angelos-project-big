@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -14,9 +14,9 @@
  */
 package org.angproj.big
 
-public operator fun BigInt.compareTo(other: BigMath<*>): Int = compareSpecial(other).state
+public operator fun BigInt.compareTo(other: BigInt): Int = compareSpecial(other).state
 
-public fun BigInt.compareSpecial(other: BigMath<*>): BigCompare = when {
+public fun BigInt.compareSpecial(other: BigInt): BigCompare = when {
     sigNum.state > other.sigNum.state -> BigCompare.GREATER
     sigNum.state < other.sigNum.state -> BigCompare.LESSER
     sigNum == BigSigned.POSITIVE -> BigInt.innerCompareMagnitude(this, other)
@@ -24,7 +24,7 @@ public fun BigInt.compareSpecial(other: BigMath<*>): BigCompare = when {
     else -> BigCompare.EQUAL
 }
 
-internal fun BigInt.Companion.innerCompareMagnitude(left: BigMath<*>, right: BigMath<*>): BigCompare = when {
+internal fun BigInt.Companion.innerCompareMagnitude(left: BigInt, right: BigInt): BigCompare = when {
     left.mag.size < right.mag.size -> BigCompare.LESSER
     left.mag.size > right.mag.size -> BigCompare.GREATER
     else -> {

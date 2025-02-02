@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -20,19 +20,19 @@ public operator fun BigInt.plus(other: BigInt): BigInt = add(other)
 
 public operator fun BigInt.inc(): BigInt = add(BigInt.one)
 
-public fun BigInt.add(value: BigMath<*>): BigInt = when {
-    sigNum.isZero() -> value.toBigInt()
+public fun BigInt.add(value: BigInt): BigInt = when {
+    sigNum.isZero() -> value
     value.sigNum.isZero() -> this
     else -> {
         val out = biggerFirst(this, value) { big, little ->
             return@biggerFirst BigInt.innerAdd(big, little)
         }
-        ofIntArray(out.mag.toIntArray())
+        fromIntArray(out.mag.copyOf())
     }
 }
 
-internal fun BigInt.Companion.innerAdd(x: BigMath<*>, y: BigMath<*>): MutableBigInt = withLogic {
-    val result = MutableBigInt.emptyMutableBigIntOf(IntArray(x.mag.size + 1))
+internal fun BigInt.Companion.innerAdd(x: BigInt, y: BigInt): BigInt = withLogic {
+    val result = emptyBigIntOf(IntArray(x.mag.size + 1))
     var carry: Long = 0
 
     result.mag.indices.forEach { idx ->

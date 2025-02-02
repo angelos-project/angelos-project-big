@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -26,5 +26,5 @@ public fun BigInt.flipBit(pos: Int): BigInt {
     result.indices.forEach { result.revSet(it, getIdx(this, it)) }
     result.revSet(bigCnt, result.revGet(bigCnt) xor bigMask(pos))
 
-    return ofIntArray(result)
+    return fromIntArray(result)
 }

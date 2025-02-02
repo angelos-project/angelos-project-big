@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -18,21 +18,21 @@ import org.angproj.aux.io.TypeBits
 
 public operator fun BigInt.times(other: BigInt): BigInt = multiply(other)
 
-public fun BigInt.multiply(value: BigMath<*>): BigInt = when {
+public fun BigInt.multiply(value: BigInt): BigInt = when {
     sigNum.isZero() || value.sigNum.isZero() -> BigInt.zero
-    else -> biggerFirst(this, value.toBigInt()) { big, little ->
+    else -> biggerFirst(this, value) { big, little ->
         val negative = big.sigNum.isNegative().let { if (little.sigNum.isNegative()) !it else it }
         val product = BigInt.innerMultiply(
-            big.abs().asMutableBigInt(),
-            little.abs().asMutableBigInt()
+            big.abs(),
+            little.abs()
         )
-        val result = BigInt(product.mag.toList(), BigSigned.POSITIVE)
+        val result = BigInt(product.mag.copyOf(), BigSigned.POSITIVE)
         return@biggerFirst if (negative) result.negate() else result
     }
 }
 
-internal fun BigInt.Companion.innerMultiply(x: BigMath<*>, y: BigMath<*>): MutableBigInt = withLogic {
-    val result = MutableBigInt.emptyMutableBigIntOf(IntArray(x.mag.size + y.mag.size))
+internal fun BigInt.Companion.innerMultiply(x: BigInt, y: BigInt): BigInt = withLogic {
+    val result = emptyBigIntOf(IntArray(x.mag.size + y.mag.size))
 
     result.mag.revSet(x.mag.size, innerMultiply1(result, x, getIdx(y, 0)))
     (1 until y.mag.size).forEach { idy ->
@@ -48,7 +48,7 @@ internal fun BigInt.Companion.innerMultiply(x: BigMath<*>, y: BigMath<*>): Mutab
     return@withLogic result
 }
 
-internal fun BigInt.Companion.innerMultiply1(result: MutableBigInt, x: BigMath<*>, y: Int): Int = withLogic{
+internal fun BigInt.Companion.innerMultiply1(result: BigInt, x: BigInt, y: Int): Int = withLogic{
     val first = y.getL()
     var carry: Long = 0
     x.mag.indices.forEach { idx ->

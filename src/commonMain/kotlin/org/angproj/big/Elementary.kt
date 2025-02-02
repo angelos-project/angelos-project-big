@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -23,7 +23,7 @@ import kotlin.math.*
 internal fun BigInt.sqrt(): BigInt = when {
     sigNum.isNegative() -> error("Can not calculate the square root of a negative value.")
     sigNum.isZero() -> BigInt.zero
-    bitLength <= Long.SIZE_BITS -> ofLong(sqrt(toLong().toDouble()).toLong())
+    bitLength <= Long.SIZE_BITS -> fromLong(sqrt(toLong().toDouble()).toLong())
     else -> BigInt.squareRoot(this)
 }
 
@@ -40,8 +40,8 @@ internal fun BigInt.Companion.squareRoot(value: BigInt): BigInt {
         var shift = dividend.bitLength - size
         if (shift % 2 == 1) shift++
         mask = mask.shiftRight(size)
-        val sqrt = ofLong(ceil(sqrt(dividend.shiftRight(shift).toLong().toDouble())).toLong())
-        root += sqrt.toBigInt().shiftLeft(shift / 2 - 1) * BigInt.two
+        val sqrt = fromLong(ceil(sqrt(dividend.shiftRight(shift).toLong().toDouble())).toLong())
+        root += sqrt.shiftLeft(shift / 2 - 1) * BigInt.two
         dividend = dividend.and(mask)
     }
 

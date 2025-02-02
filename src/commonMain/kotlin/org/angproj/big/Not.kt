@@ -22,5 +22,5 @@ public fun BigInt.not(): BigInt {
     val result = IntArray(mag.size + 1).apply {
         indices.forEach { this[it] = getIdx(this@not, revIdx(it)).inv() }
     }
-    return ofIntArray(result)
+    return fromIntArray(result)
 }

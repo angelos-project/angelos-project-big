@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -20,12 +20,12 @@ public infix fun BigInt.shr(n: Int): BigInt = shiftRight(n)
 
 public fun BigInt.shiftRight(n: Int): BigInt = when {
     sigNum.isZero() -> BigInt.zero
-    n > 0 -> asMutableBigInt().shiftRightBits(n)
+    n > 0 -> shiftRightBits(n)
     n == 0 -> this
-    else -> BigInt(BigInt.innerShiftLeftBits(mag, -n).toList(), sigNum)
+    else -> BigInt(BigInt.innerShiftLeftBits(mag, -n), sigNum)
 }
 
-internal fun MutableBigInt.shiftRightBits(count: Int): BigInt = withLogic {
+internal fun BigInt.shiftRightBits(count: Int): BigInt = withLogic {
     val bigShift: Int = count.floorDiv(TypeBits.int)
     val tinyShift: Int = count.mod(TypeBits.int)
     val tinyShiftOpposite = TypeBits.int - tinyShift
@@ -33,7 +33,7 @@ internal fun MutableBigInt.shiftRightBits(count: Int): BigInt = withLogic {
     if (bigShift >= mag.size) return@withLogic if (sigNum.isNonNegative()) BigInt.zero else BigInt.minusOne
 
     val result = when(tinyShift) {
-        0 -> mag.toIntArray().copyOf(mag.size - bigShift)
+        0 -> mag.copyOf(mag.size - bigShift)
         else -> {
             val highBits = mag[0] ushr tinyShift
             val extra = if(highBits == 0) 0 else 1
@@ -58,9 +58,9 @@ internal fun MutableBigInt.shiftRightBits(count: Int): BigInt = withLogic {
                 result[it] += 1
                 result[it] != 0
             }.takeIf { it == -1 }?.let {
-                return@withLogic BigInt((intArrayOf(1) + IntArray(result.size)).toList(), sigNum) }
+                return@withLogic BigInt((intArrayOf(1) + IntArray(result.size)), sigNum) }
         }
     }
 
-    return@withLogic BigInt(result.toList(), sigNumZeroAdjust(result, sigNum))
+    return@withLogic BigInt(result, sigNumZeroAdjust(result, sigNum))
 }

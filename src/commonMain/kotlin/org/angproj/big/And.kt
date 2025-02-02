@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -14,7 +14,7 @@
  */
 package org.angproj.big
 
-public infix fun BigInt.and(value: BigMath<*>): BigInt {
+public infix fun BigInt.and(value: BigInt): BigInt {
     val result = maxOfArrays(mag, value.mag).apply {
         indices.forEach {
             val idx = revIdx(it)
@@ -22,5 +22,5 @@ public infix fun BigInt.and(value: BigMath<*>): BigInt {
 
         }
     }
-    return ofIntArray(result)
+    return fromIntArray(result)
 }

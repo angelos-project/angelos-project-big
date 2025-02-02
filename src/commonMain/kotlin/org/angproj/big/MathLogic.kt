@@ -22,56 +22,51 @@ import org.angproj.aux.util.swapEndian
 import kotlin.math.max
 
 
-public interface MathLogic: BufferAware {
+public interface MathLogic: BufferAware, ExcHelper {
 
-    public fun intSize(big: BigMath<*>): Int = intSize(big.bitLength)
-    public fun getByteSize(big: BigMath<*>): Int = getByteSize(big.mag, big.sigNum, big.firstNonZero)
+    public fun intSize(big: BigInt): Int = intSize(big.bitLength)
+    public fun getByteSize(big: BigInt): Int = getByteSize(big.mag, big.sigNum, big.firstNonZero)
 
     public fun toComplementedIntArray(
-        big: BigMath<*>): IntArray = toComplementedIntArray(big.mag, big.sigNum, big.firstNonZero)
-    public fun <E: List<Int>> getIdx(
-        big: BigMath<E>, index: Int): Int = getIdx(big.mag, big.sigNum, big.firstNonZero, index)
-    public fun <E: List<Int>> getIdxL(
-        big: BigMath<E>, index: Int): Long = getIdxL(big.mag, big.sigNum, big.firstNonZero, index)
-    public fun <E: List<Int>> getUnreversedIdx(
-        big: BigMath<E>, index: Int): Int = getUnreversedIdx(big.mag, big.sigNum, big.firstNonZero, index)
+        big: BigInt): IntArray = toComplementedIntArray(big.mag, big.sigNum, big.firstNonZero)
 
+    public fun getIdx(
+        big: BigInt, index: Int): Int = getIdx(big.mag, big.sigNum, big.firstNonZero, index)
+    public fun getIdxL(
+        big: BigInt, index: Int): Long = getIdxL(big.mag, big.sigNum, big.firstNonZero, index)
+    public fun getUnreversedIdx(
+        big: BigInt, index: Int): Int = getUnreversedIdx(big.mag, big.sigNum, big.firstNonZero, index)
 
-    public fun <E: List<Int>> getIdx(
-        mag: E, sigNum: BigSigned, firstNonZero: Int, index: Int
+    public fun getIdx(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int, index: Int
     ): Int = when {
         index < 0 -> 0
         index >= mag.size -> sigNum.signed
-        else -> getIdxInner<Unit>(sigNum, firstNonZero, index, revGet<Unit, E>(mag, index))
+        else -> getIdxInner<Unit>(sigNum, firstNonZero, index, revGet<Unit>(mag, index))
     }
 
-    public fun <E: List<Int>> getIdxL(
-        mag: E, sigNum: BigSigned, firstNonZero: Int, index: Int
-    ): Long = getIdx<Unit, E>(mag, sigNum, firstNonZero, index).toLong() and 0xffffffffL
+    public fun getIdxL(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int, index: Int
+    ): Long = getIdx(mag, sigNum, firstNonZero, index).toLong() and 0xffffffffL
 
-    public fun <E: List<Int>> getUnreversedIdx(
-        mag: E, sigNum: BigSigned, firstNonZero: Int, index: Int
-    ): Int = getIdxInner<Unit>(sigNum, firstNonZero, index, mag[index])
-
-    // EXP
     public fun getUnreversedIdx(
         mag: IntArray, sigNum: BigSigned, firstNonZero: Int, index: Int
     ): Int = getIdxInner<Unit>(sigNum, firstNonZero, index, mag[index])
 
     public fun intSize(bitLength: Int): Int = bitLength.floorDiv(TypeBits.int) + 1
 
-    public fun <E: List<Int>> toComplementedIntArray(
-        mag: E, sigNum: BigSigned, firstNonZero: Int
-    ): IntArray = IntArray(mag.size) { getUnreversedIdx<Unit, E>(mag, sigNum, firstNonZero, it) }
+    public fun toComplementedIntArray(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int
+    ): IntArray = IntArray(mag.size) { getUnreversedIdx(mag, sigNum, firstNonZero, it) }
 
-    public fun <E: List<Int>> toInt(
-        mag: E, sigNum: BigSigned, firstNonZero: Int
-    ): Int = getIdx<Unit, E>(mag, sigNum, firstNonZero, 0)
+    public fun toInt(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int
+    ): Int = getIdx(mag, sigNum, firstNonZero, 0)
 
-    public fun <E: List<Int>> toLong(
-        mag: E, sigNum: BigSigned, firstNonZero: Int
-    ): Long = (getIdxL<Unit, E>(mag, sigNum, firstNonZero, 1) shl TypeBits.int
-            ) or getIdxL<Unit, E>(mag, sigNum, firstNonZero, 0)
+    public fun toLong(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int
+    ): Long = (getIdxL(mag, sigNum, firstNonZero, 1) shl TypeBits.int
+            ) or getIdxL(mag, sigNum, firstNonZero, 0)
 
     public fun Int.getL(): Long = getL<Unit>(this)
 
@@ -83,33 +78,22 @@ public interface MathLogic: BufferAware {
 
     public fun bigMask(pos: Int): Int = bigMask<Unit>(pos)
 
-    public fun <A: List<Int>, B: List<Int>> maxOfArrays(x: A, y: B, extra: Int = 1): IntArray =
-        IntArray(max(x.size, y.size) + extra)
-
-    //EXP
     public fun maxOfArrays(x: IntArray, y: IntArray, extra: Int = 1): IntArray =
         IntArray(max(x.size, y.size) + extra)
 
-    public fun <I: BigMath<*>, O: BigMath<*>> biggerFirst(
-        x: I, y: I, block: (x: I, y: I) -> O
-    ): O = when (x.mag.size < y.mag.size) {
+    public fun biggerFirst(
+        x: BigInt, y: BigInt, block: (x: BigInt, y: BigInt) -> BigInt
+    ): BigInt = when (x.mag.size < y.mag.size) {
         true -> block(y, x)
         else -> block(x, y)
     }
 
-    public fun <E : MutableList<Int>> setIdx(mag: E, index: Int, num: Int): Unit = revSet<Unit, E>(mag, index, num)
-    public fun <E : MutableList<Int>> setIdxL(mag: E, index: Int, num: Long): Unit = revSet<Unit, E>(mag, index, num.toInt())
-    public fun <E : MutableList<Int>> setUnreversedIdx(mag: E, index: Int, num: Int) { setUnreversedIdx<Unit, E>(mag, index, num) }
-    public fun <E : MutableList<Int>> setUnreversedIdxL(mag: E, index: Int, num: Long): Unit = setUnreversedIdx<Unit, E>(mag, index, num.toInt())
-
-    // EXP
     public fun setIdx(mag: IntArray, index: Int, num: Int): Unit = revSet<Unit>(mag, index, num)
     public fun setIdxL(mag: IntArray, index: Int, num: Long): Unit = revSet<Unit>(mag, index, num.toInt())
     public fun setUnreversedIdx(mag: IntArray, index: Int, num: Int) { setUnreversedIdx<Unit>(mag, index, num) }
     public fun setUnreversedIdxL(mag: IntArray, index: Int, num: Long): Unit = setUnreversedIdx<Unit>(mag, index, num.toInt())
 
-
-    public fun <E : List<Int>> bitLength(mag: E, sigNum: BigSigned): Int = when {
+    public fun bitLength(mag: IntArray, sigNum: BigSigned): Int = when {
         mag.isEmpty() -> 0
         sigNum.isNonNegative() -> (mag.lastIndex * TypeBits.int) + TypeBits.int - mag[0].countLeadingZeroBits()
         else -> {
@@ -119,7 +103,7 @@ public interface MathLogic: BufferAware {
         }
     }
 
-    public fun <E : List<Int>> bitCount(mag: E, sigNum: BigSigned): Int {
+    public fun bitCount(mag: IntArray, sigNum: BigSigned): Int {
         var count = mag.sumOf { it.countOneBits() }
         if (sigNum.isNegative()) {
             var magTrailingZeroCount = 0
@@ -134,15 +118,12 @@ public interface MathLogic: BufferAware {
         return count
     }
 
-    public fun <E : List<Int>> firstNonZero(mag: E): Int = (
+    public fun firstNonZero(mag: IntArray): Int = (
             mag.lastIndex downTo 0).indexOfFirst { mag[it] != 0 }.let { if (it == -1) 0 else it }
 
     public fun bitSizeForInt(n: Int): Int = TypeBits.int - n.countLeadingZeroBits()
 
-    public fun <T : BigMath<*>> fromBinary(
-        value: Binary,
-        build: (IntArray, BigSigned) -> T
-    ): T {
+    public fun fromBinary(value: Binary): BigInt {
         require(value.limit > 0) { BigMathException("ByteArray must not be of zero length.") }
         val negative = value.retrieveByte(0).toInt() < 0
 
@@ -155,13 +136,13 @@ public interface MathLogic: BufferAware {
             else -> stripLeadingZeros(value)
         }
 
-        return build(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
+        return BigInt(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
     }
 
-    public fun <T : BigMath<*>> fromByteArray(
-        value: ByteArray,
-        build: (IntArray, BigSigned) -> T
-    ): T {
+    public fun fromByteArray(
+        value: ByteArray// ,
+        //build: (IntArray, BigSigned) -> BigInt
+    ): BigInt {
         require(value.isNotEmpty()) { BigMathException("ByteArray must not be of zero length.") }
         val negative = value.first().toInt() < 0
 
@@ -174,7 +155,8 @@ public interface MathLogic: BufferAware {
             else -> stripLeadingZeros(value)
         }
 
-        return build(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
+        //return build(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
+        return BigInt(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
     }
 
     public fun stripLeadingZeros(value: Binary): IntArray {
@@ -205,10 +187,7 @@ public interface MathLogic: BufferAware {
         sigNum: BigSigned
     ): BigSigned = sigNumZeroAdjust<Unit>(mag, sigNum)
 
-    public fun <T : BigMath<*>> fromIntArray(
-        value: IntArray,
-        build: (IntArray, BigSigned) -> T
-    ): T {
+    public fun fromIntArray(value: IntArray): BigInt {
         require(value.isNotEmpty()) { BigMathException("IntArray must not be of zero length.") }
         val negative = value.first() < 0
 
@@ -221,13 +200,10 @@ public interface MathLogic: BufferAware {
             else -> stripLeadingZeros<Unit>(value)
         }
 
-        return build(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
+        return BigInt(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
     }
 
-    public fun <T : BigMath<*>> fromLong(
-        value: Long,
-        build: (IntArray, BigSigned) -> T
-    ): T {
+    public fun fromLong(value: Long): BigInt {
         val negative = value < 0
 
         val sigNum = when (negative) {
@@ -240,11 +216,11 @@ public interface MathLogic: BufferAware {
             else -> stripLeadingZeros<Unit>(tmp)
         }
 
-        return build(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
+        return BigInt(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
     }
 
-    public fun <E: List<Int>> getByteSize(
-        mag: E, sigNum: BigSigned, firstNonZero: Int
+    public fun getByteSize(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int
     ): Int {
         if (sigNum.isZero()) return 1
 
@@ -268,8 +244,8 @@ public interface MathLogic: BufferAware {
         }
     }
 
-    public fun <E: List<Int>> toByteArray(
-        mag: E, sigNum: BigSigned, firstNonZero: Int
+    public fun toByteArray(
+        mag: IntArray, sigNum: BigSigned, firstNonZero: Int
     ): ByteArray {
         if (sigNum.isZero()) return byteArrayOf(0)
 
@@ -292,6 +268,8 @@ public interface MathLogic: BufferAware {
             else -> output
         }
     }
+
+    public fun emptyBigIntOf(value: IntArray = intArrayOf(0)): BigInt = BigInt(value.copyOf(), BigSigned.POSITIVE)
 
     public companion object : AbstractMathLogic()
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
  *
  * This software is available under the terms of the MIT license. Parts are licensed
  * under different terms if stated. The legal terms are attached to the LICENSE file
@@ -42,30 +42,24 @@ public fun BigInt.divideAndRemainder(
                 val qabs = this.abs()
                 val vabs = value.abs()
                 val result = when {
-                    value.mag.size == 1 -> MutableBigInt.innerDivideOneWord(qabs, vabs)
+                    value.mag.size == 1 -> BigInt.innerDivideOneWord(qabs, vabs)
                     else -> BigInt.innerDivideMagnitude(qabs, vabs)
                 }
                 val q = toComplementedIntArray(result.first)
                 val r = toComplementedIntArray(result.second)
                 Pair(
-                    BigInt(
-                        q.toList(),
-                        if (this.sigNum == value.sigNum) BigSigned.POSITIVE else BigSigned.NEGATIVE
-                    ),
-                    BigInt(
-                        r.toList(),
-                        sigNumZeroAdjust(r, this.sigNum)
-                    )
+                    BigInt(q, if (this.sigNum == value.sigNum) BigSigned.POSITIVE else BigSigned.NEGATIVE),
+                    BigInt(r, sigNumZeroAdjust(r, this.sigNum))
                 )
             }
         }
     }
 }
 
-internal fun MutableBigInt.Companion.innerDivideOneWord(
-    dividend: BigMath<*>,
-    divisor: BigMath<*>,
-): Pair<MutableBigInt, MutableBigInt> = withLogic {
+internal fun BigInt.Companion.innerDivideOneWord(
+    dividend: BigInt,
+    divisor: BigInt,
+): Pair<BigInt, BigInt> = withLogic {
     val sorLong = getIdxL(divisor, divisor.mag.lastIndex)
     val sorInt = sorLong.toInt()
 
@@ -74,11 +68,11 @@ internal fun MutableBigInt.Companion.innerDivideOneWord(
         val q = (dendValue / sorLong)
         val r = (dendValue - q * sorLong)
         return@withLogic Pair(
-            ofLong(q),
-            ofLong(r),
+            fromLong(q),
+            fromLong(r),
         )
     }
-    val quotient = emptyMutableBigIntOf(IntArray(dividend.mag.size))
+    val quotient = emptyBigIntOf(IntArray(dividend.mag.size))
 
     val shift: Int = sorInt.countLeadingZeroBits()
     var rem: Int = getUnreversedIdx(dividend, 0)
@@ -98,7 +92,7 @@ internal fun MutableBigInt.Companion.innerDivideOneWord(
             q = (dendEst / sorLong).toInt()
             rem = (dendEst - q * sorLong).toInt()
         } else {
-            val tmp = MutableBigInt.innerDivWord(dendEst, sorInt)
+            val tmp = BigInt.innerDivWord(dendEst, sorInt)
             q = (tmp and 0xffffffffL).toInt()
             rem = (tmp ushr TypeBits.int).toInt()
         }
@@ -110,28 +104,28 @@ internal fun MutableBigInt.Companion.innerDivideOneWord(
 
     return@withLogic Pair(
         quotient,
-        ofLong((if(shift > 0) rem % sorInt else rem).toLong())
+        fromLong((if(shift > 0) rem % sorInt else rem).toLong())
     )
 }
 
 internal fun BigInt.Companion.innerDivideMagnitude(
-    dividend: BigMath<*>,
-    divisor: BigMath<*>,
-): Pair<MutableBigInt, MutableBigInt> = withLogic {
+    dividend: BigInt,
+    divisor: BigInt,
+): Pair<BigInt, BigInt> = withLogic {
     val shift = divisor.mag[0].countLeadingZeroBits()
 
     val sorLen = divisor.mag.size
     val sorArr: IntArray = when {
         shift > 0 -> IntArray(divisor.mag.size).also {
-            MutableBigInt.innerCopyAndShift(divisor.mag.toIntArray(), 0, divisor.mag.size, it, 0, shift) }
-        else -> divisor.mag.toIntArray().copyOfRange(0, divisor.mag.size)
+            BigInt.innerCopyAndShift(divisor.mag.copyOf(), 0, divisor.mag.size, it, 0, shift) }
+        else -> divisor.mag.copyOfRange(0, divisor.mag.size)
     }
     val remArr: IntArray = when {
         shift <= 0 -> IntArray(dividend.mag.size + 1).also { arr ->
-            dividend.mag.toIntArray().copyInto(arr, 1, 0, dividend.mag.size)
+            dividend.mag.copyInto(arr, 1, 0, dividend.mag.size)
         }
         dividend.mag[0].countLeadingZeroBits() >= shift -> IntArray(dividend.mag.size + 1).also { arr ->
-            MutableBigInt.innerCopyAndShift(dividend.mag.toIntArray(), 0, arr.lastIndex, arr, 1, shift)
+            BigInt.innerCopyAndShift(dividend.mag.copyOf(), 0, arr.lastIndex, arr, 1, shift)
         }
         else -> IntArray(dividend.mag.size + 2).also { arr ->
             var c = 0
@@ -170,7 +164,7 @@ internal fun BigInt.Companion.innerDivideMagnitude(
                 qhat = (nChunk / sorHighLong).toInt()
                 qrem = (nChunk - qhat * sorHighLong).toInt()
             } else {
-                val tmp = MutableBigInt.innerDivWord(nChunk, sorHigh)
+                val tmp = BigInt.innerDivWord(nChunk, sorHigh)
                 qhat = (tmp and 0xffffffffL).toInt()
                 qrem = (tmp ushr TypeBits.int).toInt()
             }
@@ -218,7 +212,7 @@ internal fun BigInt.Companion.innerDivideMagnitude(
             qhat = (nChunk / sorHighLong).toInt()
             qrem = (nChunk - qhat * sorHighLong).toInt()
         } else {
-            val tmp = MutableBigInt.innerDivWord(nChunk, sorHigh)
+            val tmp = BigInt.innerDivWord(nChunk, sorHigh)
             qhat = (tmp and 0xffffffffL).toInt()
             qrem = (tmp ushr TypeBits.int).toInt()
         }
@@ -251,13 +245,13 @@ internal fun BigInt.Companion.innerDivideMagnitude(
     }
 
     return@withLogic Pair(
-        MutableBigInt.emptyMutableBigIntOf(quotArr),
-        MutableBigInt.emptyMutableBigIntOf(if (shift > 0) MutableBigInt.innerRightShift(remArr, shift) else remArr)
+        emptyBigIntOf(quotArr),
+        emptyBigIntOf(if (shift > 0) BigInt.innerRightShift(remArr, shift) else remArr)
     )
 }
 
 
-internal fun MutableBigInt.Companion.innerDivWord(n: Long, d: Int): Long = withLogic{
+internal fun BigInt.Companion.innerDivWord(n: Long, d: Int): Long = withLogic{
     val dLong = d.getL()
     var r: Long
     var q: Long
@@ -281,7 +275,7 @@ internal fun MutableBigInt.Companion.innerDivWord(n: Long, d: Int): Long = withL
     return@withLogic r shl TypeBits.int or (q and 0xffffffffL)
 }
 
-internal fun MutableBigInt.Companion.innerRightShift(value: IntArray, n: Int): IntArray {
+internal fun BigInt.Companion.innerRightShift(value: IntArray, n: Int): IntArray {
     if (value.size == 0) return value
     val nInts = n ushr 5
     val nBits = n and 0x1F
@@ -295,7 +289,7 @@ internal fun MutableBigInt.Companion.innerRightShift(value: IntArray, n: Int): I
     }
 }
 
-internal fun MutableBigInt.Companion.innerPrimitiveRightShift(value: IntArray, n: Int): IntArray {
+internal fun BigInt.Companion.innerPrimitiveRightShift(value: IntArray, n: Int): IntArray {
     val n2 = TypeBits.int - n
     var c = value[value.lastIndex]
     (value.lastIndex downTo 1).forEach { idx ->
@@ -307,7 +301,7 @@ internal fun MutableBigInt.Companion.innerPrimitiveRightShift(value: IntArray, n
     return value
 }
 
-internal fun MutableBigInt.Companion.innerPrimitiveLeftShift(value: IntArray, n: Int): IntArray {
+internal fun BigInt.Companion.innerPrimitiveLeftShift(value: IntArray, n: Int): IntArray {
     val n2 = TypeBits.int - n
     var c = value[0]
     (0 until value.lastIndex).forEach { idx ->
@@ -319,7 +313,7 @@ internal fun MutableBigInt.Companion.innerPrimitiveLeftShift(value: IntArray, n:
     return value
 }
 
-internal fun MutableBigInt.Companion.innerCopyAndShift(
+internal fun BigInt.Companion.innerCopyAndShift(
     src: IntArray, srcFrom_: Int, srcLen: Int,
     dst: IntArray, dstFrom: Int, shift: Int
 ) {
