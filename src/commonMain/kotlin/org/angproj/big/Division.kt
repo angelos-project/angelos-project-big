@@ -96,8 +96,6 @@ internal fun BigInt.Companion.innerDivideOneWord(
             q = (tmp and 0xffffffffL).toInt()
             rem = (tmp ushr TypeBits.int).toInt()
         }
-        //quotient.setIdx(idx - 1, q)
-        //setIdx(quotient.mag, idx - 1, q)
         quotient.mag.revSet(idx - 1, q)
         remLong = rem.getL()
     }

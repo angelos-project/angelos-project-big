@@ -139,10 +139,7 @@ public interface MathLogic: BufferAware, ExcHelper {
         return BigInt(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
     }
 
-    public fun fromByteArray(
-        value: ByteArray// ,
-        //build: (IntArray, BigSigned) -> BigInt
-    ): BigInt {
+    public fun fromByteArray(value: ByteArray): BigInt {
         require(value.isNotEmpty()) { BigMathException("ByteArray must not be of zero length.") }
         val negative = value.first().toInt() < 0
 
@@ -155,7 +152,6 @@ public interface MathLogic: BufferAware, ExcHelper {
             else -> stripLeadingZeros(value)
         }
 
-        //return build(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
         return BigInt(mag, sigNumZeroAdjust<Unit>(mag, sigNum))
     }
 

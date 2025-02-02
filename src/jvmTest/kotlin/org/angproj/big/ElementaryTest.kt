@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
 import kotlin.test.Test
 import java.math.BigInteger as JavaBigInteger
 
