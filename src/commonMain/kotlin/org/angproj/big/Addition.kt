@@ -10,7 +10,8 @@
  * SPDX-License-Identifier: MIT
  *
  * Contributors:
- *      Kristoffer Paulsson - initial implementation
+ *      Per Bothner - earlier implementation
+ *      Kristoffer Paulsson - adaption to Angelos Project
  */
 package org.angproj.big
 
@@ -27,7 +28,8 @@ public fun BigInt.add(value: BigInt): BigInt = when {
         val out = biggerFirst(this, value) { big, little ->
             return@biggerFirst BigInt.innerAdd(big, little)
         }
-        fromIntArray(out.mag.copyOf())
+        fromIntArray(out.mag)
+
     }
 }
 

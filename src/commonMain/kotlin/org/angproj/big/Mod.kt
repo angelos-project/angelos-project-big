@@ -10,7 +10,7 @@
  * SPDX-License-Identifier: MIT
  *
  * Contributors:
- *      Kristoffer Paulsson - initial implementation
+ *      Kristoffer Paulsson - adaption to Angelos Project
  */
 package org.angproj.big
 

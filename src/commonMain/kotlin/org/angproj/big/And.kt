@@ -10,7 +10,11 @@
  * SPDX-License-Identifier: MIT
  *
  * Contributors:
- *      Kristoffer Paulsson - initial implementation
+ *      Josh Bloch - earlier implementation
+ *      Michael McCloskey - earlier implementation
+ *      Alan Eliasen - earlier implementation
+ *      Timothy Buktu - earlier implementation
+ *      Kristoffer Paulsson - adaption to Angelos Project
  */
 package org.angproj.big
 
@@ -19,7 +23,6 @@ public infix fun BigInt.and(value: BigInt): BigInt {
         indices.forEach {
             val idx = revIdx(it)
             this[it] = getIdx(this@and, idx) and getIdx(value, idx)
-
         }
     }
     return fromIntArray(result)

@@ -10,7 +10,11 @@
  * SPDX-License-Identifier: MIT
  *
  * Contributors:
- *      Kristoffer Paulsson - initial implementation
+ *      Josh Bloch - partial early implementation
+ *      Michael McCloskey - partial early implementation
+ *      Alan Eliasen - partial early implementation
+ *      Timothy Buktu - partial early implementation
+ *      Kristoffer Paulsson - partial initial implementation
  */
 package org.angproj.big
 
@@ -64,7 +68,6 @@ public abstract class AbstractMathLogic: BufferAware {
 
     protected inline fun <reified R: Any, E: MutableList<Int>> setUnreversedIdx(mag: E, index: Int, num: Int) { mag[index] = num }
 
-    //EXP
     protected inline fun <reified R: Any> setUnreversedIdx(mag: IntArray, index: Int, num: Int) { mag[index] = num }
 
     protected inline fun <reified R: Any> bigMask(pos: Int): Int = 1 shl (pos and TypeBits.int - 1)
