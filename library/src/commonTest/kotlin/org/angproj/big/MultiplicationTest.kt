@@ -15,24 +15,48 @@
 package org.angproj.big
 
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 
 class MultiplicationTest {
 
     @Test
     fun testMultiply() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        val yBi2 = BigInt.createRandomBigInt(256)
+        val number = BigInt.createRandomBigInt(192)
 
-        // Validate that multiplication works
-        assertEquals(xBi2.multiply(yBi2), xBi2 * yBi2)
+        assertEquals(number + number, number.multiply(BigInt.two))
+    }
 
-        // Validate that multiplication with zero returns zero
-        assertEquals(xBi2.multiply(BigInt.zero), BigInt.zero)
-        assertEquals(BigInt.zero.multiply(yBi2), BigInt.zero)
+    /**
+     * Kotlin specific mimic of extension used for Java BigInteger.
+     * */
+    @Test
+    fun testTimes() = withLogic {
+        val number = BigInt.createRandomBigInt(192)
 
-        // Validate that multiplication with one returns the original value
-        assertEquals(xBi2.multiply(BigInt.one), xBi2)
-        assertEquals(BigInt.one.multiply(yBi2), yBi2)
+        assertEquals(number + number, number * BigInt.two)
+    }
+
+    /**
+     * Validates that first factor set to 0 is validated without a hiccup.
+     * */
+    @Test
+    fun testFirstIfZero() = withLogic {
+        val number = BigInt.createRandomBigInt(192)
+
+        assertSame(BigInt.zero, BigInt.zero.multiply(number))
+        assertContentEquals(BigInt.zero.toByteArray(), BigInt.zero.multiply(number).toByteArray())
+    }
+
+    /**
+     * Validates that second factor set to 0 is validated without a hiccup.
+     * */
+    @Test
+    fun testSecondIfZero() = withLogic {
+        val number = BigInt.createRandomBigInt(192)
+
+        assertSame(BigInt.zero, number.multiply(BigInt.zero))
+        assertContentEquals(BigInt.zero.toByteArray(), number.multiply(BigInt.zero).toByteArray())
     }
 }

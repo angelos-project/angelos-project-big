@@ -15,44 +15,48 @@
 package org.angproj.big
 
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class SubtractionTest {
 
     @Test
     fun testSubtract() = withLogic {
-        val large = BigInt.createRandomBigInt(256)
-        val small = large.dec()
+        val value1 = BigInt.createRandomBigInt(192)
+        val value2 = BigInt.createRandomBigInt(193)
 
-        // Validate that subtraction works
-        assertEquals(large.subtract(small), BigInt.one)
-
-        // Validate that subtracting zero returns the original value
-        assertEquals(large.subtract(BigInt.zero), large)
-
-        // Validate that subtracting itself returns zero
-        assertEquals(large.subtract(large), BigInt.zero)
-
-        // Validate that subtracting a larger number results in a negative value
-        assertTrue{large.subtract(large.inc()) < BigInt.zero}
+        val result = value1.subtract(value2)
+        assertEquals(result + value2, value1)
+        assertEquals(value1 - value2, result)
+        assertTrue { result < value1 }
     }
 
     /**
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testDec() = withLogic{
-        val large = BigInt.createRandomBigInt(256)
+    fun testMinus() = withLogic {
+        val value1 = BigInt.createRandomBigInt(192)
+        val value2 = BigInt.createRandomBigInt(193)
 
-        // Validate that decrementing works
-        assertEquals(large.dec(), large.subtract(BigInt.one))
+        val result = value1 - value2
+        assertEquals(result + value2, value1)
+        assertEquals(value1.subtract(value2), result)
+        assertTrue { result < value1 }
+    }
 
-        // Validate that decrementing zero returns negative one
-        assertEquals(BigInt.zero.dec(), BigInt.minusOne)
+    /**
+     * Kotlin specific mimic of extension used for Java BigInteger.
+     * */
+    @Test
+    fun testDec() = withLogic {
+        val value = BigInt.createRandomBigInt(192)
 
-        // Validate that decrementing one returns zero
-        assertEquals(BigInt.one.dec(), BigInt.zero)
+        val result = value.dec()
+        assertEquals(result + BigInt.one, value)
+        assertTrue { result < value }
     }
 
     /**
@@ -60,12 +64,9 @@ class SubtractionTest {
      * */
     @Test
     fun testFirstIfZero() = withLogic {
-        // Validate that subtracting from zero returns the negated value
-        val xBi2 = BigInt.createRandomBigInt(256)
-        assertEquals(BigInt.zero.subtract(xBi2), xBi2.negate())
+        val number = BigInt.createRandomBigInt(192)
 
-        // Validate that subtracting zero from zero returns zero
-        assertEquals(BigInt.zero.subtract(BigInt.zero), BigInt.zero)
+        assertContentEquals(number.negate().toByteArray(), BigInt.zero.subtract(number).toByteArray())
     }
 
     /**
@@ -73,8 +74,9 @@ class SubtractionTest {
      * */
     @Test
     fun testSecondIfZero() = withLogic {
-        // Validate that subtracting zero from any value returns the original value
-        val xBi2 = BigInt.createRandomBigInt(256)
-        assertEquals(xBi2.subtract(BigInt.zero), xBi2)
+        val number = BigInt.createRandomBigInt(192)
+
+        assertSame(number, number.subtract(BigInt.zero))
+        assertContentEquals(number.toByteArray(), number.subtract(BigInt.zero).toByteArray())
     }
 }

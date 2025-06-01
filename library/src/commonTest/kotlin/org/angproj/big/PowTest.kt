@@ -16,13 +16,17 @@ package org.angproj.big
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlin.test.assertFailsWith
+import kotlin.test.assertSame
+import kotlin.test.assertContentEquals
 
 class PowTest {
 
     @Test
     fun testPow() = withLogic {
+        val number = BigInt.createRandomBigInt(192)
+
+        assertEquals(number * number, number.pow(2))
     }
 
     /**
@@ -30,6 +34,9 @@ class PowTest {
      * */
     @Test
     fun testExponentIfNegative(): Unit = withLogic {
+        val number = BigInt.createRandomBigInt(192)
+
+        assertFailsWith<BigMathException> { number.pow(-1) }
     }
 
     /**
@@ -37,6 +44,10 @@ class PowTest {
      * */
     @Test
     fun testExponentIfZero() = withLogic {
+        val number = BigInt.createRandomBigInt(192)
+
+        assertSame(BigInt.one, number.pow(0))
+        assertContentEquals(BigInt.one.toByteArray(), number.pow(0).toByteArray())
     }
 
     /**
@@ -44,13 +55,10 @@ class PowTest {
      * */
     @Test
     fun testExponentIfOne() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
+        val number = BigInt.createRandomBigInt(192)
 
-        // Validate that exponentiation with one exponent returns the base
-        assertEquals(xBi2, xBi2.pow(1))
-
-        // Validate that exponentiation with zero base returns zero
-        assertEquals(BigInt.zero, BigInt.zero.pow(1))
+        assertSame(number, number.pow(1))
+        assertContentEquals(number.toByteArray(), number.pow(1).toByteArray())
     }
 
     /**
@@ -58,6 +66,9 @@ class PowTest {
      * */
     @Test
     fun testCoefficientIfZero() = withLogic {
+        val number = BigInt.zero.pow(7)
 
+        assertSame(number, BigInt.zero)
+        assertContentEquals(number.toByteArray(), BigInt.zero.toByteArray())
     }
 }

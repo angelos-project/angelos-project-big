@@ -23,39 +23,39 @@ class DummyStub
 class EqualTest {
     @Test
     fun testEqualSameRef() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        assertTrue(xBi2.equals(xBi2))
+        val number = BigInt.createRandomBigInt(256)
+        assertTrue(number.equals(number))
     }
 
     @Test
     fun testWrongObjType() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
+        val number = BigInt.createRandomBigInt(256)
         val stub = DummyStub()
-        assertFalse(xBi2.equals(stub))
+        assertFalse(number.equals(stub))
     }
 
     @Test
     fun testDiffSigNum() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        assertFalse(xBi2.equals(xBi2.negate()))
+        val number = BigInt.createRandomBigInt(256)
+        assertFalse(number.equals(number.negate()))
     }
 
     @Test
     fun testWrongMagLength() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        assertFalse(xBi2.equals(xBi2.shiftRight(32)))
+        val number = BigInt.createRandomBigInt(256)
+        assertFalse(number.equals(number.shiftRight(32)))
     }
 
     @Test
     fun testCopyDiffObj() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        val x = xBi2.toByteArray()
-        assertTrue(xBi2.equals(bigIntOf(x)))
+        val number = BigInt.createRandomBigInt(256)
+        val x = number.toByteArray()
+        assertTrue(number.equals(bigIntOf(x)))
     }
 
     @Test
     fun testCopyDiffValue() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        assertFalse(xBi2.equals(xBi2.add(BigInt.one)))
+        val number = BigInt.createRandomBigInt(256)
+        assertFalse(number.equals(number.add(BigInt.one)))
     }
 }

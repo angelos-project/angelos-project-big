@@ -21,27 +21,27 @@ class CompareTest {
 
     @Test
     fun testGreaterThan() = withLogic {
-        val large = BigInt.one.shiftLeft(256)
-        assertTrue { large > large.dec() }
+        val number = BigInt.one.shiftLeft(256)
+        assertTrue { number > number.dec() }
     }
 
     @Test
     fun testLesserThan() = withLogic {
-        val large = BigInt.one.shiftLeft(256)
-        assertTrue { large < large.inc() }
+        val number = BigInt.one.shiftLeft(256)
+        assertTrue { number < number.inc() }
     }
 
     @Test
     fun testGreaterOrEqualThan() = withLogic {
-        val large = BigInt.one.shiftLeft(256)
-        assertTrue { large >= large }
-        assertTrue { large >= large.dec() }
+        val number = BigInt.one.shiftLeft(256)
+        assertTrue { number >= number }
+        assertTrue { number >= number.dec() }
     }
 
     @Test
     fun testLesserOrEqualThan() = withLogic {
-        val large = BigInt.one.shiftLeft(256)
-        assertTrue { large <= large }
-        assertTrue { large <= large.inc() }
+        val number = BigInt.one.shiftLeft(256)
+        assertTrue { number <= number }
+        assertTrue { number <= number.inc() }
     }
 }

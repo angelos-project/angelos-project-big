@@ -20,6 +20,15 @@ import kotlin.test.assertTrue
 class EssentialTest {
     @Test
     fun testCompareTo() = withLogic {
+        val large = BigInt.createRandomBigInt(256)
+        val small = large.dec()
+
+        assertTrue { large > small }
+        assertTrue { small < large }
+        assertTrue { large >= small }
+        assertTrue { small <= large }
+        assertTrue { large.compareTo(small) > 0 }
+        assertTrue { small.compareTo(large) < 0 }
     }
 
     /**
