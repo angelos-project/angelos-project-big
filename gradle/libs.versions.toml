@@ -1,0 +1,20 @@
+[versions]
+agp = "8.1.0"
+kotlin = "1.9.25"
+jvm-toolchain = "19"
+mockito = "5.4.0"
+jazzer = "0.24.0"
+android-minSdk = "30"
+android-compileSdk = "34"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
+kotlin-jazzer = { module = "com.code_intelligence.jazzer:jazzer", version.ref = "jazzer" }
+kotlin-jazzer-api = { module = "com.code_intelligence.jazzer:jazzer-api", version.ref = "jazzer" }
+
+[plugins]
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.29.0" }
+dokka = { id = "org.jetbrains.dokka", version = "2.0.0" }

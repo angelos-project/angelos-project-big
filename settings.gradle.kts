@@ -4,7 +4,6 @@ pluginManagement {
         mavenCentral()
         mavenLocal()
         gradlePluginPortal()
-        //maven(url = "./local-repo")
     }
 }
 
@@ -17,6 +16,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "angelos-project-big"
+
+include(":library")
+include(":vectors")
+include(":jazzer")
 
 /**
  * connectedAndroidTest		    - tests or so

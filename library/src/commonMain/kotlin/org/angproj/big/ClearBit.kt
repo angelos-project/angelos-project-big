@@ -1,0 +1,59 @@
+/**
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ *
+ * This software is available under the terms of the MIT license. Parts are licensed
+ * under different terms if stated. The legal terms are attached to the LICENSE file
+ * and are made available on:
+ *
+ *      https://opensource.org/licenses/MIT
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ * Acknowledgement of algorithm:
+ *      Josh Bloch
+ *      Michael McCloskey
+ *      Alan Eliasen
+ *      Timothy Buktu
+ *
+ * Contributors:
+ *      Kristoffer Paulsson - Port to Kotlin and adaption to Angelos Project
+ */
+package org.angproj.big
+
+import org.angproj.aux.io.TypeBits
+import org.angproj.big.newbig.*
+import kotlin.math.max
+
+
+public fun BigInt.clearBit(pos: Int): BigInt = BigInt.innerClearBit(this.mag, this.sigNum, pos).valueOf()
+
+
+public fun BigInt.Companion.innerClearBit(x: IntArray, xSig: BigSigned, pos: Int): IntArray {
+    require(pos >= 0) { BigMathException("Can not flip an imaginary bit at a negative position.") }
+
+    val bigCnt = pos.floorDiv(32)
+    val result = IntArray(max(x.intLength(xSig), (pos + 1).floorDiv(32) + 1))
+    val xnz = x.firstNonzero()
+
+    result.indices.forEach { result.intSet(it, x.intGetComp(it, xSig, xnz)) }
+    result.intSet(bigCnt, result.intGet(bigCnt) and (1 shl (pos and 31)).inv())
+
+    return result
+}
+
+
+public fun BigInt.clearBit1(pos: Int): BigInt = BitwiseArithm.clearBit(this, pos)
+
+public fun BigInt.clearBit0(pos: Int): BigInt {
+    require(pos >= 0) { BigMathException("Can not clear an imaginary bit at a negative position.") }
+
+    val bigCnt = pos.floorDiv(TypeBits.int)
+    val result = IntArray(max(intSize(this), (pos + 1).floorDiv(TypeBits.int) + 1))
+
+    result.indices.forEach { result.revSet(it, getIdx(this, it))  }
+    result.revSet(bigCnt, result.revGet(bigCnt) and bigMask(pos).inv())
+
+    //return fromIntArray(result)
+    return ExportImportBigInt.internalOf(result)
+
+}
