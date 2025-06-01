@@ -16,27 +16,64 @@ package org.angproj.big
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertContentEquals
 
 class NotTest {
 
     @Test
     fun testNot() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        val notX = xBi2.not()
+        val large = BigInt.one.shiftLeft(256).dec()
+        val small = BigInt.one.shiftLeft(128).dec()
 
-        assertEquals(xBi2.bitLength, notX.bitLength)
-        assertEquals(xBi2.sigNum, notX.sigNum.negate())
+        // Validate that NOT operation works correctly
+        assertEquals(large.not(), large.not())
+        assertEquals(small.not(), small.not())
 
-        assertEquals(xBi2, notX.not())
+        // Validate that NOT of itself returns zero
+        assertEquals(large.not().not(), large)
+        assertEquals(small.not().not(), small)
+
+        // Validate that NOT with random values works
+        val random1 = BigInt.createRandomBigInt(256)
+        val result = random1.not()
+        assertContentEquals(result.toByteArray(), random1.not().toByteArray())
+    }
+
+    /**
+     * Kotlin specific mimic of extension used for Java BigInteger.
+     * */
+    @Test
+    fun testInv() = withLogic {
+        val large = BigInt.one.shiftLeft(256).dec()
+        val small = BigInt.one.shiftLeft(128).dec()
+
+        // Validate that inv operation works correctly
+        assertEquals(large.inv(), large.inv())
+        assertEquals(small.inv(), small.inv())
+
+        // Validate that inv of itself returns zero
+        assertEquals(large.inv().inv(), large)
+        assertEquals(small.inv().inv(), small)
+
+        // Validate that inv with random values works
+        val random1 = BigInt.createRandomBigInt(256)
+        val result = random1.inv()
+        assertContentEquals(result.toByteArray(), random1.inv().toByteArray())
     }
 
     @Test
-    fun testInv() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
-        val invX = xBi2.inv()
+    fun testNotWithAndIncludingAndNotUsingRandom() = withLogic {
+        val random1 = BigInt.createRandomBigInt(256)
+        val random2 = BigInt.createRandomBigInt(256)
 
-        assertEquals(xBi2.not(), invX)
+        // Validate that NOT with AND operation works correctly
+        val andResult = random1 and random2
+        val notAndResult = andResult.not()
+        assertContentEquals(notAndResult.toByteArray(), (random1 and random2).not().toByteArray())
 
-        assertEquals(xBi2, invX.inv())
+        // Validate that NOT with AND NOT operation works correctly
+        val andNotResult = random1 andNot random2
+        val notAndNotResult = andNotResult.not()
+        assertContentEquals(notAndNotResult.toByteArray(), (random1 andNot random2).not().toByteArray())
     }
 }

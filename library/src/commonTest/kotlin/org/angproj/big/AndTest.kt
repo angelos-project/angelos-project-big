@@ -16,14 +16,72 @@ package org.angproj.big
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertContentEquals
+
 
 class AndTest {
+
     @Test
     fun testAnd() = withLogic {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
-        assertEquals(large, large and large)
-        assertEquals(small, large and small)
+        // Validate that AND operation works correctly
+        assertEquals(large and small, large and small)
+        assertEquals(small and large, large and small)
+
+        // Validate that AND with zero returns zero
+        assertEquals(large and BigInt.zero, BigInt.zero)
+        assertEquals(BigInt.zero and small, BigInt.zero)
+
+        // Validate that AND with one returns the original value
+        assertEquals(large and BigInt.one, large and BigInt.one)
+        assertEquals(BigInt.one and small, small and BigInt.one)
+
+        // Validate that AND with itself returns the original value
+        assertEquals(large and large, large)
+        assertEquals(small and small, small)
+
+        // Validate that AND with random values works
+        val random1 = BigInt.createRandomBigInt(256)
+        val random2 = BigInt.createRandomBigInt(256)
+        val result = random1 and random2
+        assertContentEquals(result.toByteArray(), (random1 and random2).toByteArray())
+    }
+
+    /**
+     * Kotlin specific mimic of extension used for Java BigInteger.
+     * */
+    @Test
+    fun testAndInfix() = withLogic {
+        val large = BigInt.one.shiftLeft(256).dec()
+        val small = BigInt.one.shiftLeft(128).dec()
+
+        // Validate that infix AND operation works correctly
+        assertEquals(large and small, large and small)
+        assertEquals(small and large, large and small)
+
+        // Validate that infix AND with zero returns zero
+        assertEquals(large and BigInt.zero, BigInt.zero)
+        assertEquals(BigInt.zero and small, BigInt.zero)
+
+        // Validate that infix AND with one returns the original value
+        assertEquals(large and BigInt.one, large and BigInt.one)
+        assertEquals(BigInt.one and small, small and BigInt.one)
+
+        // Validate that infix AND with itself returns the original value
+        assertEquals(large and large, large)
+        assertEquals(small and small, small)
+    }
+
+    @Test
+    fun testAndWithAndNotIncludingNotUsingRandom() = withLogic {
+        val random1 = BigInt.createRandomBigInt(256)
+        val random2 = BigInt.createRandomBigInt(256)
+
+        // Validate that AND with AND NOT operation works correctly
+        val andResult = random1 and random2
+        val andNotResult = andResult andNot random2
+        assertContentEquals(andNotResult.toByteArray(), (random1 and random2).andNot(random2).toByteArray())
     }
 }

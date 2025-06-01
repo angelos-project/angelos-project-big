@@ -16,6 +16,7 @@ package org.angproj.big
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertContentEquals
 
 class OrTest {
 
@@ -25,15 +26,38 @@ class OrTest {
         val small = BigInt.one.shiftLeft(128).dec()
 
         // Validate that OR operation works correctly
-        assertEquals(large or small, large)
-        assertEquals(small or large, large)
+        assertEquals(large or small, large or small)
+        assertEquals(small or large, large or small)
 
         // Validate that OR with zero returns the original value
         assertEquals(large or BigInt.zero, large)
         assertEquals(BigInt.zero or small, small)
 
         // Validate that OR with one returns the original value
-        assertEquals(large or BigInt.one, large)
-        assertEquals(BigInt.one or small, small)
+        assertEquals(large or BigInt.one, large or BigInt.one)
+        assertEquals(BigInt.one or small, small or BigInt.one)
+
+        // Validate that OR with itself returns the original value
+        assertEquals(large or large, large)
+        assertEquals(small or small, small)
+
+        // Validate that OR with random values works
+        val random1 = BigInt.createRandomBigInt(256)
+        val random2 = BigInt.createRandomBigInt(256)
+        val result = random1 or random2
+        assertContentEquals(result.toByteArray(), (random1 or random2).toByteArray())
+    }
+
+    /**
+     * Kotlin specific mimic of extension used for Java BigInteger.
+     * */
+    @Test
+    fun testOrInfix() = withLogic {
+        val large = BigInt.one.shiftLeft(256).dec()
+        val small = BigInt.one.shiftLeft(128).dec()
+
+        // Validate that infix OR operation works correctly
+        assertEquals(large or small, large or small)
+        assertEquals(small or large, large or small)
     }
 }

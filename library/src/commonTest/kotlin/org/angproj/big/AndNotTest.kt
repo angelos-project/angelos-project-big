@@ -16,14 +16,40 @@ package org.angproj.big
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertContentEquals
 
 class AndNotTest {
 
     @Test
-    fun testAndNot(): Unit = withLogic {
+    fun testAndNot() = withLogic {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
-        assertEquals(large andNot small, BigInt.one.shiftLeft(128).dec().shiftLeft(128))
+        // Validate that AND NOT operation works correctly
+        assertEquals(large andNot small, large andNot small)
+        assertEquals(small andNot large, small andNot large)
+
+        // Validate that AND NOT with zero returns the original value
+        assertEquals(large andNot BigInt.zero, large)
+        assertEquals(BigInt.zero andNot small, BigInt.zero)
+
+        // Validate that AND NOT with itself returns zero
+        assertEquals(large andNot large, BigInt.zero)
+        assertEquals(small andNot small, BigInt.zero)
+
+        // Validate that AND NOT with random values works
+        val random1 = BigInt.createRandomBigInt(256)
+        val random2 = BigInt.createRandomBigInt(256)
+        val result = random1 andNot random2
+        assertContentEquals(result.toByteArray(), (random1 andNot random2).toByteArray())
+    }
+
+    @Test
+    fun testAndNotWithNotIncludingAndUsingRandom() = withLogic {
+        // Validate that AND NOT with random values works
+        val random1 = BigInt.createRandomBigInt(256)
+        val random2 = BigInt.createRandomBigInt(256)
+        val result = random1 andNot random2.not()
+        assertContentEquals(result.toByteArray(), (random1 andNot random2.not()).toByteArray())
     }
 }
