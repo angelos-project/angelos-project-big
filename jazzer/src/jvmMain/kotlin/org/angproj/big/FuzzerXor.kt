@@ -8,7 +8,7 @@ import kotlin.test.assertContentEquals
 import kotlin.time.Duration.Companion.minutes
 
 
-public object FuzzerXorKt: FuzzerHelper {
+public object FuzzerXorKt {
 
     @JvmStatic
     public fun fuzzerTestOneInput(data: FuzzedDataProvider): Unit = withLogic {

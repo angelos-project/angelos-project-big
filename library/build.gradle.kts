@@ -17,7 +17,7 @@ kotlin {
     jvmToolchain(19)
 
     jvm()
-    js {
+    /*js {
         browser()
         nodejs()
     }
@@ -28,7 +28,7 @@ kotlin {
         nodejs()
     }
     @OptIn(ExperimentalWasmDsl::class)
-    wasmWasi { nodejs() }
+    wasmWasi { nodejs() }*/
     // Android
     androidTarget {
         /*compilations.all {
@@ -70,14 +70,8 @@ kotlin {
         commonMain.dependencies {
             implementation("org.angproj.aux:angelos-project-aux:0.9.8")
         }
-        jvmTest.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+        commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.kotlin.mockito)
-            implementation("com.code-intelligence:jazzer:0.24.0")
-            implementation("com.code-intelligence:jazzer-api:0.24.0")
-            //implementation(libs.kotlin.jazzer)
-            //implementation(libs.kotlin.jazzer.api)
         }
     }
 }
