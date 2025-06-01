@@ -15,22 +15,37 @@
 package org.angproj.big
 
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 
 class ShiftLeftTest {
 
     @Test
     fun testShiftLeft() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
+        val number = BigInt.createRandomBigInt(256)
 
-        // Validate that shift left works
-        assertEquals(xBi2.shiftLeft(1), xBi2 shl 1)
-        assertEquals(xBi2.shiftLeft(0), xBi2 shl 0)
-        assertEquals(xBi2.shiftLeft(10), xBi2 shl 10)
+        // Validate that shiftLeft works
+        assertEquals(number.shiftLeft(1), number shl 1)
+        assertEquals(number.shiftLeft(0), number)
+        assertEquals(number.shiftLeft(-1), number.shiftRight(1))
+    }
 
-        // Validate that shift left with zero returns the original value
-        assertEquals(xBi2.shiftLeft(0), xBi2)
-        assertEquals(BigInt.zero.shiftLeft(10), BigInt.zero)
+    /**
+     * Kotlin specific mimic of extension used for Java BigInteger.
+     * */
+    @Test
+    fun testShl() = withLogic {
+        val number = BigInt.createRandomBigInt(256)
+
+        // Validate that shl works
+        assertEquals(number shl 1, number.shiftLeft(1))
+        assertEquals(number shl 0, number)
+        assertEquals(number shl -1, number.shiftRight(1))
+
+        // Validate that shl works with SecureRandom
+        val secureNumber = BigInt.createRandomBigInt(256)
+        assertEquals(secureNumber shl 1, secureNumber.shiftLeft(1))
     }
 
     /**
@@ -38,6 +53,10 @@ class ShiftLeftTest {
      * */
     @Test
     fun testPosIfZero() = withLogic {
+        val number = BigInt.createRandomBigInt(256)
+
+        assertSame(number, number.shiftLeft(0))
+        assertContentEquals(number.toByteArray(), number.shiftLeft(0).toByteArray())
     }
 
     /**
@@ -45,5 +64,7 @@ class ShiftLeftTest {
      * */
     @Test
     fun testMagnitudeIfZero() = withLogic {
+        assertSame(BigInt.zero, BigInt.zero.shiftLeft(53))
+        assertContentEquals(BigInt.zero.toByteArray(),BigInt.zero.shiftLeft(53).toByteArray())
     }
 }

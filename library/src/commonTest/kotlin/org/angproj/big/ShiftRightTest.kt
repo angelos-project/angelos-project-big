@@ -15,21 +15,20 @@
 package org.angproj.big
 
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 
 class ShiftRightTest {
-    /**
-     * Generally fuzzes and validates that "public fun BigInt.shiftRight(n: Int): BigInt" works
-     * under all normal conditions.
-     * */
+
     @Test
     fun testShiftRight() = withLogic {
-        val xBi2 = BigInt.createRandomBigInt(256)
+        val number = BigInt.createRandomBigInt(256)
 
         // Validate that shiftRight works
-        assertEquals(xBi2.shiftRight(1), xBi2 shr 1)
-        assertEquals(xBi2.shiftRight(0), xBi2)
-        assertEquals(xBi2.shiftRight(-1), xBi2.shiftLeft(1))
+        assertEquals(number.shiftRight(1), number shr 1)
+        assertEquals(number.shiftRight(0), number)
+        assertEquals(number.shiftRight(-1), number.shiftLeft(1))
     }
 
     /**
@@ -37,6 +36,16 @@ class ShiftRightTest {
      * */
     @Test
     fun testShr() = withLogic {
+        val number = BigInt.createRandomBigInt(256)
+
+        // Validate that shr works
+        assertEquals(number shr 1, number.shiftRight(1))
+        assertEquals(number shr 0, number)
+        assertEquals(number shr -1, number.shiftLeft(1))
+
+        // Validate that shr works with SecureRandom
+        val secureNumber = BigInt.createRandomBigInt(256)
+        assertEquals(secureNumber shr 1, secureNumber.shiftRight(1))
     }
 
     /**
@@ -44,6 +53,10 @@ class ShiftRightTest {
      * */
     @Test
     fun testPosIfZero() = withLogic {
+        val number = BigInt.createRandomBigInt(256)
+
+        assertSame(number, number.shiftRight(0))
+        assertContentEquals(number.toByteArray(), number.shiftRight(0).toByteArray())
     }
 
     /**
@@ -51,5 +64,7 @@ class ShiftRightTest {
      * */
     @Test
     fun testMagnitudeIfZero() = withLogic {
+        assertSame(BigInt.zero, BigInt.zero.shiftRight(53))
+        assertContentEquals(BigInt.zero.toByteArray(), BigInt.zero.shiftRight(53).toByteArray())
     }
 }
