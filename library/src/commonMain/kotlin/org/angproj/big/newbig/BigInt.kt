@@ -1,3 +1,5 @@
+package org.angproj.big.newbig
+
 import org.angproj.aux.util.NullObject
 import org.angproj.big.BigCompare
 import org.angproj.big.BigMathException
@@ -1249,4 +1251,15 @@ private fun javaIncrement(_value: IntArray): IntArray {
         value[0] = 1
     }
     return value
+}
+
+
+// Some necessary stuff
+
+public fun BigInt.negate(): BigInt = internalOf(mag, sigNum.negate())
+
+
+public fun BigInt.abs(): BigInt = when (sigNum) {
+    BigSigned.NEGATIVE -> negate()
+    else -> this
 }

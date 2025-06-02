@@ -17,7 +17,6 @@
  */
 package org.angproj.big
 
-import LONG_MASK
 import org.angproj.aux.io.TypeBits
 import org.angproj.big.newbig.*
 
