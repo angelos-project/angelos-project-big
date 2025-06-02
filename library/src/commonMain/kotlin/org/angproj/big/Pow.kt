@@ -16,6 +16,13 @@ package org.angproj.big
 
 import org.angproj.big.newbig.LoadAndSaveBigInt
 
+/**
+ * Raises this [BigInt] to the power of the given [exponent].
+ *
+ * @param exponent The exponent to raise this [BigInt] to.
+ * @return A new [BigInt] representing the result of the exponentiation.
+ * @throws BigMathException if the exponent is negative or if the exponent is too large for memory.
+ */
 public fun BigInt.pow(exponent: Int): BigInt = when {
     exponent < 0 -> error { BigMathException("Exponent can not be negative") }
     exponent == 0 -> BigInt.one

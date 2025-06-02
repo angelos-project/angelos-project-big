@@ -21,8 +21,20 @@ import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.longMask
 import org.angproj.big.newbig.rev
 
+/**
+ * Multiplies two BigInt values together.
+ *
+ * @param other the BigInt to multiply with this BigInt.
+ * @return a new BigInt that is the product of this BigInt and the specified BigInt.
+ */
 public operator fun BigInt.times(other: BigInt): BigInt = multiply(other)
 
+/**
+ * Multiplies two BigInt values together.
+ *
+ * @param value the BigInt to multiply with this BigInt.
+ * @return a new BigInt that is the product of this BigInt and the specified BigInt.
+ */
 public fun BigInt.multiply(value: BigInt): BigInt = when {
     sigNum.isZero() || value.sigNum.isZero() -> BigInt.zero
     else -> ExportImportBigInt.internalOf(

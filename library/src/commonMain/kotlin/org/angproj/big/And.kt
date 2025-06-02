@@ -23,7 +23,12 @@ package org.angproj.big
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
-
+/**
+ * Performs a bitwise AND operation on this [BigInt] and the [value] [BigInt].
+ *
+ * @param value The [BigInt] to AND with.
+ * @return A new [BigInt] representing the result of the AND operation.
+ */
 public infix fun BigInt.and(value: BigInt): BigInt = BigInt.innerAnd(
     mag, sigNum, value.mag, value.sigNum).valueOf()
 

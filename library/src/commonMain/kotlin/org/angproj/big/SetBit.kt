@@ -23,7 +23,12 @@ package org.angproj.big
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
-
+/**
+ * Sets the bit at the specified [pos] in this [BigInt] to 1.
+ *
+ * @param pos The position of the bit to set (0-indexed).
+ * @return A new [BigInt] with the specified bit set to 1.
+ */
 public fun BigInt.setBit(pos: Int): BigInt = BigInt.innerSetBit(this.mag, this.sigNum, pos).valueOf()
 
 

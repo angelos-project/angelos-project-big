@@ -24,10 +24,27 @@ import org.angproj.big.newbig.intSet
 import kotlin.math.max
 
 
+/**
+ * Decrements this BigInt by one.
+ *
+ * @return a new BigInt that is one less than this BigInt.
+ */
 public operator fun BigInt.dec(): BigInt = subtract(BigInt.one)
 
+/**
+ * Subtracts the specified BigInt from this BigInt.
+ *
+ * @param other the BigInt to subtract from this BigInt.
+ * @return a new BigInt that is the result of subtracting the specified BigInt from this BigInt.
+ */
 public operator fun BigInt.minus(other: BigInt): BigInt = this.subtract(other)
 
+/**
+ * Subtracts the specified BigInt from this BigInt.
+ *
+ * @param value the BigInt to subtract from this BigInt.
+ * @return a new BigInt that is the result of subtracting the specified BigInt from this BigInt.
+ */
 public fun BigInt.subtract(value: BigInt): BigInt = when {
     value.sigNum.isZero() -> this
     sigNum.isZero() -> value.negate()

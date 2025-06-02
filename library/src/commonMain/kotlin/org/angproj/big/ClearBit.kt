@@ -23,7 +23,12 @@ package org.angproj.big
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
-
+/**
+ * Clears the bit at the specified [pos] in this [BigInt].
+ *
+ * @param pos The position of the bit to clear.
+ * @return A new [BigInt] with the specified bit cleared.
+ */
 public fun BigInt.clearBit(pos: Int): BigInt = BigInt.innerClearBit(this.mag, this.sigNum, pos).valueOf()
 
 

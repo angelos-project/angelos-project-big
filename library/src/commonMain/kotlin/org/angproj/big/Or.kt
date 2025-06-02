@@ -23,7 +23,12 @@ package org.angproj.big
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
-
+/**
+ * Performs a bitwise OR operation on this [BigInt] and the [value] [BigInt].
+ *
+ * @param value The [BigInt] to OR with.
+ * @return A new [BigInt] representing the result of the OR operation.
+ */
 public infix fun BigInt.or(value: BigInt): BigInt = BigInt.innerOr(mag, sigNum, value.mag, value.sigNum).valueOf()
 
 

@@ -23,7 +23,12 @@ package org.angproj.big
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
-
+/**
+ * Performs a bitwise XOR operation on this [BigInt] and the [value] [BigInt].
+ *
+ * @param value The [BigInt] to XOR with.
+ * @return A new [BigInt] representing the result of the XOR operation.
+ * */
 public infix fun BigInt.xor(value: BigInt): BigInt = BigInt.innerXor(mag, sigNum, value.mag, value.sigNum).valueOf()
 
 

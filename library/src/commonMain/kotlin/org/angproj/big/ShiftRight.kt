@@ -23,9 +23,20 @@ package org.angproj.big
 
 import org.angproj.big.newbig.ExportImportBigInt
 
-
+/**
+ * Shift this BigInt right by the specified number of bits.
+ *
+ * @param n the number of bits to shift right.
+ * @return a new BigInt representing the result of the shift operation.
+ */
 public infix fun BigInt.shr(n: Int): BigInt = shiftRight(n)
 
+/**
+ * Shift this BigInt right by the specified number of bits.
+ *
+ * @param n the number of bits to shift right.
+ * @return a new BigInt representing the result of the shift operation.
+ */
 public fun BigInt.shiftRight(n: Int): BigInt = when {
     sigNum.isZero() -> BigInt.zero
     n > 0 -> BigInt.innerShiftRight(n, this)

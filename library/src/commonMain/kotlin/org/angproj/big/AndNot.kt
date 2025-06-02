@@ -23,6 +23,12 @@ package org.angproj.big
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
+/**
+ * Performs a bitwise AND NOT operation on this [BigInt] and the [value] [BigInt].
+ *
+ * @param value The [BigInt] to AND NOT with.
+ * @return A new [BigInt] representing the result of the AND NOT operation.
+ */
 public infix fun BigInt.andNot(value: BigInt): BigInt = BigInt.innerAndNot(
     mag, sigNum, value.mag, value.sigNum).valueOf()
 

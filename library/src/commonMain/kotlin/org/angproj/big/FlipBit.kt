@@ -24,6 +24,13 @@ import org.angproj.aux.io.TypeBits
 import org.angproj.big.newbig.*
 import kotlin.math.max
 
+/**
+ * Flips the bit at the specified position in this [BigInt].
+ *
+ * @param pos The position of the bit to flip.
+ * @return A new [BigInt] with the specified bit flipped.
+ * @throws BigMathException if the position is negative.
+ */
 public fun BigInt.flipBit(pos: Int): BigInt = BigInt.innerFlipBit(this.mag, this.sigNum, pos).valueOf()
 
 

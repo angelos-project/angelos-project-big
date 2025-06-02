@@ -20,7 +20,13 @@ import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
 import org.angproj.big.newbig.bitLength
 
-
+/**
+ * Creates a random BigInt with the specified bit length.
+ *
+ * @param bitLength The desired bit length of the random BigInt.
+ * @return A random BigInt with the specified bit length.
+ * @throws BigMathException If the random generation fails.
+ */
 public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
     val random = BufMgr.bin(
         bitLength / TypeBits.int * TypeSize.int + (
@@ -36,6 +42,14 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
     }
 }
 
+/**
+ * Creates a random BigInt within the specified range [min, max).
+ *
+ * @param min The minimum value (inclusive).
+ * @param max The maximum value (exclusive).
+ * @return A random BigInt in the range [min, max).
+ * @throws BigMathException If min is greater than or equal to max.
+ */
 public fun BigInt.Companion.createRandomInRange(min: BigInt, max: BigInt): BigInt {
     require(min < max) { BigMathException("Min is larger than max") }
     val diff = max.subtract(min)

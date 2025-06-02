@@ -22,16 +22,26 @@ package org.angproj.big
 
 import org.angproj.big.newbig.ExportImportBigInt
 
-
+/**
+ * Shift this BigInt left by the specified number of bits.
+ *
+ * @param n the number of bits to shift left.
+ * @return a new BigInt representing the result of the shift operation.
+ */
 public infix fun BigInt.shl(n: Int): BigInt = shiftLeft(n)
 
+/**
+ * Shift this BigInt left by the specified number of bits.
+ *
+ * @param n the number of bits to shift left.
+ * @return a new BigInt representing the result of the shift operation.
+ */
 public fun BigInt.shiftLeft(n: Int): BigInt = when {
     sigNum.isZero() -> BigInt.zero
     n > 0 -> BigInt.innerShiftLeft(n, this)
     n == 0 -> this
     else -> BigInt.innerShiftRight(-n, this)
 }
-
 
 public fun BigInt.Companion.innerShiftLeft(n: Int, x: BigInt): BigInt {
     val nInts = n ushr 5

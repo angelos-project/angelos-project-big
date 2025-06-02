@@ -17,7 +17,13 @@ package org.angproj.big
 import org.angproj.big.newbig.firstNonzero
 import org.angproj.big.newbig.intGetComp
 
-
+/**
+ * Tests whether the bit at the specified position is set.
+ *
+ * @param pos the position of the bit to test, where 0 is the least significant bit.
+ * @return `true` if the bit at the specified position is set, `false` otherwise.
+ * @throws BigMathException if `pos` is negative.
+ * */
 public fun BigInt.testBit(pos: Int): Boolean = BigInt.innerTestBit(this.mag, this.sigNum, pos)
 
 public fun BigInt.Companion.innerTestBit(x: IntArray, xSig: BigSigned, pos: Int): Boolean {

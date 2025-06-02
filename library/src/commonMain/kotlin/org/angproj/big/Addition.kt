@@ -20,11 +20,27 @@ package org.angproj.big
 import org.angproj.aux.io.TypeBits
 import org.angproj.big.newbig.*
 
-
+/**
+ * Adds two BigInt values together.
+ *
+ * @param other the BigInt to add to this BigInt.
+ * @return a new BigInt that is the sum of this BigInt and the specified BigInt.
+ * */
 public operator fun BigInt.plus(other: BigInt): BigInt = add(other)
 
+/**
+ * Increments the BigInt by one.
+ *
+ * @return a new BigInt that is one greater than this BigInt.
+ * */
 public operator fun BigInt.inc(): BigInt = add(BigInt.one)
 
+/**
+ * Adds two BigInt values together.
+ *
+ * @param value the BigInt to add to this BigInt.
+ * @return a new BigInt that is the sum of this BigInt and the specified BigInt.
+ * */
 public fun BigInt.add(value: BigInt): BigInt = when {
     sigNum.isZero() -> value
     value.sigNum.isZero() -> this
