@@ -17,7 +17,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.TypeBits
 import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.longMask
 import org.angproj.big.newbig.rev

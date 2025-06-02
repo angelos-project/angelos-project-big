@@ -20,9 +20,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.TypeBits
 import org.angproj.big.newbig.ExportImportBigInt
-import org.angproj.big.newbig.ShiftArithm
 
 
 public infix fun BigInt.shl(n: Int): BigInt = shiftLeft(n)

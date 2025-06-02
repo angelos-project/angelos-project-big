@@ -30,14 +30,14 @@ public object DivisionFuzzerExporterKt {
             val fuzzerInitialize: Method =
                 org.angproj.big.newbig.FuzzerDivisionKt::class.java.getMethod("fuzzerInitialize")
             fuzzerInitialize.invoke(null)
-        } catch (ignored: NoSuchMethodException) {
+        } catch (_: NoSuchMethodException) {
             try {
                 val fuzzerInitialize: Method = org.angproj.big.newbig.FuzzerDivisionKt::class.java.getMethod(
                     "fuzzerInitialize",
                     Array<String>::class.java
                 )
                 fuzzerInitialize.invoke(null, args as Object?)
-            } catch (ignored1: NoSuchMethodException) {
+            } catch (_: NoSuchMethodException) {
             } catch (e: IllegalAccessException) {
                 e.printStackTrace()
                 System.exit(1)
@@ -53,7 +53,7 @@ public object DivisionFuzzerExporterKt {
             System.exit(1)
         }
         base64Bytes.forEach { base64 ->
-            val input: CannedFuzzedDataProvider = CannedFuzzedDataProvider(base64)
+            val input = CannedFuzzedDataProvider(base64)
             val f1  = input.consumeBytes(16)
             println("f1: " + f1.toHexString())
             val f2  = input.consumeBytes(16)

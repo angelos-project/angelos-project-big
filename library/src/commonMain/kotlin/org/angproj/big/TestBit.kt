@@ -14,9 +14,8 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.TypeBits
-import org.angproj.big.newbig.*
-import kotlin.math.max
+import org.angproj.big.newbig.firstNonzero
+import org.angproj.big.newbig.intGetComp
 
 
 public fun BigInt.testBit(pos: Int): Boolean = BigInt.innerTestBit(this.mag, this.sigNum, pos)

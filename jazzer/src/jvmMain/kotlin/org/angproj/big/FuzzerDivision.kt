@@ -29,8 +29,6 @@ public object FuzzerDivisionKt {
             Pair(byteArrayOf(), byteArrayOf())
         }
 
-        //assertEquals(r1.first, r2.first)
-        //assertEquals(r1.second, r2.second)
         assertContentEquals(r1.first, r2.first)
         assertContentEquals(r1.second, r2.second)
     }

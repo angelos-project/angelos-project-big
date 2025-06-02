@@ -341,8 +341,8 @@ class ExperimentDebugLargeRandom2 {
         val zeroBigInt = generateZeroBigInt()
         val zeroBigInteger = generateZeroBigInteger()
 
-        assertFailsWith<BigMathException> { val result1 = bigInt.divideAndRemainder(zeroBigInt) }
-        assertFailsWith<ArithmeticException> { val result2 = bigInteger.divideAndRemainder(zeroBigInteger) }
+        assertFailsWith<BigMathException> { bigInt.divideAndRemainder(zeroBigInt) }
+        assertFailsWith<ArithmeticException> { bigInteger.divideAndRemainder(zeroBigInteger) }
     }
 
     /**
@@ -357,8 +357,8 @@ class ExperimentDebugLargeRandom2 {
         val zeroBigInt = generateZeroBigInt()
         val zeroBigInteger = generateZeroBigInteger()
 
-        assertFailsWith<BigMathException> { val result1 = bigInt.divideAndRemainder(zeroBigInt) }
-        assertFailsWith<ArithmeticException> { val result2 = bigInteger.divideAndRemainder(zeroBigInteger) }
+        assertFailsWith<BigMathException> { bigInt.divideAndRemainder(zeroBigInt) }
+        assertFailsWith<ArithmeticException> { bigInteger.divideAndRemainder(zeroBigInteger) }
     }
 
     /**
@@ -371,8 +371,8 @@ class ExperimentDebugLargeRandom2 {
         val bigInt = generateZeroBigInt()
         val bigInteger = generateZeroBigInteger()
 
-        assertFailsWith<BigMathException> { val result1 = bigInt.divideAndRemainder(bigInt) }
-        assertFailsWith<ArithmeticException> { val result2 = bigInteger.divideAndRemainder(bigInteger) }
+        assertFailsWith<BigMathException> { bigInt.divideAndRemainder(bigInt) }
+        assertFailsWith<ArithmeticException> { bigInteger.divideAndRemainder(bigInteger) }
     }
 
 }

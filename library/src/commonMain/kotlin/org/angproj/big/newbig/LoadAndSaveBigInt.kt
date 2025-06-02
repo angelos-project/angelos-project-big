@@ -1,8 +1,8 @@
 package org.angproj.big.newbig
 
+import org.angproj.big.BigInt
 import org.angproj.big.BigMathException
 import org.angproj.big.BigSigned
-import org.angproj.big.BigInt
 
 
 public fun Int.longMask(): Long = this.toLong() and 0xFFFFFFFFL
