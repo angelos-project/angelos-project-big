@@ -15,13 +15,13 @@ public object FuzzerShiftLeftKt {
 
         val r1 = try {
             bigIntOf(f1).shiftLeft(f2).toByteArray()
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             byteArrayOf()
         }
 
         val r2 = try {
             BigInteger(f1).shiftLeft(f2).toByteArray()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             byteArrayOf()
         }
 

@@ -15,13 +15,13 @@ public object FuzzerAdditionKt {
 
         val r1 = try {
             bigIntOf(f1).add(bigIntOf(f2)).toByteArray()
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             byteArrayOf()
         }
 
         val r2 = try {
             BigInteger(f1).add(BigInteger(f2)).toByteArray()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             byteArrayOf()
         }
 

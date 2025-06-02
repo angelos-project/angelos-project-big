@@ -17,13 +17,13 @@ public object FuzzerXorKt {
 
         val r1 = try {
             bigIntOf(f1).xor(bigIntOf(f2)).toByteArray()
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             byteArrayOf()
         }
 
         val r2 = try {
             BigInteger(f1).xor(BigInteger(f2)).toByteArray()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             byteArrayOf()
         }
 

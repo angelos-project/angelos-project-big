@@ -15,15 +15,15 @@ public object FuzzerTestBitKt {
 
         val r1 = try {
             bigIntOf(f1).testBit(f2).toString()
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             ""
         }
 
         val r2 = try {
             BigInteger(f1).testBit(f2).toString()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             ""
-        } catch (e: ArithmeticException) {
+        } catch (_: ArithmeticException) {
             ""
         }
 

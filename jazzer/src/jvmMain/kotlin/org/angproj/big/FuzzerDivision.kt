@@ -16,16 +16,16 @@ public object FuzzerDivisionKt {
         val r1 = try {
             bigIntOf(f1).divideAndRemainder(bigIntOf(f2)).let {
                 Pair(it.first.toByteArray(), it.second.toByteArray()) }
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             Pair(byteArrayOf(), byteArrayOf())
         }
 
         val r2 = try {
             BigInteger(f1).divideAndRemainder(BigInteger(f2)).let {
                 Pair(it[0].toByteArray(), it[1].toByteArray()) }
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             Pair(byteArrayOf(), byteArrayOf())
-        } catch (e: ArithmeticException) {
+        } catch (_: ArithmeticException) {
             Pair(byteArrayOf(), byteArrayOf())
         }
 

@@ -14,13 +14,13 @@ public object FuzzerNegateKt {
 
         val r1 = try {
             bigIntOf(f1).negate().toByteArray()
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             byteArrayOf()
         }
 
         val r2 = try {
             BigInteger(f1).negate().toByteArray()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             byteArrayOf()
         }
 

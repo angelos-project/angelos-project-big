@@ -14,13 +14,13 @@ public object FuzzerLongKt {
 
         val r1 = try {
             bigIntOf(f1).toLong()
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             byteArrayOf()
         }
 
         val r2 = try {
             BigInteger.valueOf(f1).toLong()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             byteArrayOf()
         }
 

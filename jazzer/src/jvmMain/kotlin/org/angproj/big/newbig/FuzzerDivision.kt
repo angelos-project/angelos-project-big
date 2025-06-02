@@ -22,7 +22,7 @@ public object FuzzerDivisionKt {
                     toByteArray(it.second.mag, it.second.sigNum)
                 )
             }
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             Pair(byteArrayOf(), byteArrayOf())
         }
 
@@ -30,9 +30,9 @@ public object FuzzerDivisionKt {
             BigInteger(f1).divideAndRemainder(BigInteger(f2)).let {
                 Pair(it[0].toByteArray(), it[1].toByteArray())
             }
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             Pair(byteArrayOf(), byteArrayOf())
-        } catch (e: ArithmeticException) {
+        } catch (_: ArithmeticException) {
             Pair(byteArrayOf(), byteArrayOf())
         }
 

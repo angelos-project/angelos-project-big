@@ -17,13 +17,13 @@ public object FuzzerBytesKt {
         val r1 = try {
             val b1 = internalOf(f1)
             toByteArray(b1.mag, b1.sigNum)
-        } catch (e: BigMathException) {
+        } catch (_: BigMathException) {
             byteArrayOf()
         }
 
         val r2 = try {
             BigInteger(f1).toByteArray()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             byteArrayOf()
         }
 
