@@ -46,21 +46,6 @@ public fun BigInt.Companion.innerCompareMagnitude(left: IntArray, right: IntArra
     }
 }
 
-
-internal fun BigInt.Companion.innerCompareMagnitude0(left: BigInt, right: BigInt): BigCompare = when {
-    left.mag.size < right.mag.size -> BigCompare.LESSER
-    left.mag.size > right.mag.size -> BigCompare.GREATER
-    else -> {
-        left.mag.indices.forEach { idx ->
-            val xNum = left.mag[idx] // Should NOT use getL()
-            val yNum = right.mag[idx]
-            if (xNum != yNum) return@innerCompareMagnitude0 if (xNum xor -0x80000000 < yNum xor -0x80000000
-            ) BigCompare.LESSER else BigCompare.GREATER
-        }
-        BigCompare.EQUAL
-    }
-}
-
 public operator fun BigInt.unaryMinus(): BigInt = negate()
 
 public fun BigInt.negate0(): BigInt = BigInt.raw<Unit>(mag, sigNum.negate())

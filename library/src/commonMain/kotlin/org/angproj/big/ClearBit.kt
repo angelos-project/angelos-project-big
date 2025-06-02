@@ -40,20 +40,3 @@ public fun BigInt.Companion.innerClearBit(x: IntArray, xSig: BigSigned, pos: Int
 
     return result
 }
-
-
-public fun BigInt.clearBit1(pos: Int): BigInt = BitwiseArithm.clearBit(this, pos)
-
-public fun BigInt.clearBit0(pos: Int): BigInt {
-    require(pos >= 0) { BigMathException("Can not clear an imaginary bit at a negative position.") }
-
-    val bigCnt = pos.floorDiv(TypeBits.int)
-    val result = IntArray(max(intSize(this), (pos + 1).floorDiv(TypeBits.int) + 1))
-
-    result.indices.forEach { result.revSet(it, getIdx(this, it))  }
-    result.revSet(bigCnt, result.revGet(bigCnt) and bigMask(pos).inv())
-
-    //return fromIntArray(result)
-    return ExportImportBigInt.internalOf(result)
-
-}

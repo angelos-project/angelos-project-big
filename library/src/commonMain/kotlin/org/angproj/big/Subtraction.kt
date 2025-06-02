@@ -31,7 +31,7 @@ public fun BigInt.subtract(value: BigInt): BigInt = when {
     else -> ExportImportBigInt.internalOf(BigInt.innerSubtract(this.mag, this.sigNum, value.mag, value.sigNum))
 }
 
-internal fun BigInt.Companion.innerSubtract(
+public fun BigInt.Companion.innerSubtract(
     x: IntArray, xSig: BigSigned, y: IntArray, ySig: BigSigned
 ): IntArray {
     val xnz = x.firstNonzero()
@@ -49,55 +49,4 @@ internal fun BigInt.Companion.innerSubtract(
     }
 
     return result
-}
-
-
-internal fun BigInt.Companion.innerSubtract2(x: BigInt, y: BigInt): BigInt = withLogic {
-    val xnz = LoadAndSaveBigInt.firstNonZeroIntNum(x.mag)
-    val ynz = LoadAndSaveBigInt.firstNonZeroIntNum(y.mag)
-    val result = maxOfArrays(x.mag, y.mag)
-    var carry = 0
-
-    result.indices.forEach { idr ->
-        var yNum = LoadAndSaveBigInt.getIntNew(idr, y.mag, y.sigNum, ynz) + carry
-        val xNum = LoadAndSaveBigInt.getIntNew(idr, x.mag, x.sigNum, xnz)
-        carry = if (yNum xor -0x80000000 < carry xor -0x80000000) 1 else 0
-        yNum = xNum - yNum
-        carry += if (yNum xor -0x80000000 > xNum xor -0x80000000) 1 else 0
-        result.revSet(idr, yNum)
-    }
-
-    return@withLogic ExportImportBigInt.internalOf(result)
-}
-
-
-internal fun BigInt.Companion.innerSubtract1(x: BigInt, y: BigInt): BigInt = withLogic {
-    val result = maxOfArrays(x.mag, y.mag)
-    var carry = 0
-
-    result.indices.forEach { idr ->
-        var yNum = getIdx(y, idr) + carry
-        val xNum = getIdx(x, idr)
-        carry = if (yNum xor -0x80000000 < carry xor -0x80000000) 1 else 0
-        yNum = xNum - yNum
-        carry += if (yNum xor -0x80000000 > xNum xor -0x80000000) 1 else 0
-        result.revSet(idr, yNum)
-    }
-
-    return@withLogic ExportImportBigInt.internalOf(result)
-}
-
-internal fun BigInt.Companion.innerSubtract0(x: BigInt, y: BigInt): BigInt = withLogic {
-    val result = emptyBigIntOf(maxOfArrays(x.mag, y.mag))
-    var carry = 0
-
-    result.mag.indices.forEach { idr ->
-        var yNum = getIdx(y, idr) + carry
-        val xNum = getIdx(x, idr)
-        carry = if (yNum xor -0x80000000 < carry xor -0x80000000) 1 else 0
-        yNum = xNum - yNum
-        carry += if (yNum xor -0x80000000 > xNum xor -0x80000000) 1 else 0
-        result.mag.revSet(idr, yNum)
-    }
-    return@withLogic result
 }

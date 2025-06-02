@@ -27,15 +27,3 @@ public fun BigInt.Companion.innerNot(x: IntArray, xSig: BigSigned,): IntArray {
     result.indices.forEach { result[it] = x.intGetComp(result.rev(it), xSig, xnz).inv() }
     return result
 }
-
-
-
-
-public fun BigInt.not1(): BigInt = BooleanArithm.not(this)
-
-public fun BigInt.not0(): BigInt {
-    val result = IntArray(mag.size + 1).apply {
-        indices.forEach { this[it] = getIdx(this@not0, revIdx(it)).inv() }
-    }
-    return fromIntArray(result)
-}

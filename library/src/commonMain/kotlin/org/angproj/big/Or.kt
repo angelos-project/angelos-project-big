@@ -39,16 +39,3 @@ public fun BigInt.Companion.innerOr(x: IntArray, xSig: BigSigned, y: IntArray, y
 
     return result
 }
-
-
-public infix fun BigInt.or1(value: BigInt): BigInt = BooleanArithm.or(this, value)
-
-public infix fun BigInt.or0(value: BigInt): BigInt {
-    val result = maxOfArrays(mag, value.mag).apply {
-        indices.forEach {
-            val idx = revIdx(it)
-            this[it] = getIdx(this@or0, idx) or getIdx(value, idx)
-        }
-    }
-    return fromIntArray(result)
-}

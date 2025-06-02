@@ -40,18 +40,3 @@ public fun BigInt.Companion.innerSetBit(x: IntArray, xSig: BigSigned, pos: Int):
 
     return result
 }
-
-
-public fun BigInt.setBit1(pos: Int): BigInt = BitwiseArithm.setBit(this, pos)
-
-public fun BigInt.setBit0(pos: Int): BigInt {
-    require(pos >= 0) { BigMathException("Can not set an imaginary bit at a negative position.") }
-
-    val bigCnt = pos.floorDiv(TypeBits.int)
-    val result = IntArray(max(intSize(this), bigCnt + 2))
-
-    result.indices.forEach { result.revSet(it, getIdx(this, it)) }
-    result.revSet(bigCnt, result.revGet(bigCnt) or bigMask(pos))
-
-    return fromIntArray(result)
-}

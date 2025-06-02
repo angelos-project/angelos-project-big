@@ -60,34 +60,3 @@ public fun BigInt.Companion.innerShiftLeft(n: Int, x: BigInt): BigInt {
 
     return ExportImportBigInt.internalOf(newMag, x.sigNum)
 }
-
-
-public fun BigInt.shiftLeft0(n: Int): BigInt = when {
-    sigNum.isZero() -> BigInt.zero
-    n > 0 -> BigInt.raw<Unit>(BigInt.innerShiftLeftBits(mag, n), sigNum)
-    n == 0 -> this
-    else -> shiftRightBits0(-n)
-}
-
-internal fun BigInt.Companion.innerShiftLeftBits(mag: IntArray, count: Int): IntArray {
-    val bigShift = count.floorDiv(TypeBits.int)
-    val tinyShift = count.mod(TypeBits.int)
-    val tinyShiftOpposite = TypeBits.int - tinyShift
-
-    return when(tinyShift) {
-        0 -> IntArray(mag.size + bigShift).also {
-            mag.copyInto(it, 0, 0, mag.size) }
-        else -> {
-            val extra = if (mag[0].countLeadingZeroBits() <= tinyShift) 1 else 0
-            val result = IntArray(mag.size + bigShift + extra)
-
-            (result.size - bigShift until result.size).forEach { result[it] = 0 }
-            if (extra == 1) result[0] = mag.first() ushr tinyShiftOpposite
-            (0 until mag.lastIndex).forEach {
-                result[it + extra] = (mag[it] shl tinyShift) or (mag[it + 1] ushr tinyShiftOpposite)
-            }
-            result[result.lastIndex - bigShift] = mag.last() shl tinyShift
-            result
-        }
-    }
-}

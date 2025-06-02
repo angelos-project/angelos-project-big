@@ -39,17 +39,3 @@ public fun BigInt.Companion.innerFlipBit(x: IntArray, xSig: BigSigned, pos: Int)
 
     return result
 }
-
-public fun BigInt.flipBit2(pos: Int): BigInt = BitwiseArithm.flipBit(this, pos)
-
-public fun BigInt.flipBit0(pos: Int): BigInt {
-    require(pos >= 0) { BigMathException("Can not flip an imaginary bit at a negative position.") }
-
-    val bigCnt = pos.floorDiv(TypeBits.int)
-    val result = IntArray(max(intSize(this), bigCnt + 2))
-
-    result.indices.forEach { result.revSet(it, getIdx(this, it)) }
-    result.revSet(bigCnt, result.revGet(bigCnt) xor bigMask(pos))
-
-    return fromIntArray(result)
-}

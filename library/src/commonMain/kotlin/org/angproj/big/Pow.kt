@@ -44,20 +44,3 @@ internal fun BigInt.Companion.innerPower(base: BigInt, exponent: Int): BigInt {
     if(rest == 1) total = (total * base)
     return total
 }
-
-internal fun BigInt.Companion.innerPower0(base: BigInt, exponent: Int): BigInt = withLogic {
-    var rest = exponent
-    var total = BigInt.zero
-    while(rest > 1) {
-        var square = base
-        val pow2 = bitSizeForInt(rest)
-        rest = (rest and (1 shl pow2-1).inv())
-        (0 until pow2-1).forEach { _ -> square = square.multiply(square) }
-        total = when(total.sigNum.isZero()) {
-            false -> (total.multiply(square) )
-            else -> square
-        }
-    }
-    if(rest == 1) total = (total * base)
-    return@withLogic total
-}

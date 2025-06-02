@@ -40,16 +40,3 @@ public fun BigInt.Companion.innerAnd(x: IntArray, xSig: BigSigned, y: IntArray, 
 
     return result
 }
-
-
-public infix fun BigInt.and1(value: BigInt): BigInt = BooleanArithm.and(this, value)
-
-public infix fun BigInt.and0(value: BigInt): BigInt {
-    val result = maxOfArrays(mag, value.mag).apply {
-        indices.forEach {
-            val idx = revIdx(it)
-            this[it] = getIdx(this@and0, idx) and getIdx(value, idx)
-        }
-    }
-    return fromIntArray(result)
-}

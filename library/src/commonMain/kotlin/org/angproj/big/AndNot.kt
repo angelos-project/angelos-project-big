@@ -39,16 +39,3 @@ public fun BigInt.Companion.innerAndNot(x: IntArray, xSig: BigSigned, y: IntArra
 
     return result
 }
-
-
-public fun BigInt.andNot1(value: BigInt): BigInt = BooleanArithm.andNot(this, value)
-
-public fun BigInt.andNot0(value: BigInt): BigInt {
-    val result = maxOfArrays(mag, value.mag).apply {
-        indices.forEach {
-            val idx = revIdx(it)
-            this[it] = getIdx(this@andNot0, idx) and getIdx(value, idx).inv()
-        }
-    }
-    return fromIntArray(result)
-}

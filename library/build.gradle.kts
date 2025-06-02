@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "org.angproj.big"
-version = "0.9.0"
+version = "0.9.1"
 
 kotlin {
     explicitApi()

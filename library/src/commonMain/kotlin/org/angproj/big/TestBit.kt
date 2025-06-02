@@ -27,10 +27,3 @@ public fun BigInt.Companion.innerTestBit(x: IntArray, xSig: BigSigned, pos: Int)
     val xnz = x.firstNonzero()
     return x.intGetComp(pos.floorDiv(32), xSig, xnz) and (1 shl (pos and 31)) != 0
 }
-
-public fun BigInt.testBit1(pos: Int): Boolean = BitwiseArithm.testBit(this, pos)
-
-public fun BigInt.testBit0(pos: Int): Boolean {
-    require(pos >= 0) { BigMathException("Can not test an imaginary bit at a negative position.") }
-    return getIdx(this, pos.floorDiv(TypeBits.int)) and bigMask(pos) != 0
-}

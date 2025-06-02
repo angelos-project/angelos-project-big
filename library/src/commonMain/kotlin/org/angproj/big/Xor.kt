@@ -39,17 +39,3 @@ public fun BigInt.Companion.innerXor(x: IntArray, xSig: BigSigned, y: IntArray, 
 
     return result
 }
-
-
-public infix fun BigInt.xor1(value: BigInt): BigInt = BooleanArithm.xor(this, value)
-
-public infix fun BigInt.xor0(value: BigInt): BigInt {
-    val result = maxOfArrays(mag, value.mag).apply {
-        indices.forEach {
-            val idx = revIdx(it)
-            this[it] = getIdx(this@xor0, idx) xor getIdx(value, idx)
-        }
-    }
-
-    return fromIntArray(result)
-}

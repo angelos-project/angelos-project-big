@@ -38,7 +38,7 @@ public fun BigInt.add(value: BigInt): BigInt = when {
     }
 }
 
-internal fun BigInt.Companion.innerAdd(
+public fun BigInt.Companion.innerAdd(
     x: IntArray, xSig: BigSigned, y: IntArray, ySig: BigSigned
 ): IntArray {
     val xnz = x.firstNonzero()
@@ -56,61 +56,3 @@ internal fun BigInt.Companion.innerAdd(
 
     return result
 }
-
-internal fun BigInt.Companion.innerAdd1(
-    x: IntArray, xSig: BigSigned, y: IntArray, ySig: BigSigned
-): IntArray = withLogic {
-    val xnz = x.firstNonzero()
-    val ynz = y.firstNonzero()
-    val result = IntArray(x.size + 1)
-    var carry: Long = 0
-
-    result.indices.forEach { idx ->
-        carry += (
-                LoadAndSaveBigInt.getIntNew(idx, x, xSig, xnz).toLong() and LONG_MASK) + (
-                LoadAndSaveBigInt.getIntNew(idx, y, ySig, ynz).toLong() and LONG_MASK)
-        setIdxL(result, idx, carry)
-        carry = carry ushr TypeBits.int
-    }
-
-    return@withLogic result
-}
-
-public fun BigInt.add0(value: BigInt): BigInt = when {
-    sigNum.isZero() -> value
-    value.sigNum.isZero() -> this
-    else -> {
-        val out = biggerFirst(this, value) { big, little ->
-            return@biggerFirst BigInt.innerAdd0(big, little)
-        }
-        fromIntArray(out.mag)
-    }
-}
-
-internal fun BigInt.Companion.innerAdd0(x: BigInt, y: BigInt): BigInt = withLogic {
-    val result = emptyBigIntOf(IntArray(x.mag.size + 1))
-    var carry: Long = 0
-
-    result.mag.indices.forEach { idx ->
-        carry += getIdxL(x, idx) + getIdxL(y, idx)
-        setIdxL(result.mag, idx, carry)
-        carry = carry ushr TypeBits.int
-    }
-
-    return@withLogic result
-}
-
-/*private fun rightShift(n: Int, value: IntArray) {
-    if (intLen === 0) return
-    val nInts = n ushr 5
-    val nBits = n and 0x1F
-    this.intLen -= nInts
-    if (nBits == 0) return
-    val bitsInHighWord: Int = LoadAndSaveBigInt.bitLengthForInt(value[offset])
-    if (nBits >= bitsInHighWord) {
-        this.primitiveLeftShift(32 - nBits)
-        this.intLen--
-    } else {
-        primitiveRightShift(nBits)
-    }
-}*/
