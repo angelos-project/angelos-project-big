@@ -14,6 +14,7 @@
  */
 package org.angproj.big.newbig
 
+import org.angproj.big.BigMathException
 import java.math.BigInteger
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -285,7 +286,7 @@ class ExperimentDebugLarge {
         val zeroBigInt = generateZeroBigInt()
         val zeroBigInteger = generateZeroBigInteger()
 
-        assertFailsWith<IllegalArgumentException> { val result1 = bigInt.divideAndRemainder(zeroBigInt) }
+        assertFailsWith<BigMathException> { val result1 = bigInt.divideAndRemainder(zeroBigInt) }
         assertFailsWith<ArithmeticException> { val result2 = bigInteger.divideAndRemainder(zeroBigInteger) }
     }
 
@@ -299,7 +300,7 @@ class ExperimentDebugLarge {
         val zeroBigInt = generateZeroBigInt()
         val zeroBigInteger = generateZeroBigInteger()
 
-        assertFailsWith<IllegalArgumentException> { val result1 = bigInt.divideAndRemainder(zeroBigInt) }
+        assertFailsWith<BigMathException> { val result1 = bigInt.divideAndRemainder(zeroBigInt) }
         assertFailsWith<ArithmeticException> { val result2 = bigInteger.divideAndRemainder(zeroBigInteger) }
     }
 
@@ -311,7 +312,7 @@ class ExperimentDebugLarge {
         val bigInt = generateZeroBigInt()
         val bigInteger = generateZeroBigInteger()
 
-        assertFailsWith<IllegalArgumentException> { val result1 = bigInt.divideAndRemainder(bigInt) }
+        assertFailsWith<BigMathException> { val result1 = bigInt.divideAndRemainder(bigInt) }
         assertFailsWith<ArithmeticException> { val result2 = bigInteger.divideAndRemainder(bigInteger) }
     }
 

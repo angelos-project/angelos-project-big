@@ -328,7 +328,7 @@ public fun MutBigInt.divideKnuth(b: MutBigInt, quotient: MutBigInt): MutBigInt {
 
 public fun MutBigInt.divideKnuth(_b: MutBigInt, quotient: MutBigInt, needRemainder: Boolean): MutBigInt {
     var b: MutBigInt = _b
-    require(b.len > 0) { BigMathException("Division by zero") }
+    require(b.len > 0) { throw BigMathException("Division by zero") }
 
     if (len == 0) {
         quotient.off = 0

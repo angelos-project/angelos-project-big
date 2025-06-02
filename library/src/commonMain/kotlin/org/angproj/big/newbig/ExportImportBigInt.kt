@@ -88,7 +88,7 @@ public object ExportImportBigInt {
         val newSigNum = when {
             mag.isEmpty() -> BigSigned.ZERO
             else -> {
-                check(!sigNum.isZero()) { BigMathException("Signum magnitude mismatch") }
+                check(!sigNum.isZero()) { throw BigMathException("Signum magnitude mismatch") }
                 sigNum
             }
         }

@@ -125,8 +125,6 @@ public object ShiftArithm {
         return value
     }
 
-
-
     public fun BigInt.shiftRightImpl(n: Int): BigInt {
         val nInts = n ushr 5
         val nBits = n and 0x1f
