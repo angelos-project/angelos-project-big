@@ -24,13 +24,13 @@ import org.angproj.big.newbig.LoadAndSaveBigInt
  * @throws BigMathException if the exponent is negative or if the exponent is too large for memory.
  */
 public fun BigInt.pow(exponent: Int): BigInt = when {
-    exponent < 0 -> error { BigMathException("Exponent can not be negative") }
+    exponent < 0 -> error { throw BigMathException("Exponent can not be negative") }
     exponent == 0 -> BigInt.one
     exponent == 1 -> this
     sigNum.isZero() -> this
     else -> {
         val size = (bitCount * exponent shr 5) + 2 * mag.size
-        check(size < Int.MAX_VALUE) { BigMathException("Exponent is so large so there is to little memory left.") }
+        check(size < Int.MAX_VALUE) { throw BigMathException("Exponent is so large so there is to little memory left.") }
         BigInt.innerPower(this, exponent)
     }
 }

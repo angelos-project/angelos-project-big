@@ -17,19 +17,21 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.Binary
 import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.LoadAndSaveBigInt
+import org.angproj.big.newbig.bitCount
+import org.angproj.big.newbig.bitLength
+import org.angproj.big.newbig.firstNonzero
 
 
 public data class BigInt internal constructor(
     val mag: IntArray,
     val sigNum: BigSigned
-): MathLogic {
+): ExcHelper {
 
     val bitCount: Int by lazy { bitCount(mag, sigNum) }
     val bitLength: Int by lazy { bitLength(mag, sigNum) }
-    val firstNonZero: Int by lazy { firstNonZero(mag) }
+    val firstNonZero: Int by lazy { mag.firstNonzero() }
 
     override fun equals(other: Any?): Boolean {
         if(other == null) return false
@@ -59,11 +61,11 @@ public data class BigInt internal constructor(
 
     public fun isNull(): Boolean = nullObject === this
 
-    public companion object: MathLogic {
-        public val minusOne: BigInt by lazy { fromLong(-1) }
-        public val zero: BigInt by lazy { fromLong(0) }
-        public val one: BigInt by lazy { fromLong(1) }
-        public val two: BigInt by lazy { fromLong(2) }
+    public companion object: ExcHelper {
+        public val minusOne: BigInt by lazy { ExportImportBigInt.valueOf(-1) }
+        public val zero: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
+        public val one: BigInt by lazy { ExportImportBigInt.valueOf(1) }
+        public val two: BigInt by lazy { ExportImportBigInt.valueOf(2) }
 
         public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
 
@@ -73,5 +75,14 @@ public data class BigInt internal constructor(
     }
 }
 
+public fun BigInt.getByteSize(): Int = bitLength(mag, sigNum) / 8 + 1
+
 public fun bigIntOf(value: ByteArray): BigInt = LoadAndSaveBigInt.internalOf(value)
 public fun bigIntOf(value: Long): BigInt = ExportImportBigInt.valueOf(value)
+
+public fun biggerFirst(
+    x: BigInt, y: BigInt, block: (x: BigInt, y: BigInt) -> BigInt
+): BigInt = when (x.mag.size < y.mag.size) {
+    true -> block(y, x)
+    else -> block(x, y)
+}

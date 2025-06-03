@@ -16,8 +16,10 @@ package org.angproj.big
 
 import org.angproj.aux.io.TypeBits
 import org.angproj.aux.io.TypeSize
+import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
+import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.bitLength
 
 /**
@@ -33,7 +35,8 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
                 if(bitLength % TypeBits.int > 0) TypeSize.int else 0
                 ) + TypeSize.int)
     SecureRandom.read(random)
-    val value = fromBinary(random).abs()
+    val value = bigIntOf(random.toByteArray()).abs()
+    //val value = fromBinary(random).abs()
     val valueBitLength = value.bitLength()
     return when {
         valueBitLength == bitLength -> value
@@ -51,7 +54,7 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
  * @throws BigMathException If min is greater than or equal to max.
  */
 public fun BigInt.Companion.createRandomInRange(min: BigInt, max: BigInt): BigInt {
-    require(min < max) { BigMathException("Min is larger than max") }
+    require(min < max) { throw BigMathException("Min is larger than max") }
     val diff = max.subtract(min)
     val diffBitLength = diff.bitLength()
     return createRandomBigInt(diffBitLength).mod(diff).add(min)

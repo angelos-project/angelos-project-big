@@ -33,7 +33,7 @@ public fun BigInt.clearBit(pos: Int): BigInt = BigInt.innerClearBit(this.mag, th
 
 
 public fun BigInt.Companion.innerClearBit(x: IntArray, xSig: BigSigned, pos: Int): IntArray {
-    require(pos >= 0) { BigMathException("Can not flip an imaginary bit at a negative position.") }
+    require(pos >= 0) { throw BigMathException("Can not flip an imaginary bit at a negative position.") }
 
     val bigCnt = pos.floorDiv(32)
     val result = IntArray(max(x.intLength(xSig), (pos + 1).floorDiv(32) + 1))

@@ -1,5 +1,6 @@
 package org.angproj.big.newbig
 
+import org.angproj.aux.io.TypeBits
 import org.angproj.big.BigCompare
 import org.angproj.big.BigMathException
 import org.angproj.big.BigSigned
@@ -14,6 +15,10 @@ public data class BigInt(
 
     public companion object {
         public val zero: BigInt = internalOf(byteArrayOf(0))
+        /*public val minusOne: BigInt by lazy { ExportImportBigInt.valueOf(-1) }
+        public val zero: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
+        public val one: BigInt by lazy { ExportImportBigInt.valueOf(1) }
+        public val two: BigInt by lazy { ExportImportBigInt.valueOf(2) }*/
 
         public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
     }
@@ -199,7 +204,24 @@ public fun bitLength(mag: IntArray, sigNum: BigSigned): Int = when (mag.isEmpty(
     }
 }
 
+// Old BitCOunt from MathLogic WORKS
 public fun bitCount(mag: IntArray, sigNum: BigSigned): Int {
+    var count = mag.sumOf { it.countOneBits() }
+    if (sigNum.isNegative()) {
+        var magTrailingZeroCount = 0
+        var j: Int = mag.lastIndex
+        while (mag[j] == 0) {
+            magTrailingZeroCount += TypeBits.int
+            j--
+        }
+        magTrailingZeroCount += mag[j].countTrailingZeroBits()
+        count += magTrailingZeroCount - 1
+    }
+    return count
+}
+
+// New implementation, questionable
+public fun bitCount_(mag: IntArray, sigNum: BigSigned): Int {
     var bc = 0 // offset by one to initialize
     // Count the bits in the magnitude
     mag.forEach { bc += it.countOneBits() }

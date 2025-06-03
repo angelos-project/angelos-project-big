@@ -75,10 +75,10 @@ class TestBitTest {
      * Validates that a BigMathException is thrown if a negative position is given, and mimics Java.
      * */
     @Test
-    fun testNegPos(): Unit = withLogic {
-        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }
+    fun testNegPos() {
+        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertFailsWith<BigMathException> { xBi2.testBit(-100) }
         assertFailsWith<ArithmeticException> { xJbi.testBit(-100) }

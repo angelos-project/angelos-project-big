@@ -35,7 +35,7 @@ public fun BigInt.flipBit(pos: Int): BigInt = BigInt.innerFlipBit(this.mag, this
 
 
 public fun BigInt.Companion.innerFlipBit(x: IntArray, xSig: BigSigned, pos: Int): IntArray {
-    require(pos >= 0) { BigMathException("Can not flip an imaginary bit at a negative position.") }
+    require(pos >= 0) { throw BigMathException("Can not flip an imaginary bit at a negative position.") }
 
     val bigCnt = pos.floorDiv(TypeBits.int)
     val result = IntArray(max(x.intLength(xSig), bigCnt + 2))
