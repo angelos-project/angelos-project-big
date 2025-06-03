@@ -1,6 +1,5 @@
 package org.angproj.big.newbig
 
-import org.angproj.aux.util.NullObject
 import org.angproj.big.BigCompare
 import org.angproj.big.BigMathException
 import org.angproj.big.BigSigned
@@ -11,8 +10,12 @@ public data class BigInt(
     public val mag: IntArray,
     public val sigNum: BigSigned
 ) {
+    public fun isNull(): Boolean = nullObject === this
+
     public companion object {
         public val zero: BigInt = internalOf(byteArrayOf(0))
+
+        public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
     }
 }
 
@@ -276,19 +279,23 @@ public class MutBigInt{
         mag = mutBigInt.mag.copyOfRange(mutBigInt.off, mutBigInt.off + len)
     }
 
+    public fun isNull(): Boolean = nullObject === this
+
     public companion object {
         public const val KNUTH_POW2_THRESH_LEN: Long = 6 // Fix this
         public const val KNUTH_POW2_THRESH_ZEROS: Long = 3 // Fix this
+
+        public val nullObject: MutBigInt by lazy { MutBigInt(intArrayOf()) }
     }
 }
 
 
-public fun MutBigInt.isNull(): Boolean = NullObject.mutBigInt === this
+/*public fun MutBigInt.isNull(): Boolean = NullObject.mutBigInt === this
 private val nullMutBigInt = MutBigInt().apply {
     mag = NullObject.intArray
 }
 public val NullObject.mutBigInt: MutBigInt
-    get() = nullMutBigInt
+    get() = nullMutBigInt*/
 
 public fun MutBigInt.clear() {
     len = 0
@@ -333,21 +340,21 @@ public fun MutBigInt.divideKnuth(_b: MutBigInt, quotient: MutBigInt, needRemaind
     if (len == 0) {
         quotient.off = 0
         quotient.len = quotient.off
-        return if (needRemainder) MutBigInt() else NullObject.mutBigInt
+        return if (needRemainder) MutBigInt() else MutBigInt.nullObject
     }
 
     val cmp: BigCompare = compare(b)
     if (cmp.isLesser()) {
         quotient.off = 0
         quotient.len = quotient.off
-        return if (needRemainder) MutBigInt(this) else NullObject.mutBigInt
+        return if (needRemainder) MutBigInt(this) else MutBigInt.nullObject
     }
 
     if (cmp.isEqual()) {
         quotient.len = 1
         quotient.mag[0] = quotient.len
         quotient.off = 0
-        return if (needRemainder) MutBigInt() else NullObject.mutBigInt
+        return if (needRemainder) MutBigInt() else MutBigInt.nullObject
     }
 
     quotient.clear()
@@ -358,7 +365,7 @@ public fun MutBigInt.divideKnuth(_b: MutBigInt, quotient: MutBigInt, needRemaind
             if (r == 0) return MutBigInt()
             return MutBigInt(r)
         } else {
-            return NullObject.mutBigInt
+            return MutBigInt.nullObject
         }
     }
 
@@ -783,7 +790,7 @@ public fun MutBigInt.divideMagnitude0(
         rem.normalize()
     }
     quotient.normalize()
-    return if (needRemainder) rem else NullObject.mutBigInt
+    return if (needRemainder) rem else MutBigInt.nullObject
 }
 
 public fun mulsub(q: IntArray, a: IntArray, x: Int, len: Int, _offset: Int): Int {
@@ -1063,7 +1070,7 @@ public fun MutBigInt.divideMagnitude(
         rem.normalize()
     }
     quotient.normalize()
-    return if (needRemainder) rem else NullObject.mutBigInt
+    return if (needRemainder) rem else MutBigInt.nullObject
 }
 
 

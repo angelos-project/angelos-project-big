@@ -71,7 +71,7 @@ public fun BigInt.divideAndRemainder(
         value.mag.size == 1 -> BigInt.divideOneWord(mag, value.mag).let {
             Pair(
                 ExportImportBigInt.internalOf(it.first, if (sigNum == value.sigNum) BigSigned.POSITIVE else BigSigned.NEGATIVE),
-                if(needRemainder) ExportImportBigInt.internalOf(it.second, sigNum) else NullObject.bigInt
+                if(needRemainder) ExportImportBigInt.internalOf(it.second, sigNum) else BigInt.nullObject
             )
         }
         else -> {
@@ -90,7 +90,7 @@ public fun BigInt.divideAndRemainder(
                         val remainder = it.second // ExportImportBigInt.asComplemented(it.second, sigNum)
                     Pair(
                         ExportImportBigInt.externalOf(quotSig, quotient),
-                        if(needRemainder) ExportImportBigInt.externalOf(sigNum, remainder) else NullObject.bigInt
+                        if(needRemainder) ExportImportBigInt.externalOf(sigNum, remainder) else BigInt.nullObject
                     )
                 }
             }

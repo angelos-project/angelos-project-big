@@ -17,7 +17,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.util.NullObject
+import org.angproj.aux.io.Binary
 import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.LoadAndSaveBigInt
 
@@ -57,6 +57,7 @@ public data class BigInt internal constructor(
     public fun toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArrayNew(mag, sigNum)
     //public fun toByteArray(): ByteArray = toByteArray(mag, sigNum, firstNonZero)
 
+    public fun isNull(): Boolean = nullObject === this
 
     public companion object: MathLogic {
         public val minusOne: BigInt by lazy { fromLong(-1) }
@@ -64,14 +65,13 @@ public data class BigInt internal constructor(
         public val one: BigInt by lazy { fromLong(1) }
         public val two: BigInt by lazy { fromLong(2) }
 
+        public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
+
         internal inline fun <reified R: Any> raw(
             mag: IntArray, sigNum: BigSigned
         ): BigInt = BigInt(mag, sigNum)//.also { MathLogicContext.register(it) }
     }
 }
 
-
-public fun BigInt.isNull(): Boolean = NullObject.bigInt === this
-private val nullBigInt = BigInt.raw<Unit>(NullObject.intArray, BigSigned.ZERO)
-public val NullObject.bigInt: BigInt
-    get() = nullBigInt
+public fun bigIntOf(value: ByteArray): BigInt = LoadAndSaveBigInt.internalOf(value)
+public fun bigIntOf(value: Long): BigInt = ExportImportBigInt.valueOf(value)

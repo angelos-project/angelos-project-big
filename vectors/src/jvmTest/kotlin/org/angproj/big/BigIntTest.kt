@@ -26,7 +26,7 @@ class BigIntTest {
 
     @Test
     fun testNull() {
-        assertTrue(NullObject.bigInt.isNull())
+        assertTrue(BigInt.nullObject.isNull())
         assertFalse(BigInt.zero.isNull())
     }
 

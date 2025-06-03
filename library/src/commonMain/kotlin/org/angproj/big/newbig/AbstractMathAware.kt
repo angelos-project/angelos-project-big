@@ -13,7 +13,11 @@ public data class BigInt(
     public val mag: IntArray,
     public val sigNum: BigSigned
 ) {
-    public companion object
+    public fun isNull(): Boolean = nullObject === this
+
+    public companion object {
+        public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
+    }
 }
 
 public val LONG_MASK: Long = 0xffffffffL
@@ -262,9 +266,14 @@ public data class MutBigInt(
 
     public constructor(mutBigInt: MutBigInt): this(mutBigInt.mag, mutBigInt.off, mutBigInt.len)
 
+    public fun isNull(): Boolean = nullObject === this
+
     public companion object {
         public const val KNUTH_POW2_THRESH_LEN: Long = 6 // Fix this
         public const val KNUTH_POW2_THRESH_ZEROS: Long = 3 // Fix this
+
+        public val nullObject: MutBigInt by lazy { MutBigInt(intArrayOf()) }
+
     }
 }
 

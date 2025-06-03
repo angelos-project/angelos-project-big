@@ -292,6 +292,6 @@ public interface MathLogic : BufferAware, ExcHelper {
 
 public object MathLogicContext : MathLogic
 public fun <T> withLogic(block: MathLogicContext.() -> T): T = with(MathLogicContext) { block() }
-public suspend fun <T> withLogicSuspend(block: suspend MathLogicContext.() -> T): T = with(MathLogicContext) { block() }
+//public suspend fun <T> withLogicSuspend(block: suspend MathLogicContext.() -> T): T = with(MathLogicContext) { block() }
 
-public fun withLogicR(count: Int, block: MathLogicContext.() -> Unit): Unit = with(MathLogicContext) { repeat(count) { block() }  }
+//public fun withLogicR(count: Int, block: MathLogicContext.() -> Unit): Unit = with(MathLogicContext) { repeat(count) { block() }  }

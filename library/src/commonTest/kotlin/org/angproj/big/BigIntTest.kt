@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.util.NullObject
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -23,7 +22,7 @@ class BigIntTest {
 
     @Test
     fun testNull() {
-        assertTrue(NullObject.bigInt.isNull())
+        assertTrue(BigInt.nullObject.isNull())
         assertFalse(BigInt.zero.isNull())
     }
 

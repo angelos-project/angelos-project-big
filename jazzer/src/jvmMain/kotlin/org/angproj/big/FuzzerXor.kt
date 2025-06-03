@@ -3,15 +3,13 @@ package org.angproj.big
 import com.code_intelligence.jazzer.Jazzer
 import com.code_intelligence.jazzer.api.FuzzedDataProvider
 import java.math.BigInteger
-import kotlin.jvm.javaClass
 import kotlin.test.assertContentEquals
-import kotlin.time.Duration.Companion.minutes
 
 
-public object FuzzerXorKt {
+public object FuzzerXorKt : FuzzPrefs() {
 
     @JvmStatic
-    public fun fuzzerTestOneInput(data: FuzzedDataProvider): Unit = withLogic {
+    public fun fuzzerTestOneInput(data: FuzzedDataProvider) {
         val f1 = data.consumeBytes(64)
         val f2 = data.consumeBytes(64)
 
@@ -34,7 +32,7 @@ public object FuzzerXorKt {
     public fun main(args: Array<String>) {
         Jazzer.main(arrayOf(
             "--target_class=${javaClass.name}",
-            "-max_total_time=${2.minutes.inWholeSeconds}"
+            "-max_total_time=${maxTotalTime}"
         ))
     }
 }

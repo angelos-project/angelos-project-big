@@ -22,6 +22,7 @@ import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
 
 
+
 /**
  * It seems like the bit size between short and long cannot be less than 32 bits.
  * Some bug with the magnitude array?
