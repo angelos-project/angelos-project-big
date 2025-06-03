@@ -19,6 +19,7 @@ package org.angproj.big
 
 import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.LoadAndSaveBigInt
+import org.angproj.big.newbig.Unsigned
 import org.angproj.big.newbig.bitCount
 import org.angproj.big.newbig.bitLength
 import org.angproj.big.newbig.firstNonzero
@@ -79,6 +80,8 @@ public fun BigInt.getByteSize(): Int = bitLength(mag, sigNum) / 8 + 1
 
 public fun bigIntOf(value: ByteArray): BigInt = LoadAndSaveBigInt.internalOf(value)
 public fun bigIntOf(value: Long): BigInt = ExportImportBigInt.valueOf(value)
+
+public fun unsignedBigIntOf(value: ByteArray): BigInt = Unsigned.internalOf(value)
 
 public fun biggerFirst(
     x: BigInt, y: BigInt, block: (x: BigInt, y: BigInt) -> BigInt
