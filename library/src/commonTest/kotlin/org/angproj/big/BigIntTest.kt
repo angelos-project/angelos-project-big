@@ -31,14 +31,14 @@ class BigIntTest {
      * the same when importing from the said ByteArray and exporting to a new ByteArray.
      * */
     @Test
-    fun testByteArray() = withLogic {
+    fun testByteArray() {
     }
 
     /**
      * This test recognizes that BigInt can predict its export size properly.
      * */
     @Test
-    fun testToSize(): Unit = withLogic {
+    fun testToSize() {
     }
 
     /**
@@ -46,7 +46,7 @@ class BigIntTest {
      * the same way when importing and then exporting to a new ByteArray.
      * */
     @Test
-    fun testLong() = withLogic {
+    fun testLong() {
     }
 
     /**
@@ -54,7 +54,7 @@ class BigIntTest {
      * the same when exporting toInt.
      * */
     @Test
-    fun testToInt() = withLogic {
+    fun testToInt() {
     }
 
     /**
@@ -62,7 +62,7 @@ class BigIntTest {
      * the same when exporting toLong.
      * */
     @Test
-    fun testToLong() = withLogic {
+    fun testToLong() {
     }
 
     /**
@@ -70,7 +70,7 @@ class BigIntTest {
      * the sigNum of the same underlying value similarly.
      * */
     @Test
-    fun testSigNum() = withLogic {
+    fun testSigNum() {
     }
 
     /**
@@ -78,7 +78,7 @@ class BigIntTest {
      * the bitLength of the same underlying value similarly.
      * */
     @Test
-    fun testBitLength() = withLogic {
+    fun testBitLength() {
     }
 
     /**
@@ -86,7 +86,7 @@ class BigIntTest {
      * the bitCount of the same underlying value similarly.
      * */
     @Test
-    fun testBitCount() = withLogic {
+    fun testBitCount() {
     }
 
     /**
@@ -94,7 +94,7 @@ class BigIntTest {
      * translates into zero magnitude and sigNum properly.
      * */
     @Test
-    fun testUnsignedBigIntOf() = withLogic {
+    fun testUnsignedBigIntOf() {
     }
 
     /**
@@ -102,6 +102,6 @@ class BigIntTest {
      * throws an exception similarly in response to a zero-length ByteArray.
      * */
     @Test
-    fun testEmptyByteArray(): Unit = withLogic {
+    fun testEmptyByteArray() {
     }
 }

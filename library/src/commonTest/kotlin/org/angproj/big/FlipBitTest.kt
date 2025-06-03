@@ -23,7 +23,7 @@ import kotlin.test.assertTrue
 class FlipBitTest {
 
     @Test
-    fun testFlipBit() = withLogic {
+    fun testFlipBit() {
         val number1 = BigInt.one.shiftLeft(192).dec()
         repeat(191) {
             assertEquals(false, number1.flipBit(it).testBit(it))
@@ -39,7 +39,7 @@ class FlipBitTest {
      * Validates that a position beyond the magnitude is properly handled with modulus.
      * */
     @Test
-    fun testPosBeyondMag() = withLogic {
+    fun testPosBeyondMag() {
         val number = BigInt.one.shiftLeft(128)
 
         assertTrue(number.mag.size * 32 < 200)
@@ -50,7 +50,7 @@ class FlipBitTest {
      * Validates that a BigMathException is thrown if a negative position is given, and mimics Java.
      * */
     @Test
-    fun testNegPos(): Unit = withLogic {
+    fun testNegPos() {
         val number = BigInt.one.shiftLeft(192)
 
         assertFailsWith<BigMathException> { number.flipBit(-100) }

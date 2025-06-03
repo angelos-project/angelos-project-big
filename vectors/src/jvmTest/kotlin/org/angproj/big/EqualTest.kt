@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -31,20 +30,20 @@ class DummyStub
  * */
 class EqualTest {
     @Test
-    fun testEqualSameRef() = withLogic {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }
+    fun testEqualSameRef() {
+        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertEquals(xBi2.equals(xBi2), xJbi.equals(xJbi))
         assertTrue(xBi2.equals(xBi2))
     }
 
     @Test
-    fun testWrongObjType() = withLogic {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }
+    fun testWrongObjType() {
+        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
         val idiot = DummyStub()
 
         assertEquals(xBi2.equals(idiot), xJbi.equals(idiot))
@@ -52,40 +51,40 @@ class EqualTest {
     }
 
     @Test
-    fun testDiffSigNum() = withLogic {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }
+    fun testDiffSigNum() {
+        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertEquals(xBi2.equals(xBi2.negate()), xJbi.equals(xJbi.negate()))
         assertFalse(xBi2.equals(xBi2.negate()))
     }
 
     @Test
-    fun testWrongMagLength() = withLogic {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }
+    fun testWrongMagLength() {
+        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertEquals(xBi2.equals(xBi2.shiftRight(32)), xJbi.equals(xJbi.shiftRight(32)))
         assertFalse(xBi2.equals(xBi2.shiftRight(32)))
     }
 
     @Test
-    fun testCopyDiffObj() = withLogic {
+    fun testCopyDiffObj() {
         val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
-        val xBi2 = bigIntOf(x.toBinary())
+        val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
-        assertEquals(xBi2.equals(bigIntOf(x.toBinary())), xJbi.equals(JavaBigInteger(x)))
+        assertEquals(xBi2.equals(bigIntOf(x)), xJbi.equals(JavaBigInteger(x)))
         assertTrue(xBi2.equals(bigIntOf(x)))
     }
 
     @Test
-    fun testCopyDiffValue() = withLogic {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }
+    fun testCopyDiffValue() {
+        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertEquals(xBi2.equals(xBi2.add(BigInt.one)), xJbi.equals(xJbi.add(JavaBigInteger.ONE)))
         assertFalse(xBi2.equals(xBi2.add(BigInt.one)))

@@ -15,13 +15,13 @@
 package org.angproj.big
 
 import kotlin.test.Test
-import kotlin.test.assertTrue
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class ModTest {
 
     @Test
-    fun testMod() = withLogic {
+    fun testMod() {
         val large = BigInt.createRandomBigInt(256)
         val small = BigInt.createRandomBigInt(128)
 
@@ -37,7 +37,7 @@ class ModTest {
      * Validates that BigMathException is thrown if the modulus is zero or negative, likewise as Java BigInteger.
      * */
     @Test
-    fun testModulusNotPositive(): Unit = withLogic {
+    fun testModulusNotPositive() {
         val large = BigInt.createRandomBigInt(256)
 
         // Validate that modulus zero throws an exception

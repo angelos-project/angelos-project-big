@@ -14,16 +14,12 @@
  */
 package org.angproj.big
 
-import kotlin.test.Test
-import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class SubtractionTest {
 
     @Test
-    fun testSubtract() = withLogic {
+    fun testSubtract() {
         val value1 = BigInt.createRandomBigInt(192)
         val value2 = BigInt.createRandomBigInt(193)
 
@@ -37,7 +33,7 @@ class SubtractionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testMinus() = withLogic {
+    fun testMinus() {
         val value1 = BigInt.createRandomBigInt(192)
         val value2 = BigInt.createRandomBigInt(193)
 
@@ -51,7 +47,7 @@ class SubtractionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testDec() = withLogic {
+    fun testDec() {
         val value = BigInt.createRandomBigInt(192)
 
         val result = value.dec()
@@ -63,7 +59,7 @@ class SubtractionTest {
      * Validates that the minuend set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testFirstIfZero() = withLogic {
+    fun testFirstIfZero() {
         val number = BigInt.createRandomBigInt(192)
 
         assertContentEquals(number.negate().toByteArray(), BigInt.zero.subtract(number).toByteArray())
@@ -73,7 +69,7 @@ class SubtractionTest {
      * Validates that the subtrahend set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testSecondIfZero() = withLogic {
+    fun testSecondIfZero() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(number, number.subtract(BigInt.zero))

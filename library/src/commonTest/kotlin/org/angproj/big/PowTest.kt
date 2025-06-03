@@ -14,16 +14,12 @@
  */
 package org.angproj.big
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertSame
-import kotlin.test.assertContentEquals
+import kotlin.test.*
 
 class PowTest {
 
     @Test
-    fun testPow() = withLogic {
+    fun testPow() {
         val number = BigInt.createRandomBigInt(192)
 
         assertEquals(number * number, number.pow(2))
@@ -33,7 +29,7 @@ class PowTest {
      * Validates that BigMathException is thrown if the exponent is negative, likewise as Java BigInteger.
      * */
     @Test
-    fun testExponentIfNegative(): Unit = withLogic {
+    fun testExponentIfNegative() {
         val number = BigInt.createRandomBigInt(192)
 
         assertFailsWith<BigMathException> { number.pow(-1) }
@@ -43,7 +39,7 @@ class PowTest {
      * Validates that exponent set as 0 is validated without a hiccup.
      * */
     @Test
-    fun testExponentIfZero() = withLogic {
+    fun testExponentIfZero() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(BigInt.one, number.pow(0))
@@ -54,7 +50,7 @@ class PowTest {
      * Validates that exponent set as 1 is validated without a hiccup.
      * */
     @Test
-    fun testExponentIfOne() = withLogic {
+    fun testExponentIfOne() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(number, number.pow(1))
@@ -65,7 +61,7 @@ class PowTest {
      * Validates that coefficient set as 0 is validated without a hiccup.
      * */
     @Test
-    fun testCoefficientIfZero() = withLogic {
+    fun testCoefficientIfZero() {
         val number = BigInt.zero.pow(7)
 
         assertSame(number, BigInt.zero)

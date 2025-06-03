@@ -16,13 +16,13 @@ package org.angproj.big
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class SetBitTest {
 
     @Test
-    fun testSetBit() = withLogic {
+    fun testSetBit() {
         val number = BigInt.one.shiftLeft(192)
 
         repeat(191) { i ->
@@ -34,7 +34,7 @@ class SetBitTest {
      * Validates that a position beyond the magnitude is properly handled with modulus.
      * */
     @Test
-    fun testPosBeyondMag() = withLogic {
+    fun testPosBeyondMag() {
         val number = BigInt.one.shiftLeft(128)
 
         assertTrue(number.mag.size * 32 < 200)
@@ -45,7 +45,7 @@ class SetBitTest {
      * Validates that a BigMathException is thrown if a negative position is given, and mimics Java.
      * */
     @Test
-    fun testNegPos(): Unit = withLogic {
+    fun testNegPos(): Unit {
         val number = BigInt.one.shiftLeft(192)
 
         assertFailsWith<BigMathException> { number.setBit(-100) }

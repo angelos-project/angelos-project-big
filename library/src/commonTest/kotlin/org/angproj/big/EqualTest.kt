@@ -22,39 +22,39 @@ class DummyStub
 
 class EqualTest {
     @Test
-    fun testEqualSameRef() = withLogic {
+    fun testEqualSameRef() {
         val number = BigInt.createRandomBigInt(256)
         assertTrue(number.equals(number))
     }
 
     @Test
-    fun testWrongObjType() = withLogic {
+    fun testWrongObjType() {
         val number = BigInt.createRandomBigInt(256)
         val stub = DummyStub()
         assertFalse(number.equals(stub))
     }
 
     @Test
-    fun testDiffSigNum() = withLogic {
+    fun testDiffSigNum() {
         val number = BigInt.createRandomBigInt(256)
         assertFalse(number.equals(number.negate()))
     }
 
     @Test
-    fun testWrongMagLength() = withLogic {
+    fun testWrongMagLength() {
         val number = BigInt.createRandomBigInt(256)
         assertFalse(number.equals(number.shiftRight(32)))
     }
 
     @Test
-    fun testCopyDiffObj() = withLogic {
+    fun testCopyDiffObj() {
         val number = BigInt.createRandomBigInt(256)
         val x = number.toByteArray()
         assertTrue(number.equals(bigIntOf(x)))
     }
 
     @Test
-    fun testCopyDiffValue() = withLogic {
+    fun testCopyDiffValue() {
         val number = BigInt.createRandomBigInt(256)
         assertFalse(number.equals(number.add(BigInt.one)))
     }

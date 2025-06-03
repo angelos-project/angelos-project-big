@@ -20,26 +20,26 @@ import kotlin.test.assertTrue
 class CompareTest {
 
     @Test
-    fun testGreaterThan() = withLogic {
+    fun testGreaterThan() {
         val number = BigInt.one.shiftLeft(256)
         assertTrue { number > number.dec() }
     }
 
     @Test
-    fun testLesserThan() = withLogic {
+    fun testLesserThan() {
         val number = BigInt.one.shiftLeft(256)
         assertTrue { number < number.inc() }
     }
 
     @Test
-    fun testGreaterOrEqualThan() = withLogic {
+    fun testGreaterOrEqualThan() {
         val number = BigInt.one.shiftLeft(256)
         assertTrue { number >= number }
         assertTrue { number >= number.dec() }
     }
 
     @Test
-    fun testLesserOrEqualThan() = withLogic {
+    fun testLesserOrEqualThan() {
         val number = BigInt.one.shiftLeft(256)
         assertTrue { number <= number }
         assertTrue { number <= number.inc() }

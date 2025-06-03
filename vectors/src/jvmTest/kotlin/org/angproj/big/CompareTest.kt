@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import kotlin.test.Test
 import java.math.BigInteger as JavaBigInteger
 
@@ -23,12 +22,12 @@ class CompareTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testGreaterThan() = withLogic {
+    fun testGreaterThan() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertEquals(
@@ -46,12 +45,12 @@ class CompareTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testLesserThan() = withLogic {
+    fun testLesserThan() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertEquals(
@@ -69,12 +68,12 @@ class CompareTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testGreaterOrEqualThan() = withLogic {
+    fun testGreaterOrEqualThan() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertEquals(
@@ -92,12 +91,12 @@ class CompareTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testLesserOrEqualThan() = withLogic {
+    fun testLesserOrEqualThan() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertEquals(

@@ -19,7 +19,7 @@ import kotlin.test.assertTrue
 
 class EssentialTest {
     @Test
-    fun testCompareTo() = withLogic {
+    fun testCompareTo() {
         val large = BigInt.createRandomBigInt(256)
         val small = large.dec()
 
@@ -36,7 +36,7 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testNegate() = withLogic {
+    fun testNegate() {
         assertTrue { BigInt.createRandomBigInt(256).abs().negate() < BigInt.zero }
     }
 
@@ -44,7 +44,7 @@ class EssentialTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testUnaryMinus() = withLogic {
+    fun testUnaryMinus() {
         assertTrue { BigInt.createRandomBigInt(256).abs().unaryMinus() < BigInt.zero }
     }
 
@@ -53,7 +53,7 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testAbs() = withLogic {
+    fun testAbs() {
         assertTrue { BigInt.createRandomBigInt(256).negate().abs() > BigInt.zero }
     }
 
@@ -62,7 +62,7 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testMin() = withLogic {
+    fun testMin() {
         val large = BigInt.createRandomBigInt(256)
         val small = large.dec()
 
@@ -75,7 +75,7 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testMax() = withLogic {
+    fun testMax() {
         val small = BigInt.createRandomBigInt(256)
         val large = small.inc()
 

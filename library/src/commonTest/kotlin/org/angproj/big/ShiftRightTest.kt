@@ -22,7 +22,7 @@ import kotlin.test.assertSame
 class ShiftRightTest {
 
     @Test
-    fun testShiftRight() = withLogic {
+    fun testShiftRight() {
         val number = BigInt.createRandomBigInt(256)
 
         // Validate that shiftRight works
@@ -35,7 +35,7 @@ class ShiftRightTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testShr() = withLogic {
+    fun testShr() {
         val number = BigInt.createRandomBigInt(256)
 
         // Validate that shr works
@@ -52,7 +52,7 @@ class ShiftRightTest {
      * Validates that position set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testPosIfZero() = withLogic {
+    fun testPosIfZero() {
         val number = BigInt.createRandomBigInt(256)
 
         assertSame(number, number.shiftRight(0))
@@ -63,7 +63,7 @@ class ShiftRightTest {
      * Validates that magnitude set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testMagnitudeIfZero() = withLogic {
+    fun testMagnitudeIfZero() {
         assertSame(BigInt.zero, BigInt.zero.shiftRight(53))
         assertContentEquals(BigInt.zero.toByteArray(), BigInt.zero.shiftRight(53).toByteArray())
     }

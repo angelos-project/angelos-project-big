@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -31,9 +30,9 @@ class ClearBitTest {
      * under all normal conditions.
      * */
     @Test
-    fun testClearBit() = withLogic {
+    fun testClearBit() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             if(xBi2.sigNum.isZero()) return@numberGenerator
             (0..64).forEach { pos ->
@@ -53,10 +52,10 @@ class ClearBitTest {
      * Validates that a position beyond the magnitude is properly handled with modulus.
      * */
     @Test
-    fun testPosBeyondMag() = withLogic {
-        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }
+    fun testPosBeyondMag() {
+        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertTrue(xBi2.mag.size * 32 < 200)
         assertContentEquals(
@@ -69,10 +68,10 @@ class ClearBitTest {
      * Validates that a BigMathException is thrown if a negative position is given, and mimics Java.
      * */
     @Test
-    fun testNegPos(): Unit = withLogic {
-        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }
+    fun testNegPos() {
+        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertFailsWith<BigMathException> { xBi2.clearBit(-100) }
         assertFailsWith<ArithmeticException> { xJbi.clearBit(-100) }

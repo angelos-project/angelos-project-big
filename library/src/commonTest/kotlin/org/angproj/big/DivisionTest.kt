@@ -25,7 +25,7 @@ class DivisionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testDivideAndRemainder() = withLogic {
+    fun testDivideAndRemainder() {
     }
 
     /**
@@ -33,14 +33,14 @@ class DivisionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testDivide() = withLogic {
+    fun testDivide() {
     }
 
     /**
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testDiv() = withLogic {
+    fun testDiv() {
     }
 
     /**
@@ -48,13 +48,13 @@ class DivisionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testRemainder() = withLogic {
+    fun testRemainder() {
     }
 
     /**
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testRem() = withLogic {
+    fun testRem() {
     }
 }

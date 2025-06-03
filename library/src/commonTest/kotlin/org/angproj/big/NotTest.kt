@@ -15,13 +15,13 @@
 package org.angproj.big
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class NotTest {
 
     @Test
-    fun testNot() = withLogic {
+    fun testNot() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
@@ -43,7 +43,7 @@ class NotTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testInv() = withLogic {
+    fun testInv() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
@@ -62,7 +62,7 @@ class NotTest {
     }
 
     @Test
-    fun testNotWithAndIncludingAndNotUsingRandom() = withLogic {
+    fun testNotWithAndIncludingAndNotUsingRandom() {
         val random1 = BigInt.createRandomBigInt(256)
         val random2 = BigInt.createRandomBigInt(256)
 

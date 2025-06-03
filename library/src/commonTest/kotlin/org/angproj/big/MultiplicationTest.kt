@@ -22,7 +22,7 @@ import kotlin.test.assertSame
 class MultiplicationTest {
 
     @Test
-    fun testMultiply() = withLogic {
+    fun testMultiply() {
         val number = BigInt.createRandomBigInt(192)
 
         assertEquals(number + number, number.multiply(BigInt.two))
@@ -32,7 +32,7 @@ class MultiplicationTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testTimes() = withLogic {
+    fun testTimes() {
         val number = BigInt.createRandomBigInt(192)
 
         assertEquals(number + number, number * BigInt.two)
@@ -42,7 +42,7 @@ class MultiplicationTest {
      * Validates that first factor set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testFirstIfZero() = withLogic {
+    fun testFirstIfZero() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(BigInt.zero, BigInt.zero.multiply(number))
@@ -53,7 +53,7 @@ class MultiplicationTest {
      * Validates that second factor set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testSecondIfZero() = withLogic {
+    fun testSecondIfZero() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(BigInt.zero, number.multiply(BigInt.zero))

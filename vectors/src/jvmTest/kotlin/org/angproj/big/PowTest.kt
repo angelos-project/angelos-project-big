@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -30,9 +29,9 @@ class PowTest {
      * under all normal conditions.
      * */
     @Test
-    fun testPow() = withLogic {
+    fun testPow() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             (0..8).forEach { y ->
 
@@ -51,9 +50,9 @@ class PowTest {
      * Validates that BigMathException is thrown if the exponent is negative, likewise as Java BigInteger.
      * */
     @Test
-    fun testExponentIfNegative(): Unit = withLogic {
+    fun testExponentIfNegative() {
         val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
-        val xBi2 = bigIntOf(x.toBinary())
+        val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
         assertFailsWith<BigMathException> { xBi2.pow(-1) }
@@ -64,9 +63,9 @@ class PowTest {
      * Validates that exponent set as 0 is validated without a hiccup.
      * */
     @Test
-    fun testExponentIfZero() = withLogic {
+    fun testExponentIfZero() {
         val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
-        val xBi2 = bigIntOf(x.toBinary())
+        val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
         val rBi2 = xBi2.pow(0)
@@ -80,9 +79,9 @@ class PowTest {
      * Validates that exponent set as 1 is validated without a hiccup.
      * */
     @Test
-    fun testExponentIfOne() = withLogic {
+    fun testExponentIfOne() {
         val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
-        val xBi2 = bigIntOf(x.toBinary())
+        val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
         val rBi2 = xBi2.pow(1)
@@ -96,7 +95,7 @@ class PowTest {
      * Validates that coefficient set as 0 is validated without a hiccup.
      * */
     @Test
-    fun testCoefficientIfZero() = withLogic {
+    fun testCoefficientIfZero() {
         val rBi2 = BigInt.zero.pow(7)
         val rJbi = JavaBigInteger.ZERO.pow(7)
 

@@ -15,13 +15,13 @@
 package org.angproj.big
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class AndNotTest {
 
     @Test
-    fun testAndNot() = withLogic {
+    fun testAndNot() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
@@ -45,7 +45,7 @@ class AndNotTest {
     }
 
     @Test
-    fun testAndNotWithNotIncludingAndUsingRandom() = withLogic {
+    fun testAndNotWithNotIncludingAndUsingRandom() {
         // Validate that AND NOT with random values works
         val random1 = BigInt.createRandomBigInt(256)
         val random2 = BigInt.createRandomBigInt(256)

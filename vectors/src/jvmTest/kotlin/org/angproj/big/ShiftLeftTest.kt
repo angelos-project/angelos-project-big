@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -29,9 +28,9 @@ class ShiftLeftTest {
      * under all normal conditions.
      * */
     @Test
-    fun testShiftLeft() = withLogic {
+    fun testShiftLeft() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             (-64 until 64).forEach {
                 val s = it
@@ -51,9 +50,9 @@ class ShiftLeftTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testShl() = withLogic {
+    fun testShl() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             (-64 until 64).forEach {
                 val s = it
@@ -73,10 +72,10 @@ class ShiftLeftTest {
      * Validates that position set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testPosIfZero() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testPosIfZero() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertSame(xBi2.shiftLeft(0), xBi2)
         assertContentEquals(
@@ -89,7 +88,7 @@ class ShiftLeftTest {
      * Validates that magnitude set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testMagnitudeIfZero() = withLogic {
+    fun testMagnitudeIfZero() {
         assertSame(BigInt.zero.shiftLeft(53), BigInt.zero)
         assertContentEquals(
             BigInt.zero.shiftLeft(53).toByteArray(),

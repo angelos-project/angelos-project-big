@@ -21,7 +21,7 @@ import kotlin.test.assertEquals
 class XorTest {
 
     @Test
-    fun testXor() = withLogic {
+    fun testXor() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
@@ -51,7 +51,7 @@ class XorTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testXorInfix() = withLogic {
+    fun testXorInfix() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 

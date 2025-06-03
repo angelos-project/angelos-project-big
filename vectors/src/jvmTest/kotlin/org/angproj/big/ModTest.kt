@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -28,12 +27,12 @@ class ModTest {
      * under all normal conditions.
      * */
     @Test
-    fun testMod() = withLogic {
+    fun testMod() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(1..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
                 if(yJbi.equals(JavaBigInteger.ZERO)) return@innerNumberGenerator
 
@@ -52,10 +51,10 @@ class ModTest {
      * Validates that BigMathException is thrown if the modulus is zero or negative, likewise as Java BigInteger.
      * */
     @Test
-    fun testModulusNotPositive(): Unit = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testModulusNotPositive() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertFailsWith<BigMathException> { xBi2.mod(BigInt.zero) }
         assertFailsWith<ArithmeticException> { xJbi.mod(JavaBigInteger.ZERO) }

@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -29,7 +28,7 @@ class DivisionTest {
 
     @OptIn(ExperimentalStdlibApi::class)
     @Test
-    fun testWeirdInput1(): Unit = withLogic {
+    fun testWeirdInput1() {
         val d1 = "ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000002000000000000000000000000000000000000000000000".hexToByteArray()
         val d2 = "0000000800000000".hexToByteArray()
         val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
@@ -52,7 +51,7 @@ class DivisionTest {
 
     @OptIn(ExperimentalStdlibApi::class)
     @Test
-    fun testWeirdInput2(): Unit = withLogic {
+    fun testWeirdInput2() {
         val d1 = "000000ffffffffffffffffffffffffffffffffff26ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff26ffffffffffffffffffffff".hexToByteArray()
         val d2 = "fffffbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbff".hexToByteArray()
         val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
@@ -73,7 +72,7 @@ class DivisionTest {
 
     @OptIn(ExperimentalStdlibApi::class)
     @Test
-    fun testWeirdInput3(): Unit = withLogic {
+    fun testWeirdInput3() {
         val d1 = "fffffffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd".hexToByteArray()
         val d2 = "fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd".hexToByteArray()
         val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
@@ -94,7 +93,7 @@ class DivisionTest {
 
     @OptIn(ExperimentalStdlibApi::class)
     @Test
-    fun testWeirdInput4(): Unit = withLogic {
+    fun testWeirdInput4() {
         val d1 = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa0a0a0a0a0a0ffffffffffffffffffffffffffffffffffffffffffffffffffff".hexToByteArray()
         val d2 = "ffffffa0a0a0a0a0a0ffffffffffffffffffffffffffffffffffffffffffffff".hexToByteArray()
         val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
@@ -122,12 +121,12 @@ class DivisionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testDivideAndRemainder() = withLogic {
+    fun testDivideAndRemainder() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
                 if(yJbi.equals(JavaBigInteger.ZERO)) return@innerNumberGenerator
 
@@ -148,12 +147,12 @@ class DivisionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testDivide() = withLogic {
+    fun testDivide() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
                 if(yJbi.equals(JavaBigInteger.ZERO)) return@innerNumberGenerator
 
@@ -172,12 +171,12 @@ class DivisionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testDiv() = withLogic {
+    fun testDiv() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
                 if(yJbi.equals(JavaBigInteger.ZERO)) return@innerNumberGenerator
 
@@ -197,12 +196,12 @@ class DivisionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testRemainder() = withLogic {
+    fun testRemainder() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
                 if(yJbi.equals(JavaBigInteger.ZERO)) return@innerNumberGenerator
 
@@ -221,12 +220,12 @@ class DivisionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testRem() = withLogic {
+    fun testRem() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
                 if(yJbi.equals(JavaBigInteger.ZERO)) return@innerNumberGenerator
 
@@ -245,10 +244,10 @@ class DivisionTest {
      * Validates that BigMathException is thrown if the divisor is zero, likewise as Java BigInteger.
      * */
     @Test
-    fun testDivisorIfZero(): Unit = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testDivisorIfZero() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertFailsWith<BigMathException> { xBi2.divideAndRemainder(BigInt.zero) }
         assertFailsWith<ArithmeticException> { xJbi.divideAndRemainder(JavaBigInteger.ZERO) }
@@ -258,10 +257,10 @@ class DivisionTest {
      * Validates that division with divisor set as 1 is validated without a hiccup.
      * */
     @Test
-    fun testDivisorIfOne() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testDivisorIfOne() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         val rBi2 = xBi2.divideAndRemainder(BigInt.one)
         val rJbi = xJbi.divideAndRemainder(JavaBigInteger.ONE)
@@ -277,10 +276,10 @@ class DivisionTest {
      * Validates that division with dividend set as 0 is validated without a hiccup.
      * */
     @Test
-    fun testDividendIfZero() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testDividendIfZero() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         val rBi2 = BigInt.zero.divideAndRemainder(xBi2)
         val rJbi = JavaBigInteger.ZERO.divideAndRemainder(xJbi)
@@ -296,14 +295,14 @@ class DivisionTest {
      * Validates that division with dividend smaller than divisor is validated without a hiccup.
      * */
     @Test
-    fun testDividendIfLesser() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
-        val y = BufMgr.bin(63).apply{ SecureRandom.read(this) }
+    fun testDividendIfLesser() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val y = BufMgr.bin(63).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         val yBi2 = bigIntOf(y)
-        val yJbi = JavaBigInteger(y.toByteArray())
+        val yJbi = JavaBigInteger(y)
 
         val rBi2 = yBi2.divideAndRemainder(xBi2)
         val rJbi = yJbi.divideAndRemainder(xJbi)
@@ -319,13 +318,13 @@ class DivisionTest {
      * Validates that division with dividend equal to the divisor is validated without a hiccup.
      * */
     @Test
-    fun testDividendIfEquals() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testDividendIfEquals() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         val yBi2 = bigIntOf(x)
-        val yJbi = JavaBigInteger(x.toByteArray())
+        val yJbi = JavaBigInteger(x)
 
         val rBi2 = xBi2.divideAndRemainder(yBi2)
         val rJbi = xJbi.divideAndRemainder(yJbi)
@@ -341,13 +340,13 @@ class DivisionTest {
      * Validates that division with dividend negated to the divisor is validated without a hiccup.
      * */
     @Test
-    fun testDividendIfNegated() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testDividendIfNegated() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         val yBi2 = bigIntOf(x).negate()
-        val yJbi = JavaBigInteger(x.toByteArray()).negate()
+        val yJbi = JavaBigInteger(x).negate()
 
         val rBi2 = xBi2.divideAndRemainder(yBi2)
         val rJbi = xJbi.divideAndRemainder(yJbi)

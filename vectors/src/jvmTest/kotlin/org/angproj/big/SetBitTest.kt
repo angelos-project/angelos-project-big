@@ -30,7 +30,7 @@ class SetBitTest {
      * under all normal conditions.
      * */
     @Test
-    fun testSetBit() = withLogic {
+    fun testSetBit() {
         Combinator.numberGenerator(-64..64) { x ->
             val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
@@ -53,10 +53,10 @@ class SetBitTest {
      * Validates that a position beyond the magnitude is properly handled with modulus.
      * */
     @Test
-    fun testPosBeyondMag() = withLogic {
-        val x = BufMgr.bin(13).apply { SecureRandom.read(this) }
+    fun testPosBeyondMag() {
+        val x = BufMgr.bin(13).apply { SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertTrue(xBi2.mag.size * 32 < 200)
         assertContentEquals(
@@ -69,10 +69,10 @@ class SetBitTest {
      * Validates that a BigMathException is thrown if a negative position is given, and mimics Java.
      * */
     @Test
-    fun testNegPos(): Unit = withLogic {
-        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }
+    fun testNegPos() {
+        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertFailsWith<BigMathException> { xBi2.setBit(-100) }
         assertFailsWith<ArithmeticException> { xJbi.setBit(-100) }

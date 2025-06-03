@@ -14,18 +14,17 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import kotlin.test.Test
 import java.math.BigInteger as JavaBigInteger
 
 class EssentialTest {
     @Test
-    fun testCompareTo() = withLogic {
+    fun testCompareTo() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertEquals(
@@ -44,9 +43,9 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testNegate() = withLogic {
+    fun testNegate() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -63,9 +62,9 @@ class EssentialTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testUnaryMinus() = withLogic {
+    fun testUnaryMinus() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -83,9 +82,9 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testAbs() = withLogic {
+    fun testAbs() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -103,12 +102,12 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testMin() = withLogic {
+    fun testMin() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertContentEquals(
@@ -127,12 +126,12 @@ class EssentialTest {
      * under all normal conditions.
      * */
     @Test
-    fun testMax() = withLogic {
+    fun testMax() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertContentEquals(

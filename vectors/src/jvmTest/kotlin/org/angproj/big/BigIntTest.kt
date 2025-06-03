@@ -15,7 +15,7 @@
 package org.angproj.big
 
 import org.angproj.aux.io.toBinary
-import org.angproj.aux.util.NullObject
+import org.angproj.big.BigInt.Companion.getByteSize
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
@@ -35,9 +35,9 @@ class BigIntTest {
      * the same when importing from the said ByteArray and exporting to a new ByteArray.
      * */
     @Test
-    fun testByteArray() = withLogic {
+    fun testByteArray() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -54,9 +54,9 @@ class BigIntTest {
      * This test recognizes that BigInt can predict its export size properly.
      * */
     @Test
-    fun testToSize(): Unit = withLogic {
+    fun testToSize() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertEquals(
@@ -74,7 +74,7 @@ class BigIntTest {
      * the same way when importing and then exporting to a new ByteArray.
      * */
     @Test
-    fun testLong() = withLogic {
+    fun testLong() {
         Combinator.longGenerator(-64..64) { x ->
             val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger.valueOf(x)
@@ -94,9 +94,9 @@ class BigIntTest {
      * the same when exporting toInt.
      * */
     @Test
-    fun testToInt() = withLogic {
+    fun testToInt() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertEquals(
@@ -114,9 +114,9 @@ class BigIntTest {
      * the same when exporting toLong.
      * */
     @Test
-    fun testToLong() = withLogic {
+    fun testToLong() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertEquals(
@@ -134,9 +134,9 @@ class BigIntTest {
      * the sigNum of the same underlying value similarly.
      * */
     @Test
-    fun testSigNum() = withLogic {
+    fun testSigNum() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertEquals(
@@ -154,9 +154,9 @@ class BigIntTest {
      * the bitLength of the same underlying value similarly.
      * */
     @Test
-    fun testBitLength() = withLogic {
+    fun testBitLength() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertEquals(

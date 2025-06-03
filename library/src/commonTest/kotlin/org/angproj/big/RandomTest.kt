@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 class RandomTest {
 
     @Test
-    fun testCreateRandomBigInt() = withLogic {
+    fun testCreateRandomBigInt() {
         (0 until 256).forEach {
             val rand = BigInt.createRandomBigInt(it)
             //println(BinHex.encodeToHex(rand.toByteArray()))
@@ -16,7 +16,7 @@ class RandomTest {
     }
 
     @Test
-    fun testCreateRandomInRange() = withLogic {
+    fun testCreateRandomInRange() {
         (0 until 128).forEach {
             val min = BigInt.createRandomBigInt(it).negate()
             val max = min.subtract(BigInt.minusOne)

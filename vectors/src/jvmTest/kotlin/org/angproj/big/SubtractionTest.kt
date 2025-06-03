@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -29,12 +28,12 @@ class SubtractionTest {
      * under all normal conditions.
      * */
     @Test
-    fun testSubtract() = withLogic {
+    fun testSubtract() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertContentEquals(
@@ -52,12 +51,12 @@ class SubtractionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testMinus() = withLogic {
+    fun testMinus() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertContentEquals(
@@ -75,9 +74,9 @@ class SubtractionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testDec() = withLogic{
+    fun testDec() {
         Combinator.numberGenerator(-64..64) { x ->
-            var xBi2 = bigIntOf(x.toBinary())
+            var xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -94,10 +93,10 @@ class SubtractionTest {
      * Validates that the minuend set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testFirstIfZero() = withLogic {
-        val y = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testFirstIfZero() {
+        val y = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val yBi2 = bigIntOf(y)
-        val yJbi = JavaBigInteger(y.toByteArray())
+        val yJbi = JavaBigInteger(y)
 
         val rBi2 = BigInt.zero.subtract(yBi2)
         val rJbi = JavaBigInteger.ZERO.subtract(yJbi)
@@ -110,10 +109,10 @@ class SubtractionTest {
      * Validates that the subtrahend set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testSecondIfZero() = withLogic {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }
+    fun testSecondIfZero() {
+        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         val rBi2 = xBi2.subtract(BigInt.zero)
         val rJbi = xJbi.subtract(JavaBigInteger.ZERO)

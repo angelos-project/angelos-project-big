@@ -14,16 +14,12 @@
  */
 package org.angproj.big
 
-import kotlin.test.Test
-import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class AdditionTest {
 
     @Test
-    fun testAdd() = withLogic {
+    fun testAdd() {
         val value1 = BigInt.createRandomBigInt(192)
         val value2 = BigInt.createRandomBigInt(193)
 
@@ -36,7 +32,7 @@ class AdditionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testPlus() = withLogic {
+    fun testPlus() {
         val value1 = BigInt.createRandomBigInt(192)
         val value2 = BigInt.createRandomBigInt(193)
 
@@ -49,7 +45,7 @@ class AdditionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testInc() = withLogic {
+    fun testInc() {
         val value = BigInt.createRandomBigInt(192)
 
         val result = value.inc()
@@ -61,7 +57,7 @@ class AdditionTest {
      * Validates that zero + value returns the value, and is the same using Java BigInteger.
      * */
     @Test
-    fun testZeroWithValue() = withLogic {
+    fun testZeroWithValue() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(number, BigInt.zero.add(number))
@@ -72,7 +68,7 @@ class AdditionTest {
      * Validates that value + zero returns the value, and is the same using Java BigInteger.
      * */
     @Test
-    fun testValueWithZero() = withLogic {
+    fun testValueWithZero() {
         val number = BigInt.createRandomBigInt(192)
 
         assertSame(number, number.add(BigInt.zero))

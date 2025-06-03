@@ -14,15 +14,15 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.num.bigIntOf
 import org.angproj.aux.sec.SecureRandom
-import org.angproj.aux.util.floorMod
 import org.mockito.Mockito
 import kotlin.math.absoluteValue
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 import java.math.BigInteger as JavaBigInteger
 
 class TestBitTest {
@@ -59,10 +59,10 @@ class TestBitTest {
      * Validates that a position beyond the magnitude is properly handled with modulus.
      * */
     @Test
-    fun testPosBeyondMag() = withLogic {
-        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }
+    fun testPosBeyondMag() {
+        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertTrue(xBi2.mag.size * 32 < 200)
         assertEquals(

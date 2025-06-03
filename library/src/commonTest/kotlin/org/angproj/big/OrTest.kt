@@ -15,13 +15,13 @@
 package org.angproj.big
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class OrTest {
 
     @Test
-    fun testOr() = withLogic {
+    fun testOr() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 
@@ -52,7 +52,7 @@ class OrTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testOrInfix() = withLogic {
+    fun testOrInfix() {
         val large = BigInt.one.shiftLeft(256).dec()
         val small = BigInt.one.shiftLeft(128).dec()
 

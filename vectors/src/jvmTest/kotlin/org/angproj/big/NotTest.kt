@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import kotlin.test.Test
 import java.math.BigInteger as JavaBigInteger
 
@@ -24,9 +23,9 @@ class NotTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testNot() = withLogic {
+    fun testNot() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -43,9 +42,9 @@ class NotTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testInv() = withLogic {
+    fun testInv() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(

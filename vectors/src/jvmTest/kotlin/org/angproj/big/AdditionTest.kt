@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -29,9 +28,9 @@ class AdditionTest {
      * under all normal conditions. No special cases to test is currently known.
      * */
     @Test
-    fun testAdd() = withLogic {
+    fun testAdd() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
                 val yBi2 = bigIntOf(y)
@@ -52,9 +51,9 @@ class AdditionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testPlus() = withLogic {
+    fun testPlus() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
                 val yBi2 = bigIntOf(y)
@@ -75,9 +74,9 @@ class AdditionTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testInc() = withLogic {
+    fun testInc() {
         Combinator.numberGenerator(-64..64) { x ->
-            var xBi2 = bigIntOf(x.toBinary())
+            var xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
 
             Debugger.assertContentEquals(
@@ -94,7 +93,7 @@ class AdditionTest {
      * Validates that zero + value returns the value, and is the same using Java BigInteger.
      * */
     @Test
-    fun testZeroWithValue() = withLogic {
+    fun testZeroWithValue() {
         val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
@@ -110,10 +109,10 @@ class AdditionTest {
      * Validates that value + zero returns the value, and is the same using Java BigInteger.
      * */
     @Test
-    fun testValueWithZero() = withLogic {
-        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }
+    fun testValueWithZero() {
+        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(x)
-        val xJbi = JavaBigInteger(x.toByteArray())
+        val xJbi = JavaBigInteger(x)
 
         assertSame(xBi2.add(BigInt.zero), xBi2)
         assertContentEquals(

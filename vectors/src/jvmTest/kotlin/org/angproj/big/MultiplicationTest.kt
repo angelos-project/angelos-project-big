@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toBinary
 import org.angproj.aux.io.toByteArray
 import org.angproj.aux.mem.BufMgr
 import org.angproj.aux.sec.SecureRandom
@@ -29,12 +28,12 @@ class MultiplicationTest {
      * under all normal conditions.
      * */
     @Test
-    fun testMultiply() = withLogic {
+    fun testMultiply() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.numberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertContentEquals(
@@ -52,12 +51,12 @@ class MultiplicationTest {
      * Kotlin specific mimic of extension used for Java BigInteger.
      * */
     @Test
-    fun testTimes() = withLogic {
+    fun testTimes() {
         Combinator.numberGenerator(-64..64) { x ->
-            val xBi2 = bigIntOf(x.toBinary())
+            val xBi2 = bigIntOf(x)
             val xJbi = JavaBigInteger(x)
             Combinator.innerNumberGenerator(-64..64) { y ->
-                val yBi2 = bigIntOf(y.toBinary())
+                val yBi2 = bigIntOf(y)
                 val yJbi = JavaBigInteger(y)
 
                 Debugger.assertContentEquals(
@@ -75,7 +74,7 @@ class MultiplicationTest {
      * Validates that first factor set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testFirstIfZero() = withLogic {
+    fun testFirstIfZero() {
         val y = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = BigInt.zero
         val xJbi = JavaBigInteger.ZERO
@@ -94,7 +93,7 @@ class MultiplicationTest {
      * Validates that second factor set to 0 is validated without a hiccup.
      * */
     @Test
-    fun testSecondIfZero() = withLogic {
+    fun testSecondIfZero() {
         val y = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
         val xBi2 = bigIntOf(y)
         val xJbi = JavaBigInteger(y)
