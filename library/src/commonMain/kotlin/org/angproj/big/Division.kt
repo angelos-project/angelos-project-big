@@ -946,8 +946,8 @@ public fun BigInt.Companion.divideMagnitude(
     for (j in 0..<limit - 1) {
         // D3 Calculate qhat
         // estimate qhat
-        var qhat: Int = 0
-        var qrem: Int = 0
+        var qhat: Int
+        var qrem: Int
         var skipCorrection: Boolean = false
         val nh: Int = rem[j + remOffset]
         val nh2: Int = nh + -0x80000000

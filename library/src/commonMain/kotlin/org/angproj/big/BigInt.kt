@@ -58,7 +58,6 @@ public data class BigInt internal constructor(
     public fun toLong(): Long = ExportImportBigInt.longValue(mag, sigNum)
 
     public fun toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArrayNew(mag, sigNum)
-    //public fun toByteArray(): ByteArray = toByteArray(mag, sigNum, firstNonZero)
 
     public fun isNull(): Boolean = nullObject === this
 
