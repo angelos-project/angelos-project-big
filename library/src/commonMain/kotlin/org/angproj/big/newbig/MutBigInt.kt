@@ -1,7 +1,7 @@
 package org.angproj.big.newbig
 
-import org.angproj.big.BigMathException
 import org.angproj.big.BigCompare
+import org.angproj.big.BigMathException
 import org.angproj.big.BigSigned
 import kotlin.math.min
 
@@ -465,6 +465,42 @@ public fun MutBigInt.divideOneWord(divisor: Int, quotient: MutBigInt): Int {
 }
 
 /**
+ * Divides a long value by a word (32-bit integer) and returns the quotient and remainder as a Long.
+ * The result is returned as a Long where the lower 32 bits are the remainder and the upper 32 bits are the quotient.
+ *
+ * @param n the long value to divide.
+ * @param d the divisor as a 32-bit integer.
+ * @return a Long where the lower 32 bits are the remainder and the upper 32 bits are the quotient.
+ */
+private fun MutBigInt.divWord(n: Long, d: Int): Long {
+    val dLong: Long = d.toLong() and LONG_MASK
+    var r: Long
+    var q: Long
+
+    if (dLong == 1L) {
+        q = n.toInt().toLong()
+        r = 0
+        return (r shl 32) or (q and LONG_MASK)
+    }
+
+    // Approximate the quotient and remainder
+    q = (n ushr 1) / (dLong ushr 1)
+    r = n - q * dLong
+
+    // Correct the approximation
+    while (r < 0) {
+        r += dLong
+        q--
+    }
+    while (r >= dLong) {
+        r -= dLong
+        q++
+    }
+    // n - q*dlong == r && 0 <= r <dLong, hence we're done.
+    return (r shl 32) or (q and LONG_MASK)
+}
+
+/**
  * Right shifts this mutable BigInt by the specified number of bits.
  * The shift is done in-place, modifying the current instance.
  *
@@ -775,39 +811,4 @@ private fun MutBigInt.mulsubBorrow(q: IntArray, a: IntArray, x: Int, len: Int, _
  */
 private fun MutBigInt.unsignedLongCompare(one: Long, two: Long): Boolean {
     return (one + Long.MIN_VALUE) > (two + Long.MIN_VALUE)
-}
-
-/**
- * Divides a long value by a word (32-bit integer) and returns the quotient and remainder as a Long.
- * The result is returned as a Long where the lower 32 bits are the remainder and the upper 32 bits are the quotient.
- *
- * @param n the long value to divide.
- * @param d the divisor as a 32-bit integer.
- * @return a Long where the lower 32 bits are the remainder and the upper 32 bits are the quotient.
- */
-private fun MutBigInt.divWord(n: Long, d: Int): Long {
-    val dLong: Long = d.toLong() and LONG_MASK
-    var r: Long
-    var q: Long
-    if (dLong == 1L) {
-        q = n.toInt().toLong()
-        r = 0
-        return (r shl 32) or (q and LONG_MASK)
-    }
-
-    // Approximate the quotient and remainder
-    q = (n ushr 1) / (dLong ushr 1)
-    r = n - q * dLong
-
-    // Correct the approximation
-    while (r < 0) {
-        r += dLong
-        q--
-    }
-    while (r >= dLong) {
-        r -= dLong
-        q++
-    }
-    // n - q*dlong == r && 0 <= r <dLong, hence we're done.
-    return (r shl 32) or (q and LONG_MASK)
 }

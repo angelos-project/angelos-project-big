@@ -4,6 +4,11 @@ import org.angproj.big.BigInt
 import org.angproj.big.BigMathException
 import org.angproj.big.BigSigned
 
+/**
+ * This object provides methods to create `BigInt` instances from unsigned byte arrays.
+ * It is used internally to handle the conversion of byte arrays into `BigInt` objects
+ * without leading zero bytes.
+ * */
 public object Unsigned {
 
     private fun <E> stripLeadingZeroBytes(
@@ -33,9 +38,16 @@ public object Unsigned {
         return result
     }
 
+    /**
+     * Creates a `BigInt` instance from an unsigned byte array.
+     *
+     * @param bytes the byte array representing the magnitude of the `BigInt`.
+     * @return a `BigInt` instance with the specified magnitude and positive sign.
+     * @throws BigMathException if the byte array is empty or has zero length.
+     * */
     public fun internalOf(bytes: ByteArray): BigInt = internalOf(bytes, bytes.size) { this[it] }
 
-    public fun <E> internalOf(data: E, size: Int, readOctet: E.(i: Int) -> Byte) : org.angproj.big.BigInt {
+    public fun <E> internalOf(data: E, size: Int, readOctet: E.(i: Int) -> Byte) : BigInt {
         require(size > 0) { throw BigMathException("Zero length magnitude") }
 
         val firstOctet = data.readOctet(0).toInt()

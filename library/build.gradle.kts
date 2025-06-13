@@ -1,12 +1,11 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import java.net.URL
 
-plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.vanniktech.mavenPublish)
-    alias(libs.plugins.dokka)
-    jacoco
+object This {
+    const val longName = "Big Integer implementation - Angelos Project™"
+    const val longDescription = "Big Integer Implementation for Angelos Project™ with access to real entropy."
+    const val url = "https://github.com/angelos-project/angelos-project-big"
 }
 
 group = "org.angproj.big"
@@ -17,7 +16,7 @@ kotlin {
     jvmToolchain(19)
 
     jvm()
-    /*js {
+    js {
         browser()
         nodejs()
     }
@@ -28,16 +27,9 @@ kotlin {
         nodejs()
     }
     @OptIn(ExperimentalWasmDsl::class)
-    wasmWasi { nodejs() }*/
+    wasmWasi { nodejs() }
     // Android
     androidTarget {
-        /*compilations.all {
-            compileTaskProvider.configure {
-                compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_1_8)
-                }
-            }
-        }*/
         publishLibraryVariants("release")
     }
     androidNativeArm32()
@@ -68,6 +60,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation("org.angproj.sec:angelos-project-secrand:0.9.8")
             implementation("org.angproj.aux:angelos-project-aux:0.9.8")
         }
         commonTest.dependencies {
@@ -78,14 +71,14 @@ kotlin {
 
 android {
     namespace = group.toString()
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 30
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
-    /*compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }*/
+    compileOptions {
+        //sourceCompatibility = JavaVersion.VERSION_11
+        //targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 mavenPublishing {
@@ -96,45 +89,46 @@ mavenPublishing {
     coordinates(group.toString(), version.toString())
 
     pom {
-        name.set("My library")
-        description.set("A library.")
+        name.set(This.longName)
+        description.set(This.longDescription)
         inceptionYear.set("2024")
-        url.set("https://github.com/kotlin/multiplatform-library-template/")
+        url.set(This.url)
+
         licenses {
             license {
-                name.set("XXX")
-                url.set("YYY")
-                distribution.set("ZZZ")
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("repo")
             }
         }
         developers {
             developer {
-                id.set("XXX")
-                name.set("YYY")
-                url.set("ZZZ")
+                name.set("Kristoffer Paulsson")
+                email.set("kristoffer.paulsson@talenten.se")
+                url.set("https://github.com/kristoffer-paulsson")
             }
         }
         scm {
-            url.set("XXX")
-            connection.set("YYY")
-            developerConnection.set("ZZZ")
+            url.set(This.url)
+            connection.set("scm:git:git://github.com/angelos-project/angelos-project-big.git")
+            developerConnection.set("scm:git:ssh://github.com:angelos-project/angelos-project-big.git")
         }
     }
 }
 
-/*tasks.dokkaHtml {
+tasks.dokkaHtml {
     dokkaSourceSets {
         named("commonMain"){
-            moduleName.set("BigInt - Angelos Project™")
-            //includes.from("README.md")
+            moduleName.set(This.longName)
+            includes.from("Module.md")
             sourceLink {
                 localDirectory.set(file("src/commonMain/kotlin"))
-                remoteUrl.set(URL("https://github.com/angelos-project/angelos-project-big/tree/master/src/commonMain/kotlin"))
+                remoteUrl.set(URL(This.url + "/tree/master/src/commonMain/kotlin"))
                 remoteLineSuffix.set("#L")
             }
         }
     }
-}*/
+}
 
 jacoco {
     toolVersion = "0.8.12"
@@ -149,7 +143,6 @@ tasks {
         dependsOn(withType(Test::class))
         val coverageSourceDirs = arrayOf(
             "src/commonMain",
-            "src/jvmMain"
         )
 
         val buildDirectory = layout.buildDirectory
@@ -172,5 +165,3 @@ tasks {
         }
     }
 }
-
-// https://www.tomaszezula.com/unlocking-test-coverage-in-kotlin-multiplatform-with-jacoco-and-github-actions-part-1/

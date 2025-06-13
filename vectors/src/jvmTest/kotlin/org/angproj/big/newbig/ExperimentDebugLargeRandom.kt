@@ -38,7 +38,7 @@ class ExperimentDebugLargeRandom {
 
     private fun generateRandomBigInts(){
         //val long = (128..256).random()
-        //val short = (96..long-30).random()
+        //val short = (96..long).random()
         val long = 128
         val short = 96
         shortPositive = internalOf(Random.nextBytes(short / 8)).abs()
