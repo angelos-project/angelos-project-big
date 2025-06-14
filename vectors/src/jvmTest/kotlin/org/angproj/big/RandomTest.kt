@@ -1,14 +1,18 @@
 package org.angproj.big
 
+import org.angproj.sec.util.ceilDiv
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class RandomTest {
 
+
+
     @Test
     fun testCreateRandomBigInt() {
         (0 until 256).forEach {
+            println(it)
             val rand = BigInt.createRandomBigInt(it)
             //println(BinHex.encodeToHex(rand.toByteArray()))
             assertEquals(rand.bitLength, it)

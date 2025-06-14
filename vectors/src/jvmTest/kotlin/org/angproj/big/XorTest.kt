@@ -14,7 +14,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.SecureRandom
 import org.mockito.Mockito
 import kotlin.test.Test
 import kotlin.test.assertContentEquals

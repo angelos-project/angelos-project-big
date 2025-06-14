@@ -14,13 +14,7 @@
  */
 package org.angproj.big
 
-public fun BigInt.printDebug() {
-    println("Value: $this")
-    //println("Hex value: " + BinHex.encodeToHex(toByteArray()))
-}
 
-public fun BigInt.printDebug(title: String) {
-    println("==== ==== $title ==== ====")
-    printDebug()
-    println()
+public fun BigInt.toHexString() : String {
+    return ""
 }

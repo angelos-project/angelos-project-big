@@ -14,8 +14,8 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.TypeBits
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.util.TypeSize
+import org.angproj.sec.SecureRandom
 import kotlin.math.absoluteValue
 
 
@@ -23,7 +23,7 @@ object Combinator {
 
     fun numberGenerator(range: IntRange, action: (num: ByteArray) -> Unit) {
         range.forEach {
-            var arr = BigInt.createRandomBigInt(it.absoluteValue * TypeBits.byte)
+            var arr = BigInt.createRandomBigInt(it.absoluteValue * TypeSize.byteBits)
             arr = if(it < 0) arr.negate() else arr
             action(arr.toByteArray())
         }
@@ -31,7 +31,7 @@ object Combinator {
 
     fun innerNumberGenerator(range: IntRange, action: (num: ByteArray) -> Unit) {
         range.forEach {
-            var arr = BigInt.createRandomBigInt(it.absoluteValue * TypeBits.byte)
+            var arr = BigInt.createRandomBigInt(it.absoluteValue * TypeSize.byteBits)
             arr = if(it < 0) arr.negate() else arr
             action(arr.toByteArray())
         }

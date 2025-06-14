@@ -14,13 +14,10 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.TypeBits
-import org.angproj.aux.io.TypeSize
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
-import org.angproj.big.newbig.ExportImportBigInt
 import org.angproj.big.newbig.bitLength
+import org.angproj.sec.SecureRandom
+import org.angproj.sec.util.TypeSize
+import org.angproj.sec.util.ceilDiv
 
 /**
  * Creates a random BigInt with the specified bit length.
@@ -30,14 +27,12 @@ import org.angproj.big.newbig.bitLength
  * @throws BigMathException If the random generation fails.
  */
 public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
-    val random = BufMgr.bin(
-        bitLength / TypeBits.int * TypeSize.int + (
-                if(bitLength % TypeBits.int > 0) TypeSize.int else 0
-                ) + TypeSize.int)
-    SecureRandom.read(random)
-    val value = bigIntOf(random.toByteArray()).abs()
-    //val value = fromBinary(random).abs()
+    val random = ByteArray(bitLength.ceilDiv(TypeSize.byteBits)+4)
+
+    SecureRandom.readBytes(random)
+    val value = bigIntOf(random).abs()
     val valueBitLength = value.bitLength()
+
     return when {
         valueBitLength == bitLength -> value
         valueBitLength > bitLength -> value.shiftRight(valueBitLength - bitLength)

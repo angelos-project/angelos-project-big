@@ -17,8 +17,8 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.TypeBits
 import org.angproj.big.newbig.*
+import org.angproj.sec.util.TypeSize
 
 /**
  * Adds two BigInt values together.
@@ -67,7 +67,7 @@ public fun BigInt.Companion.innerAdd(
             x.intGetComp(idx, xSig, xnz).longMask() +
                     y.intGetComp(idx, ySig, ynz).longMask()
         result.longSet(idx, carry)
-        carry = carry ushr TypeBits.int
+        carry = carry ushr TypeSize.intBits
     }
 
     return result

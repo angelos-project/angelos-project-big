@@ -16,10 +16,22 @@
 
 package org.angproj.big
 
-import org.angproj.aux.util.BufferAware
+import org.angproj.sec.util.TypeSize
 import java.math.BigInteger as JavaBigInteger
 
-object Debugger: BufferAware {
+public fun ByteArray.writeIntAt(index: Int, value: Int) {
+    repeat(4) {
+        this[it + index] = (value ushr (it * TypeSize.byteBits)).toByte()
+    }
+}
+
+public fun ByteArray.writeLongAt(index: Int, value: Long) {
+    repeat(8) {
+        this[it + index] = (value ushr (it * TypeSize.byteBits)).toByte()
+    }
+}
+
+object Debugger {
 
     private const val sigMagError = "sigNum and magnitude not equal, either bigger or not zero."
     private const val magSizeError = "Magnitude has leading zero integers."

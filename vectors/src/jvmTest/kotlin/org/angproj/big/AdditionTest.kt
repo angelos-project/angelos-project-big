@@ -14,9 +14,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.util.securelyRandomize
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertSame
@@ -94,7 +92,7 @@ class AdditionTest {
      * */
     @Test
     fun testZeroWithValue() {
-        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(13).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -110,7 +108,7 @@ class AdditionTest {
      * */
     @Test
     fun testValueWithZero() {
-        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(13).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 

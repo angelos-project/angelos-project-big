@@ -17,8 +17,6 @@ kotlin {
 
     sourceSets {
         jvmMain.dependencies {
-            implementation("org.angproj.aux:angelos-project-aux:0.9.8")
-
             api(project(":library"))
             implementation(libs.kotlin.test)
             implementation("com.code-intelligence:jazzer:0.24.0")

@@ -14,9 +14,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.util.securelyRandomize
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertSame
@@ -75,7 +73,7 @@ class MultiplicationTest {
      * */
     @Test
     fun testFirstIfZero() {
-        val y = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val y = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = BigInt.zero
         val xJbi = JavaBigInteger.ZERO
 
@@ -94,7 +92,7 @@ class MultiplicationTest {
      * */
     @Test
     fun testSecondIfZero() {
-        val y = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val y = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(y)
         val xJbi = JavaBigInteger(y)
 

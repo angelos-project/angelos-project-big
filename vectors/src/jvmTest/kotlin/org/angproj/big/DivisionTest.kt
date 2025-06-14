@@ -14,9 +14,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.util.securelyRandomize
 import java.math.BigInteger
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -245,7 +243,7 @@ class DivisionTest {
      * */
     @Test
     fun testDivisorIfZero() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -258,7 +256,7 @@ class DivisionTest {
      * */
     @Test
     fun testDivisorIfOne() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -277,7 +275,7 @@ class DivisionTest {
      * */
     @Test
     fun testDividendIfZero() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -296,8 +294,8 @@ class DivisionTest {
      * */
     @Test
     fun testDividendIfLesser() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
-        val y = BufMgr.bin(63).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
+        val y = ByteArray(63).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -319,7 +317,7 @@ class DivisionTest {
      * */
     @Test
     fun testDividendIfEquals() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -341,7 +339,7 @@ class DivisionTest {
      * */
     @Test
     fun testDividendIfNegated() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 

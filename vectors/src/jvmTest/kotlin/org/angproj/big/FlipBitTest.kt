@@ -14,10 +14,8 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
-import org.angproj.aux.util.floorMod
+import org.angproj.sec.util.floorMod
+import org.angproj.sec.util.securelyRandomize
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
@@ -55,7 +53,7 @@ class FlipBitTest {
      * */
     @Test
     fun testPosBeyondMag() {
-        val x = BufMgr.bin(13).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(13).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -71,7 +69,7 @@ class FlipBitTest {
      * */
     @Test
     fun testNegPos() {
-        val x = BufMgr.bin(23).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(23).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 

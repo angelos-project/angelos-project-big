@@ -14,9 +14,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.util.securelyRandomize
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -31,7 +29,7 @@ class DummyStub
 class EqualTest {
     @Test
     fun testEqualSameRef() {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(43).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -41,7 +39,7 @@ class EqualTest {
 
     @Test
     fun testWrongObjType() {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(43).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
         val idiot = DummyStub()
@@ -52,7 +50,7 @@ class EqualTest {
 
     @Test
     fun testDiffSigNum() {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(43).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -62,7 +60,7 @@ class EqualTest {
 
     @Test
     fun testWrongMagLength() {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(43).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -72,7 +70,7 @@ class EqualTest {
 
     @Test
     fun testCopyDiffObj() {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(43).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -82,7 +80,7 @@ class EqualTest {
 
     @Test
     fun testCopyDiffValue() {
-        val x = BufMgr.bin(43).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(43).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 

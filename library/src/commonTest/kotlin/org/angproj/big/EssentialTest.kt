@@ -14,6 +14,7 @@
  */
 package org.angproj.big
 
+import org.angproj.sec.util.floorMod
 import kotlin.test.Test
 import kotlin.test.assertTrue
 

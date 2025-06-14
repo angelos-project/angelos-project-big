@@ -14,9 +14,7 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.io.toByteArray
-import org.angproj.aux.mem.BufMgr
-import org.angproj.aux.sec.SecureRandom
+import org.angproj.sec.util.securelyRandomize
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
@@ -51,7 +49,7 @@ class PowTest {
      * */
     @Test
     fun testExponentIfNegative() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -64,7 +62,7 @@ class PowTest {
      * */
     @Test
     fun testExponentIfZero() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 
@@ -80,7 +78,7 @@ class PowTest {
      * */
     @Test
     fun testExponentIfOne() {
-        val x = BufMgr.bin(64).apply{ SecureRandom.read(this) }.toByteArray()
+        val x = ByteArray(64).also { it.securelyRandomize() }
         val xBi2 = bigIntOf(x)
         val xJbi = JavaBigInteger(x)
 

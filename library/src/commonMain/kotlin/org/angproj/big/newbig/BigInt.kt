@@ -1,8 +1,8 @@
 package org.angproj.big.newbig
 
-import org.angproj.aux.io.TypeBits
 import org.angproj.big.BigMathException
 import org.angproj.big.BigSigned
+import org.angproj.sec.util.TypeSize
 
 
 public data class BigInt(
@@ -206,7 +206,7 @@ public fun bitCount(mag: IntArray, sigNum: BigSigned): Int {
         var magTrailingZeroCount = 0
         var j: Int = mag.lastIndex
         while (mag[j] == 0) {
-            magTrailingZeroCount += TypeBits.int
+            magTrailingZeroCount += TypeSize.intBits
             j--
         }
         magTrailingZeroCount += mag[j].countTrailingZeroBits()

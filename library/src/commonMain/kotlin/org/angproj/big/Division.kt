@@ -18,7 +18,6 @@
  */
 package org.angproj.big
 
-import org.angproj.aux.util.NullObject
 import org.angproj.big.newbig.*
 
 
@@ -1080,7 +1079,7 @@ public fun BigInt.Companion.divideMagnitude(
 
     return Pair(
         ExportImportBigInt.trustedStripLeadingZeroInts(q),
-        NullObject.intArray
+        intArrayOf()
     )
 }
 

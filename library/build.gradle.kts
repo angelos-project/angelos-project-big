@@ -8,6 +8,14 @@ object This {
     const val url = "https://github.com/angelos-project/angelos-project-big"
 }
 
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.dokka)
+    jacoco
+}
+
 group = "org.angproj.big"
 version = "0.9.3"
 
@@ -60,8 +68,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.angproj.sec:angelos-project-secrand:0.9.8")
-            implementation("org.angproj.aux:angelos-project-aux:0.9.8")
+            implementation("org.angproj.sec:angelos-project-secrand:0.10.3")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -86,12 +93,16 @@ mavenPublishing {
 
     //signAllPublications()
 
-    coordinates(group.toString(), version.toString())
+    /**
+     * The temporary artifact setup, final is coming later at some point.
+     * DO NOT USE FOR SONATYPE NEXUS
+     * */
+    coordinates(group.toString(), rootProject.name, version.toString())
 
     pom {
         name.set(This.longName)
         description.set(This.longDescription)
-        inceptionYear.set("2024")
+        inceptionYear.set("2023")
         url.set(This.url)
 
         licenses {
