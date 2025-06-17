@@ -24,7 +24,7 @@ public class BigInt(
     override val bitLength: Int by lazy { BigMath.bitLength(mag, sigNum) }
     override val firstNonZero: Int by lazy { BigMath.firstNonZero(mag) }
 
-    public fun equals(other: Any?): Boolean {
+    public override fun equals(other: Any?): Boolean {
         if(other == null) return false
         return equalsCompare(other)
     }

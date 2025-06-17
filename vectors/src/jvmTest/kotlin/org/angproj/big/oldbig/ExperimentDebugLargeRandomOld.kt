@@ -12,9 +12,8 @@
  * Contributors:
  *      Kristoffer Paulsson - initial implementation
  */
-package org.angproj.big.newbig
+package org.angproj.big.oldbig
 
-import org.angproj.big.BigMathException
 import java.math.BigInteger
 import kotlin.random.Random
 import kotlin.test.Test
@@ -27,7 +26,7 @@ import kotlin.test.assertFailsWith
  * It seems like the bit size between short and long cannot be less than 32 bits.
  * Some bug with the magnitude array?
  * */
-class ExperimentDebugLargeRandom {
+class ExperimentDebugLargeRandomOld {
 
     private val loops = 1_000_000
 
@@ -37,14 +36,14 @@ class ExperimentDebugLargeRandom {
     private lateinit var longNegative: BigInt
 
     private fun generateRandomBigInts(){
-        val long = (128..256).random()
+        val long = (114..256).random()
         val short = (96..long).random()
         //val long = 128
         //val short = 96
-        shortPositive = internalOf(Random.nextBytes(short / 8)).abs()
-        shortNegative = internalOf(Random.nextBytes(short / 8)).abs().negate()
-        longPositive = internalOf(Random.nextBytes(long / 8)).abs()
-        longNegative = internalOf(Random.nextBytes(long / 8)).abs().negate()
+        shortPositive = bigIntOf(Random.nextBytes(short / 8)).abs()
+        shortNegative = bigIntOf(Random.nextBytes(short / 8)).abs().negate()
+        longPositive = bigIntOf(Random.nextBytes(long / 8)).abs()
+        longNegative = bigIntOf(Random.nextBytes(long / 8)).abs().negate()
     }
 
     init {
@@ -54,22 +53,26 @@ class ExperimentDebugLargeRandom {
     fun generateShortPositiveBigInt(): BigInt { return shortPositive }
     fun generateShortPositiveBigInteger(): BigInteger {
         val bigInt = generateShortPositiveBigInt()
-        return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
+        return BigInteger(bigInt.toByteArray())
+        //return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
     }
     fun generateLongPositiveBigInt(): BigInt { return longPositive }
     fun generateLongPositiveBigInteger(): BigInteger {
         val bigInt = generateLongPositiveBigInt()
-        return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
+        return BigInteger(bigInt.toByteArray())
+        //return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
     }
     fun generateShortNegativeBigInt(): BigInt { return shortNegative }
     fun generateShortNegativeBigInteger(): BigInteger {
         val bigInt = generateShortNegativeBigInt()
-        return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
+        return BigInteger(bigInt.toByteArray())
+        //return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
     }
     fun generateLongNegativeBigInt(): BigInt { return longNegative }
     fun generateLongNegativeBigInteger(): BigInteger {
         val bigInt = generateLongNegativeBigInt()
-        return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
+        return BigInteger(bigInt.toByteArray())
+        //return BigInteger(toByteArray(bigInt.mag, bigInt.sigNum))
     }
     fun generateZeroBigInt(): BigInt { return BigInt.zero }
     fun generateZeroBigInteger(): BigInteger { return BigInteger.ZERO }
@@ -79,7 +82,7 @@ class ExperimentDebugLargeRandom {
         val bigInt = generateShortPositiveBigInt()
         val bigInteger = generateShortPositiveBigInteger()
 
-        assertContentEquals(bigInteger.toByteArray(), toByteArray(bigInt.mag, bigInt.sigNum))
+        assertContentEquals(bigInteger.toByteArray(), bigInt.toByteArray())
     }
 
     /**
@@ -98,11 +101,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(shortPosBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -123,11 +126,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(shortNegBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), // toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -148,11 +151,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(shortPosBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -173,11 +176,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(shortNegBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -198,11 +201,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(longPosBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -223,11 +226,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(longPosBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -248,11 +251,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(longNegBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -273,11 +276,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(longNegBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -298,11 +301,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(shortPosBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }
@@ -323,11 +326,11 @@ class ExperimentDebugLargeRandom {
         val result2 = bigInteger.divideAndRemainder(shortNegBigInteger)
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(), //toByteArray(result1.first.mag, result1.first.sigNum),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(), //toByteArray(result1.second.mag, result1.second.sigNum),
             result2[1].toByteArray(),
         )
     }

@@ -26,7 +26,7 @@ public fun BigInt.remainder(value: BigInt): BigInt = divideAndRemainder(value).s
 public fun BigInt.divideAndRemainder(
     value: BigInt
 ): Pair<BigInt, BigInt> = when {
-    value.sigNum.isZero() -> error("Divisor can not be zero.")
+    value.sigNum.isZero() -> throw BigMathException("Divisor can not be zero.")
     value.compareSpecial(BigInt.one) == BigCompare.EQUAL -> Pair(this, BigInt.zero)
     sigNum.isZero() -> Pair(BigInt.zero, BigInt.zero)
     else -> {
@@ -162,7 +162,7 @@ internal fun MutableBigInt.Companion.divideMagnitude(
         val nh2 = nh + -0x80000000
         val nm = remArr[idx + 1]
         if (nh == sorHigh) {
-            qhat = Int.inv()
+            qhat = 0.inv()
             qrem = nh + nm
             skipCorrection = qrem + -0x80000000 < nh2
         } else {
@@ -210,7 +210,7 @@ internal fun MutableBigInt.Companion.divideMagnitude(
     val nh2 = nh + -0x80000000
     val nm = remArr[quotLen]
     if (nh == sorHigh) {
-        qhat = Int.inv()
+        qhat = 0.inv()
         qrem = nh + nm
         skipCorrection = qrem + -0x80000000 < nh2
     } else {
