@@ -14,8 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.*
-
 /**
  * Returns the bitwise negation of this BigInt.
  *

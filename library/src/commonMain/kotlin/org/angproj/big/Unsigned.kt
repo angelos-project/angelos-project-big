@@ -1,8 +1,4 @@
-package org.angproj.big.newbig
-
-import org.angproj.big.BigInt
-import org.angproj.big.BigMathException
-import org.angproj.big.BigSigned
+package org.angproj.big
 
 /**
  * This object provides methods to create `BigInt` instances from unsigned byte arrays.

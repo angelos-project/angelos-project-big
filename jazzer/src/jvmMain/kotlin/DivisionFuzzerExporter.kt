@@ -1,4 +1,5 @@
 import com.code_intelligence.jazzer.api.CannedFuzzedDataProvider
+import org.angproj.big.FuzzerDivisionKt
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -17,7 +18,7 @@ public object DivisionFuzzerExporterKt {
      * Fill out new states at the end of the list.
      */
     public val base64Bytes: List<String> = listOf(
-        "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABCbm7u7u7u7u7ssu7u7u7u7dXEAfgACAAAADbu7u7u7u7u7uzG71u94"
+        "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABBTU1NTU1NTU1NTU1NTU1NTdXEAfgACAAAADVNTU1NTU1NTU1NTU/94"
     )
 
     @OptIn(ExperimentalEncodingApi::class, ExperimentalStdlibApi::class)
@@ -26,11 +27,11 @@ public object DivisionFuzzerExporterKt {
         DivisionFuzzerExporterKt::class.java.getClassLoader().setDefaultAssertionStatus(true)
         try {
             val fuzzerInitialize: Method =
-                org.angproj.big.newbig.FuzzerDivisionKt::class.java.getMethod("fuzzerInitialize")
+                FuzzerDivisionKt::class.java.getMethod("fuzzerInitialize")
             fuzzerInitialize.invoke(null)
         } catch (_: NoSuchMethodException) {
             try {
-                val fuzzerInitialize: Method = org.angproj.big.newbig.FuzzerDivisionKt::class.java.getMethod(
+                val fuzzerInitialize: Method = FuzzerDivisionKt::class.java.getMethod(
                     "fuzzerInitialize",
                     Array<String>::class.java
                 )

@@ -14,9 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.firstNonzero
-import org.angproj.big.newbig.intGetComp
-
 /**
  * Tests whether the bit at the specified position is set.
  *

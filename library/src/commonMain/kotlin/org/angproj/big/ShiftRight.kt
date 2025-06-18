@@ -21,8 +21,6 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.ExportImportBigInt
-
 /**
  * Shift this BigInt right by the specified number of bits.
  *

@@ -17,23 +17,11 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.ExportImportBigInt
-import org.angproj.big.newbig.LoadAndSaveBigInt
-import org.angproj.big.newbig.Unsigned
-import org.angproj.big.newbig.bitCount
-import org.angproj.big.newbig.bitLength
-import org.angproj.big.newbig.firstNonzero
 
-
-public data class BigInt internal constructor(
-    val mag: IntArray,
-    val sigNum: BigSigned
-): ExcHelper {
-
-    val bitCount: Int by lazy { bitCount(mag, sigNum) }
-    val bitLength: Int by lazy { bitLength(mag, sigNum) }
-    val firstNonZero: Int by lazy { mag.firstNonzero() }
-
+public data class BigInt(
+    public val mag: IntArray,
+    public val sigNum: BigSigned
+) {
     override fun equals(other: Any?): Boolean {
         if(other == null) return false
         return equalsCompare(other)
@@ -53,29 +41,33 @@ public data class BigInt internal constructor(
         return result
     }
 
-    public fun toInt(): Int = ExportImportBigInt.intValue(mag, sigNum)
-
-    public fun toLong(): Long = ExportImportBigInt.longValue(mag, sigNum)
-
-    public fun toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArrayNew(mag, sigNum)
-
     public fun isNull(): Boolean = nullObject === this
 
-    public companion object: ExcHelper {
-        public val minusOne: BigInt by lazy { ExportImportBigInt.valueOf(-1) }
-        public val zero: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
-        public val one: BigInt by lazy { ExportImportBigInt.valueOf(1) }
-        public val two: BigInt by lazy { ExportImportBigInt.valueOf(2) }
+    public companion object {
+        public val zero: BigInt by lazy {bigIntOf(byteArrayOf(0))}
+        public val minusOne: BigInt by lazy {bigIntOf(byteArrayOf(-1))}
+        public val one: BigInt by lazy {bigIntOf(byteArrayOf(1))}
+        public val two: BigInt by lazy {bigIntOf(byteArrayOf(2))}
 
         public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
-
-        internal inline fun <reified R: Any> raw(
-            mag: IntArray, sigNum: BigSigned
-        ): BigInt = BigInt(mag, sigNum)//.also { MathLogicContext.register(it) }
     }
 }
 
-public fun BigInt.getByteSize(): Int = bitLength(mag, sigNum) / 8 + 1
+public fun BigInt.toInt(): Int = ExportImportBigInt.intValue(mag, sigNum)
+
+public fun BigInt.toLong(): Long = ExportImportBigInt.longValue(mag, sigNum)
+
+
+public val BigInt.bitLength: Int
+    get() = LoadAndSaveBigInt.bitLength(mag, sigNum)
+
+
+public val BigInt.bitCount: Int
+    get() = LoadAndSaveBigInt.bitCount(mag, sigNum)
+
+public fun BigInt.toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArrayNew(mag, sigNum)
+
+public fun BigInt.getByteSize(): Int = bitLength / 8 + 1
 
 public fun bigIntOf(value: ByteArray): BigInt = LoadAndSaveBigInt.internalOf(value)
 public fun bigIntOf(value: Long): BigInt = ExportImportBigInt.valueOf(value)

@@ -14,8 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.*
-
 
 import java.math.BigInteger
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -26,8 +24,8 @@ import kotlin.test.assertTrue
 
 class ExperimentDebugTestbed2 {
 
-    val f1: String = "9b9bbbbbbbbbbbbbbb2cbbbbbbbbbbbb"
-    val f2: String = "bbbbbbbbbbbbbbbbbb31bbd6ef"
+    val f1: String = "01ffffffffffff91910000000000ffff"
+    val f2: String = "01ffffffffffff91910000d0c3"
 
     @Test
     fun testValueInsecure() {
@@ -52,11 +50,11 @@ class ExperimentDebugTestbed2 {
         assertTrue { result1.first != BigInt.Companion.zero }
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(),
             result2[1].toByteArray(),
         )
     }
@@ -73,18 +71,15 @@ class ExperimentDebugTestbed2 {
         val result2 = bigIntegerF1.divideAndRemainder(bigIntegerF2)
 
         println("Input: " + f1 + " " + f2)
-        println("BigInt: " + toByteArray(result1.first.mag, result1.first.sigNum).toHexString() + " " + toByteArray(
-            result1.second.mag,
-            result1.second.sigNum
-        ).toHexString())
+        println("BigInt: " + result1.first.toByteArray().toHexString() + " " + result1.second.toByteArray().toHexString())
         println("BigInteger: " + result2[0].toByteArray().toHexString() + " " + result2[1].toByteArray().toHexString())
 
         assertContentEquals(
-            toByteArray(result1.first.mag, result1.first.sigNum),
+            result1.first.toByteArray(),
             result2[0].toByteArray(),
         )
         assertContentEquals(
-            toByteArray(result1.second.mag, result1.second.sigNum),
+            result1.second.toByteArray(),
             result2[1].toByteArray(),
         )
     }

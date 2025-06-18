@@ -1,8 +1,6 @@
-package org.angproj.big.newbig
+package org.angproj.big
 
-import org.angproj.big.BigInt
-import org.angproj.big.BigMathException
-import org.angproj.big.BigSigned
+import org.angproj.sec.util.TypeSize
 
 
 public fun Int.longMask(): Long = this.toLong() and 0xFFFFFFFFL
@@ -35,7 +33,7 @@ public fun IntArray.rev(index: Int): Int = this.lastIndex - index
 
 public fun Int.rev(): Int = 32 - this
 
-public fun BigInt.bitLength(): Int = LoadAndSaveBigInt.bitLength(mag, sigNum)
+//public fun BigInt.bitLength(): Int = LoadAndSaveBigInt.bitLength(mag, sigNum)
 
 
 public object LoadAndSaveBigInt {
@@ -66,6 +64,21 @@ public object LoadAndSaveBigInt {
                 else -> magBitLength
             }
         }
+    }
+
+    public fun bitCount(mag: IntArray, sigNum: BigSigned): Int {
+        var count = mag.sumOf { it.countOneBits() }
+        if (sigNum.isNegative()) {
+            var magTrailingZeroCount = 0
+            var j: Int = mag.lastIndex
+            while (mag[j] == 0) {
+                magTrailingZeroCount += TypeSize.intBits
+                j--
+            }
+            magTrailingZeroCount += mag[j].countTrailingZeroBits()
+            count += magTrailingZeroCount - 1
+        }
+        return count
     }
 
     private fun signInt(sigNum: BigSigned): Int = if (sigNum.isNegative()) -1 else 0

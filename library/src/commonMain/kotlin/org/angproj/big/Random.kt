@@ -14,7 +14,6 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.bitLength
 import org.angproj.sec.SecureRandom
 import org.angproj.sec.util.TypeSize
 import org.angproj.sec.util.ceilDiv
@@ -31,12 +30,12 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
 
     SecureRandom.readBytes(random)
     val value = bigIntOf(random).abs()
-    val valueBitLength = value.bitLength()
+    val valueBitLength = value.bitLength
 
     return when {
         valueBitLength == bitLength -> value
         valueBitLength > bitLength -> value.shiftRight(valueBitLength - bitLength)
-        else -> error { BigMathException("Random truly failed") }
+        else -> error { throw BigMathException("Random truly failed") }
     }
 }
 
@@ -51,6 +50,6 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
 public fun BigInt.Companion.createRandomInRange(min: BigInt, max: BigInt): BigInt {
     require(min < max) { throw BigMathException("Min is larger than max") }
     val diff = max.subtract(min)
-    val diffBitLength = diff.bitLength()
+    val diffBitLength = diff.bitLength
     return createRandomBigInt(diffBitLength).mod(diff).add(min)
 }

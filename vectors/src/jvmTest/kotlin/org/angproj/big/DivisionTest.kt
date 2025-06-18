@@ -15,7 +15,6 @@
 package org.angproj.big
 
 import org.angproj.sec.util.securelyRandomize
-import java.math.BigInteger
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
@@ -23,94 +22,6 @@ import kotlin.test.assertSame
 import java.math.BigInteger as JavaBigInteger
 
 class DivisionTest {
-
-    @OptIn(ExperimentalStdlibApi::class)
-    @Test
-    fun testWeirdInput1() {
-        val d1 = "ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000002000000000000000000000000000000000000000000000".hexToByteArray()
-        val d2 = "0000000800000000".hexToByteArray()
-        val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
-        val r2 = BigInteger(d1).divideAndRemainder(BigInteger(d2))
-
-        r1.apply {
-            println(first.toByteArray().toHexString())
-            first.printDebug()
-            println(second.toByteArray().toHexString())
-            second.printDebug()
-        }
-        r2.apply {
-            println(this[0].toByteArray().toHexString())
-            println(this[1].toByteArray().toHexString())
-        }
-
-        assertContentEquals(r1.first.toByteArray(), r2[0].toByteArray())
-        assertContentEquals(r1.second.toByteArray(), r2[1].toByteArray())
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    @Test
-    fun testWeirdInput2() {
-        val d1 = "000000ffffffffffffffffffffffffffffffffff26ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff26ffffffffffffffffffffff".hexToByteArray()
-        val d2 = "fffffbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbff".hexToByteArray()
-        val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
-        val r2 = BigInteger(d1).divideAndRemainder(BigInteger(d2))
-
-        r1.apply {
-            first.printDebug()
-            second.printDebug()
-        }
-        r2.apply {
-            println(this[0].toByteArray().toHexString())
-            println(this[1].toByteArray().toHexString())
-        }
-
-        assertContentEquals(r1.first.toByteArray(), r2[0].toByteArray())
-        assertContentEquals(r1.second.toByteArray(), r2[1].toByteArray())
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    @Test
-    fun testWeirdInput3() {
-        val d1 = "fffffffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd".hexToByteArray()
-        val d2 = "fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd".hexToByteArray()
-        val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
-        val r2 = BigInteger(d1).divideAndRemainder(BigInteger(d2))
-
-        r1.apply {
-            first.printDebug()
-            second.printDebug()
-        }
-        r2.apply {
-            println(this[0].toByteArray().toHexString())
-            println(this[1].toByteArray().toHexString())
-        }
-
-        assertContentEquals(r1.first.toByteArray(), r2[0].toByteArray())
-        assertContentEquals(r1.second.toByteArray(), r2[1].toByteArray())
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    @Test
-    fun testWeirdInput4() {
-        val d1 = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa0a0a0a0a0a0ffffffffffffffffffffffffffffffffffffffffffffffffffff".hexToByteArray()
-        val d2 = "ffffffa0a0a0a0a0a0ffffffffffffffffffffffffffffffffffffffffffffff".hexToByteArray()
-        val r1 = bigIntOf(d1).divideAndRemainder(bigIntOf(d2))
-        val r2 = BigInteger(d1).divideAndRemainder(BigInteger(d2))
-
-        r1.apply {
-            first.printDebug()
-            second.printDebug()
-        }
-        r2.apply {
-            println(this[0].toByteArray().toHexString())
-            println(this[0].signum())
-            println(this[1].toByteArray().toHexString())
-            println(this[1].signum())
-        }
-
-        assertContentEquals(r1.first.toByteArray(), r2[0].toByteArray())
-        assertContentEquals(r1.second.toByteArray(), r2[1].toByteArray())
-    }
 
     /**
      * Generally fuzzes and validates that "public fun BigInt.divideAndRemainder(

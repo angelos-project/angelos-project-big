@@ -17,10 +17,6 @@
  */
 package org.angproj.big
 
-import org.angproj.big.newbig.ExportImportBigInt
-import org.angproj.big.newbig.longMask
-import org.angproj.big.newbig.rev
-
 /**
  * Multiplies two BigInt values together.
  *
