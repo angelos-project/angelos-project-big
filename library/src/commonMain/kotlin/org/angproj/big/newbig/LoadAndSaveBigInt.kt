@@ -27,6 +27,10 @@ public fun IntArray.intGetComp(
     index: Int, sigNum: BigSigned, firstNonZero: Int
 ): Int = LoadAndSaveBigInt.getIntNew(index, this,  sigNum, firstNonZero)
 
+public fun IntArray.intGetCompUnrev(
+    index: Int, sigNum: BigSigned, firstNonZero: Int
+): Int = LoadAndSaveBigInt.getIntNewUnrev(index, this,  sigNum, firstNonZero)
+
 public fun IntArray.rev(index: Int): Int = this.lastIndex - index
 
 public fun Int.rev(): Int = 32 - this
@@ -109,6 +113,15 @@ public object LoadAndSaveBigInt {
         if (n >= mag.size) return signInt(sigNum)
 
         val magInt: Int = mag[mag.lastIndex - n]
+
+        return if (sigNum.isNonNegative()) magInt else if (n <= firstNonZero) -magInt else magInt.inv()
+    }
+
+    public fun getIntNewUnrev(n: Int, mag: IntArray, sigNum: BigSigned, firstNonZero: Int): Int {
+        if (n < 0) return 0
+        if (n >= mag.size) return signInt(sigNum)
+
+        val magInt: Int = mag[n]
 
         return if (sigNum.isNonNegative()) magInt else if (n <= firstNonZero) -magInt else magInt.inv()
     }

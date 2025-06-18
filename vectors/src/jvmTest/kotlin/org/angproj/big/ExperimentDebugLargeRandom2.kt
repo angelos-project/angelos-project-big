@@ -34,10 +34,10 @@ class ExperimentDebugLargeRandom2 {
     private lateinit var longNegative: BigInt
 
     private fun generateRandomBigInts(){
-        //val long = (128..256).random()
-        //val short = (96..long-30).random()
-        val long = 256
-        val short = 192
+        val long = (21..114).random()
+        val short = (12..long).random()
+        //val long = 256
+        //val short = 192
         shortPositive = BigInt.createRandomBigInt(short).abs()
         shortNegative = BigInt.createRandomBigInt(short).abs().negate()
         longPositive = BigInt.createRandomBigInt(long).abs()
