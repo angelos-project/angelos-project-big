@@ -11,7 +11,6 @@ class RandomTest {
     @Test
     fun testCreateRandomBigInt() {
         (0 until 256).forEach {
-            println(it)
             val rand = BigInt.createRandomBigInt(it)
             //println(BinHex.encodeToHex(rand.toByteArray()))
             assertEquals(rand.bitLength, it)

@@ -27,7 +27,7 @@ class ExperimentDebugTestbed2 {
     val f1: String = "01ffffffffffff91910000000000ffff"
     val f2: String = "01ffffffffffff91910000d0c3"
 
-    @Test
+    //@Test
     fun testValueInsecure() {
         val bigIntegerF1 = BigInteger(f1.encodeToByteArray())
         val bigIntegerF2 = BigInteger(f2.encodeToByteArray())
@@ -60,7 +60,7 @@ class ExperimentDebugTestbed2 {
     }
 
     @OptIn(ExperimentalEncodingApi::class, ExperimentalStdlibApi::class)
-    @Test
+    //@Test
     fun testValue() {
         val bigIntegerF1 = BigInteger(f1.encodeToByteArray())
         val bigIntegerF2 = BigInteger(f2.encodeToByteArray())

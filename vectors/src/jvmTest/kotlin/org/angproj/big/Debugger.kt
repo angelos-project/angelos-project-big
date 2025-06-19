@@ -345,29 +345,29 @@ object Debugger {
         fuzz: Boolean = false
     ) {
         try {
-            println("FIRST")
+            //println("FIRST")
             kotlin.test.assertContentEquals(
                 rK.first.toByteArray(),
                 rJ.first().toByteArray()
             )
-            println("SECOND")
+            //println("SECOND")
             kotlin.test.assertContentEquals(
                 rK.second.toByteArray(),
                 rJ.last().toByteArray()
             )
-            println("THIRD")
+            //println("THIRD")
             kotlin.test.assertTrue(
                 rK.first.sigNum.isZero() and rK.first.mag.isEmpty() ||
                         rK.first.sigNum.isNonZero() and rK.first.mag.isNotEmpty(),
                 sigMagError
             )
-            println("FOURTH")
+            //println("FOURTH")
             kotlin.test.assertTrue(
                 rK.second.sigNum.isZero() and rK.second.mag.isEmpty() ||
                         rK.second.sigNum.isNonZero() and rK.second.mag.isNotEmpty(),
                 sigMagError
             )
-            println("FIFTH")
+            //println("FIFTH")
         } catch (e: AssertionError) {
             printValue("x", x)
             printJava("x", jX)

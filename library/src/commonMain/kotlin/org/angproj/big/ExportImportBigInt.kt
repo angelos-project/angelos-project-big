@@ -1,5 +1,7 @@
 package org.angproj.big
 
+import org.angproj.sec.util.TypeSize
+
 
 public fun IntArray.valueOf(): BigInt = ExportImportBigInt.valueOf(this)
 
@@ -69,7 +71,7 @@ public object ExportImportBigInt {
             else -> BigSigned.POSITIVE
         }
 
-        val newMag = when (val highWord = (newValue ushr 32).toInt()) {
+        val newMag = when (val highWord = (newValue ushr TypeSize.intBits).toInt()) {
             0 -> IntArray(1).also { it[0] = newValue.toInt() }
             else -> IntArray(2).also {
                 it[0] = highWord
@@ -107,7 +109,7 @@ public object ExportImportBigInt {
     public fun longValue(x: IntArray, xSig: BigSigned): Long {
         val firstNonZero = x.firstNonzero()
         var result: Long = 0
-        for (i in 1 downTo 0) result = (result shl 32) + (x.intGetComp(i, xSig, firstNonZero).longMask())
+        for (i in 1 downTo 0) result = (result shl TypeSize.intBits) + (x.intGetComp(i, xSig, firstNonZero).longMask())
         return result
     }
 

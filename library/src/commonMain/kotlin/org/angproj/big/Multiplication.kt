@@ -17,6 +17,8 @@
  */
 package org.angproj.big
 
+import org.angproj.sec.util.TypeSize
+
 /**
  * Multiplies two BigInt values together.
  *
@@ -50,7 +52,7 @@ public fun BigInt.Companion.innerMultiply(x: IntArray, y: IntArray): IntArray {
             val k = j + i + 1
             (y[j].longMask() * x[i].longMask() + z[k].longMask() + carry).also {
                 z[k] = it.toInt()
-                carry = it ushr 32
+                carry = it ushr TypeSize.intBits
             }
         }
         z[i] = carry.toInt()
@@ -68,7 +70,7 @@ public fun BigInt.Companion.innerMultiplication(x: IntArray, y: IntArray): IntAr
     (y.lastIndex downTo 0).forEach { j ->
         (y[j].longMask() * x[xRev].longMask() + carry).also {
             z[j + k] = it.toInt()
-            carry = it ushr 32
+            carry = it ushr TypeSize.intBits
         }
     }
     z[xRev] = carry.toInt()

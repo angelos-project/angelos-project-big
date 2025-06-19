@@ -23,15 +23,15 @@ public data class BigInt(
     public val sigNum: BigSigned
 ) {
     override fun equals(other: Any?): Boolean {
-        if(other == null) return false
+        if (other == null) return false
         return equalsCompare(other)
     }
 
     public fun equalsCompare(x: Any): Boolean {
-        if(x === this) return true
-        if(x !is BigInt) return false
-        if(sigNum != x.sigNum) return false
-        if(mag.size != x.mag.size) return false
+        if (x === this) return true
+        if (x !is BigInt) return false
+        if (sigNum != x.sigNum) return false
+        if (mag.size != x.mag.size) return false
         return mag.indices.indexOfFirst { mag[it] != x.mag[it] } == -1
     }
 
@@ -44,10 +44,10 @@ public data class BigInt(
     public fun isNull(): Boolean = nullObject === this
 
     public companion object {
-        public val zero: BigInt by lazy {bigIntOf(byteArrayOf(0))}
-        public val minusOne: BigInt by lazy {bigIntOf(byteArrayOf(-1))}
-        public val one: BigInt by lazy {bigIntOf(byteArrayOf(1))}
-        public val two: BigInt by lazy {bigIntOf(byteArrayOf(2))}
+        public val zero: BigInt by lazy { bigIntOf(byteArrayOf(0)) }
+        public val minusOne: BigInt by lazy { bigIntOf(byteArrayOf(-1)) }
+        public val one: BigInt by lazy { bigIntOf(byteArrayOf(1)) }
+        public val two: BigInt by lazy { bigIntOf(byteArrayOf(2)) }
 
         public val nullObject: BigInt by lazy { BigInt(intArrayOf(), BigSigned.ZERO) }
     }
@@ -65,7 +65,8 @@ public val BigInt.bitLength: Int
 public val BigInt.bitCount: Int
     get() = LoadAndSaveBigInt.bitCount(mag, sigNum)
 
-public fun BigInt.toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArrayNew(mag, sigNum)
+
+public fun BigInt.toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArray(mag, sigNum)
 
 public fun BigInt.getByteSize(): Int = bitLength / 8 + 1
 

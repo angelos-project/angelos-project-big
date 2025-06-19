@@ -21,6 +21,8 @@
  */
 package org.angproj.big
 
+import org.angproj.sec.util.TypeSize
+
 /**
  * Shift this BigInt right by the specified number of bits.
  *
@@ -54,7 +56,7 @@ public fun BigInt.Companion.innerShiftRight(n: Int, x: BigInt): BigInt {
 
     val newMagLen = magLen - nInts
     val newMagLast = newMagLen - 1
-    val nBitsInv = 32 - nBits
+    val nBitsInv = TypeSize.intBits - nBits
     if (nBits == 0) {
         newMag = x.mag.copyOf(newMagLen)
     } else {

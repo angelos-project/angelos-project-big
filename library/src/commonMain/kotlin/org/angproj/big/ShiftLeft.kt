@@ -20,6 +20,8 @@
  */
 package org.angproj.big
 
+import org.angproj.sec.util.TypeSize
+
 /**
  * Shift this BigInt left by the specified number of bits.
  *
@@ -52,7 +54,7 @@ public fun BigInt.Companion.innerShiftLeft(n: Int, x: BigInt): BigInt {
         newMag = IntArray(magLen + nInts)
         mag.copyInto(newMag, 0, 0, magLen)
     } else {
-        val nBitsRev = 32 - nBits
+        val nBitsRev = TypeSize.intBits - nBits
         val highBits = mag[0] ushr nBitsRev
         val extra = if(highBits != 0) 1 else 0
         newMag = IntArray(magLen + nInts + extra)

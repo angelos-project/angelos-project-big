@@ -92,7 +92,6 @@ internal fun divideOneWord(
         )
     }
     val quotient = IntArray(dividend.size)
-    val quotientNz = quotient.firstNonzero()
 
     val shift: Int = sorInt.countLeadingZeroBits()
     //var rem: Int = dividend.getUnreversedIdx(0)
