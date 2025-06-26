@@ -19,10 +19,8 @@ kotlin {
         jvmMain.dependencies {
             api(project(":library"))
             implementation(libs.kotlin.test)
-            implementation("com.code-intelligence:jazzer:0.24.0")
-            implementation("com.code-intelligence:jazzer-api:0.24.0")
-            //implementation(libs.kotlin.jazzer)
-            //implementation(libs.kotlin.jazzer.api)
+            implementation(libs.kotlin.jazzer)
+            implementation(libs.kotlin.jazzer.api)
         }
     }
 }
