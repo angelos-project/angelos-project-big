@@ -26,7 +26,7 @@ import org.angproj.sec.util.TypeSize
 public fun BigInt.testBit(pos: Int): Boolean = BigInt.innerTestBit(this.mag, this.sigNum, pos)
 
 public fun BigInt.Companion.innerTestBit(x: IntArray, xSig: BigSigned, pos: Int): Boolean {
-    require(pos >= 0) { throw BigMathException("Can not flip an imaginary bit at a negative position.") }
+    ensureThat<BigMathException>(pos >= 0) { "Can not flip an imaginary bit at a negative position." }
 
     val xnz = x.firstNonzero()
     return x.intGetComp(pos.floorDiv(TypeSize.intBits), xSig, xnz) and (1 shl (pos and 31)) != 0

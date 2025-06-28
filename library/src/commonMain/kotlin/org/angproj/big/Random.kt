@@ -26,6 +26,7 @@ import org.angproj.sec.util.ceilDiv
  * @throws BigMathException If the random generation fails.
  */
 public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
+    ensureThat<BigMathException>(bitLength >= 0) { "Bit length must be greater than zero" }
     val random = ByteArray(bitLength.ceilDiv(TypeSize.byteBits)+4)
 
     SecureRandom.readBytes(random)
@@ -35,7 +36,7 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
     return when {
         valueBitLength == bitLength -> value
         valueBitLength > bitLength -> value.shiftRight(valueBitLength - bitLength)
-        else -> error { throw BigMathException("Random truly failed") }
+        else -> ensureError<BigMathException>("Random truly failed")
     }
 }
 
@@ -48,7 +49,7 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
  * @throws BigMathException If min is greater than or equal to max.
  */
 public fun BigInt.Companion.createRandomInRange(min: BigInt, max: BigInt): BigInt {
-    require(min < max) { throw BigMathException("Min is larger than max") }
+    ensureThat<BigMathException>(min < max) { "Min is larger than max" }
     val diff = max.subtract(min)
     val diffBitLength = diff.bitLength
     return createRandomBigInt(diffBitLength).mod(diff).add(min)

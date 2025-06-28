@@ -212,7 +212,7 @@ public object LoadAndSaveBigInt {
     }
 
     public fun <E> internalOf(data: E, size: Int, readOctet: E.(i: Int) -> Byte) : BigInt {
-        require(size > 0) { throw BigMathException("Zero length magnitude") }
+        ensureThat<BigMathException>(size > 0) { "Zero length magnitude" }
 
         val firstOctet = data.readOctet(0).toInt()
         return when(firstOctet < 0) {

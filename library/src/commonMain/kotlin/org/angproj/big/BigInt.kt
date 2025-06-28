@@ -17,7 +17,6 @@
  */
 package org.angproj.big
 
-
 public data class BigInt(
     public val mag: IntArray,
     public val sigNum: BigSigned
@@ -80,4 +79,10 @@ public fun biggerFirst(
 ): BigInt = when (x.mag.size < y.mag.size) {
     true -> block(y, x)
     else -> block(x, y)
+}
+
+internal inline fun<reified T: Throwable> ensureError(message: String = "BigInt error"): Nothing = throw BigMathException(message)
+
+internal inline fun<reified T: Throwable> ensureThat(condition: Boolean, message: () -> String) {
+    if (!condition) ensureError<T>(message())
 }

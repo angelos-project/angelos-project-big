@@ -47,7 +47,7 @@ public object ExportImportBigInt {
     }
 
     public fun internalOf(data: IntArray): BigInt {
-        require(data.isNotEmpty()) { throw BigMathException("Zero length magnitude") }
+        ensureThat<BigMathException>(data.isNotEmpty()) { "Zero length magnitude" }
         return when (data[0] < 0) {
             true -> BigInt(makePositive(data), BigSigned.NEGATIVE)
             else -> {
@@ -86,7 +86,7 @@ public object ExportImportBigInt {
         val newSigNum = when {
             mag.isEmpty() -> BigSigned.ZERO
             else -> {
-                check(!sigNum.isZero()) { throw BigMathException("Signum magnitude mismatch") }
+                ensureThat<BigMathException>(!sigNum.isZero()) { "Signum magnitude mismatch" }
                 sigNum
             }
         }
