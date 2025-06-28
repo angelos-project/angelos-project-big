@@ -26,6 +26,7 @@ class MultiplicationTest {
         val number = BigInt.createRandomBigInt(192)
 
         assertEquals(number + number, number.multiply(BigInt.two))
+        assertEquals((number + number).negate(), number.multiply(BigInt.two.negate()))
     }
 
     /**

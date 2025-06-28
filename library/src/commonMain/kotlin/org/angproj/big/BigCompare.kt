@@ -68,9 +68,4 @@ public enum class BigCompare(public val state: Int) {
      * @return true if this is LESSER, false otherwise.
      * */
     public fun isLesser(): Boolean = this == LESSER
-
-    public fun withSigned(sigNum: BigSigned): BigSigned = when (state == sigNum.state) {
-        true -> BigSigned.POSITIVE
-        else -> BigSigned.NEGATIVE
-    }
 }

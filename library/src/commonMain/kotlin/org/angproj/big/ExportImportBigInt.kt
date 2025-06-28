@@ -114,10 +114,11 @@ public object ExportImportBigInt {
         return result
     }
 
-    public fun asComplemented(big: BigInt): IntArray = asComplemented(big.mag, big.sigNum)
+    //Remove completely if not used
+    //public fun asComplemented(big: BigInt): IntArray = asComplemented(big.mag, big.sigNum)
 
-    public fun asComplemented(mag: IntArray, sigNum: BigSigned): IntArray {
+    /*public fun asComplemented(mag: IntArray, sigNum: BigSigned): IntArray {
         val firstNonZero = LoadAndSaveBigInt.firstNonZeroIntNum(mag)
         return IntArray(mag.size) { mag.intGetComp(it, sigNum, firstNonZero) }
-    }
+    }*/
 }

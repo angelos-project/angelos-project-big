@@ -6,11 +6,12 @@ import org.angproj.sec.util.ensure
 
 public fun Int.longMask(): Long = this.toLong() and 0xFFFFFFFFL
 
-public fun Long.intMask(): Int = (this and 0xFFFFFFFFL).toInt()
+// Marked for removal, as it is not used in the current codebase.
+//public fun Long.intMask(): Int = (this and 0xFFFFFFFFL).toInt()
 
-public fun Long.lowerHalf(): Long = this and 0xFFFFFFFFL
+//public fun Long.lowerHalf(): Long = this and 0xFFFFFFFFL
 
-public fun Long.upUnsigned(): Long = this ushr TypeSize.intBits
+//public fun Long.upUnsigned(): Long = this ushr TypeSize.intBits
 
 public fun IntArray.longSet(index: Int, value: Long) { this[lastIndex - index] = value.toInt() }
 
@@ -32,7 +33,8 @@ public fun IntArray.intGetCompUnrev(
 
 public fun IntArray.rev(index: Int): Int = this.lastIndex - index
 
-public fun Int.rev(): Int = TypeSize.intBits - this
+// Marked for removal, as it is not used in the current codebase.
+//public fun Int.rev(): Int = TypeSize.intBits - this
 
 
 public object LoadAndSaveBigInt {

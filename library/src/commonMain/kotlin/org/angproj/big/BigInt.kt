@@ -34,10 +34,13 @@ public data class BigInt(
         return mag.indices.indexOfFirst { mag[it] != x.mag[it] } == -1
     }
 
-    public override fun hashCode(): Int {
-        var result = mag.contentHashCode()
-        result = 31 * result + sigNum.hashCode()
-        return result
+    override fun hashCode(): Int {
+        // Truth is, different corporate implementations may have different hash algos.
+        var hash = 0
+        for (element in mag) {
+            hash = 31 * hash + (element.toLong() and 0xffffffffL).toInt()
+        }
+        return hash * sigNum.state
     }
 
     public fun isNull(): Boolean = nullObject === this
@@ -80,9 +83,3 @@ public fun biggerFirst(
     true -> block(y, x)
     else -> block(x, y)
 }
-
-/*internal inline fun<reified T: Throwable> ensureError(message: String = "BigInt error"): Nothing = throw BigMathException(message)
-
-internal inline fun<reified T: Throwable> ensureThat(condition: Boolean, message: () -> String) {
-    if (!condition) ensureError<T>(message())
-}*/

@@ -23,12 +23,19 @@ class ShiftRightTest {
 
     @Test
     fun testShiftRight() {
-        val number = BigInt.createRandomBigInt(256)
+        var number = BigInt.createRandomBigInt(256)
 
         // Validate that shiftRight works
         assertEquals(number.shiftRight(1), number shr 1)
         assertEquals(number.shiftRight(0), number)
         assertEquals(number.shiftRight(-1), number.shiftLeft(1))
+
+        number = number.negate()
+
+        assertEquals(number.shiftRight(1), number shr 1)
+        assertEquals(number.shiftRight(0), number)
+        assertEquals(number.shiftRight(-1), number.shiftLeft(1))
+
     }
 
     /**
@@ -36,9 +43,15 @@ class ShiftRightTest {
      * */
     @Test
     fun testShr() {
-        val number = BigInt.createRandomBigInt(256)
+        var number = BigInt.createRandomBigInt(256)
 
         // Validate that shr works
+        assertEquals(number shr 1, number.shiftRight(1))
+        assertEquals(number shr 0, number)
+        assertEquals(number shr -1, number.shiftLeft(1))
+
+        number = number.negate()
+
         assertEquals(number shr 1, number.shiftRight(1))
         assertEquals(number shr 0, number)
         assertEquals(number shr -1, number.shiftLeft(1))

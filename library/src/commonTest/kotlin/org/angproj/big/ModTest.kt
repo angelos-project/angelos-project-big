@@ -17,6 +17,7 @@ package org.angproj.big
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class ModTest {
 
@@ -27,6 +28,19 @@ class ModTest {
 
         // Ensure that the modulus is less than the dividend
         assertTrue{ large > small }
+
+        // Validate that the modulus is correct
+        assertTrue { large.mod(small) < small }
+        assertTrue { large.mod(small) >= BigInt.zero }
+    }
+
+    @Test
+    fun testModNeg() {
+        val large = BigInt.createRandomBigInt(256).negate()
+        val small = BigInt.createRandomBigInt(128)
+
+        // Ensure that the modulus is less than the dividend
+        assertTrue{ large < small }
 
         // Validate that the modulus is correct
         assertTrue { large.mod(small) < small }
