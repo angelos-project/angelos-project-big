@@ -1,6 +1,7 @@
 package org.angproj.big
 
 import org.angproj.sec.util.TypeSize
+import org.angproj.sec.util.ensure
 
 
 public fun Int.longMask(): Long = this.toLong() and 0xFFFFFFFFL
@@ -212,7 +213,7 @@ public object LoadAndSaveBigInt {
     }
 
     public fun <E> internalOf(data: E, size: Int, readOctet: E.(i: Int) -> Byte) : BigInt {
-        ensureThat<BigMathException>(size > 0) { "Zero length magnitude" }
+        ensure(size > 0) { BigMathException("Zero length magnitude") }
 
         val firstOctet = data.readOctet(0).toInt()
         return when(firstOctet < 0) {

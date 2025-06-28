@@ -81,8 +81,8 @@ public fun biggerFirst(
     else -> block(x, y)
 }
 
-internal inline fun<reified T: Throwable> ensureError(message: String = "BigInt error"): Nothing = throw BigMathException(message)
+/*internal inline fun<reified T: Throwable> ensureError(message: String = "BigInt error"): Nothing = throw BigMathException(message)
 
 internal inline fun<reified T: Throwable> ensureThat(condition: Boolean, message: () -> String) {
     if (!condition) ensureError<T>(message())
-}
+}*/

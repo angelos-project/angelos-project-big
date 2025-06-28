@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         jvmTest.dependencies {
             api(project(":library"))
-            implementation("org.angproj.sec:angelos-project-secrand:0.11.0")
+            implementation("org.angproj.sec:angelos-project-secrand:0.11.7")
 
             implementation(libs.kotlin.test)
             implementation(libs.kotlin.mockito)

@@ -21,6 +21,7 @@
 package org.angproj.big
 
 import org.angproj.sec.util.TypeSize
+import org.angproj.sec.util.ensure
 import kotlin.math.max
 
 /**
@@ -33,7 +34,7 @@ public fun BigInt.setBit(pos: Int): BigInt = BigInt.innerSetBit(this.mag, this.s
 
 
 public fun BigInt.Companion.innerSetBit(x: IntArray, xSig: BigSigned, pos: Int): IntArray {
-    ensureThat<BigMathException>(pos >= 0) { "Can not flip an imaginary bit at a negative position." }
+    ensure(pos >= 0) { BigMathException("Can not flip an imaginary bit at a negative position.") }
 
     val bigCnt = pos.floorDiv(TypeSize.intBits)
     val result = IntArray(max(x.intLength(xSig), bigCnt + 2))

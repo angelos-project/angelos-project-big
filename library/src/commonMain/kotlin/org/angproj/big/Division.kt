@@ -18,6 +18,8 @@
  */
 package org.angproj.big
 
+import org.angproj.sec.util.ensure
+
 
 public operator fun BigInt.div(other: BigInt): BigInt = divide(other)
 
@@ -30,7 +32,7 @@ public fun BigInt.remainder(value: BigInt): BigInt = divideAndRemainder(value).s
 public fun BigInt.divideAndRemainder(
     value: BigInt
 ): Pair<BigInt, BigInt> = when {
-    value.sigNum.isZero() -> ensureError<BigMathException>("Divisor can not be zero.")
+    value.sigNum.isZero() -> ensure { BigMathException("Divisor can not be zero.") }
     value.compareSpecial(BigInt.one) == BigCompare.EQUAL -> Pair(this, BigInt.zero)
     sigNum.isZero() -> Pair(BigInt.zero, BigInt.zero)
     else -> {

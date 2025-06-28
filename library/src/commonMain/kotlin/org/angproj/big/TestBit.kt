@@ -15,6 +15,7 @@
 package org.angproj.big
 
 import org.angproj.sec.util.TypeSize
+import org.angproj.sec.util.ensure
 
 /**
  * Tests whether the bit at the specified position is set.
@@ -26,7 +27,7 @@ import org.angproj.sec.util.TypeSize
 public fun BigInt.testBit(pos: Int): Boolean = BigInt.innerTestBit(this.mag, this.sigNum, pos)
 
 public fun BigInt.Companion.innerTestBit(x: IntArray, xSig: BigSigned, pos: Int): Boolean {
-    ensureThat<BigMathException>(pos >= 0) { "Can not flip an imaginary bit at a negative position." }
+    ensure(pos >= 0) { BigMathException("Can not flip an imaginary bit at a negative position.") }
 
     val xnz = x.firstNonzero()
     return x.intGetComp(pos.floorDiv(TypeSize.intBits), xSig, xnz) and (1 shl (pos and 31)) != 0

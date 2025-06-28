@@ -1,5 +1,7 @@
 package org.angproj.big
 
+import org.angproj.sec.util.ensure
+
 /**
  * This object provides methods to create `BigInt` instances from unsigned byte arrays.
  * It is used internally to handle the conversion of byte arrays into `BigInt` objects
@@ -44,7 +46,7 @@ public object Unsigned {
     public fun internalOf(bytes: ByteArray): BigInt = internalOf(bytes, bytes.size) { this[it] }
 
     public fun <E> internalOf(data: E, size: Int, readOctet: E.(i: Int) -> Byte) : BigInt {
-        ensureThat<BigMathException>(size > 0) { "Zero length magnitude" }
+        ensure(size > 0) { BigMathException("Zero length magnitude") }
 
         val firstOctet = data.readOctet(0).toInt()
         val mag = stripLeadingZeroBytes(firstOctet, data, size, readOctet)

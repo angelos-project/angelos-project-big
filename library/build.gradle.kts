@@ -68,7 +68,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.angproj.sec:angelos-project-secrand:0.11.0")
+            implementation("org.angproj.sec:angelos-project-secrand:0.11.7")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

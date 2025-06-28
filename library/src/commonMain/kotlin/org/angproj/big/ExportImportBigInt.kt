@@ -1,6 +1,7 @@
 package org.angproj.big
 
 import org.angproj.sec.util.TypeSize
+import org.angproj.sec.util.ensure
 
 
 public fun IntArray.valueOf(): BigInt = ExportImportBigInt.valueOf(this)
@@ -47,7 +48,7 @@ public object ExportImportBigInt {
     }
 
     public fun internalOf(data: IntArray): BigInt {
-        ensureThat<BigMathException>(data.isNotEmpty()) { "Zero length magnitude" }
+        ensure(data.isNotEmpty()) { BigMathException("Zero length magnitude") }
         return when (data[0] < 0) {
             true -> BigInt(makePositive(data), BigSigned.NEGATIVE)
             else -> {
@@ -86,7 +87,7 @@ public object ExportImportBigInt {
         val newSigNum = when {
             mag.isEmpty() -> BigSigned.ZERO
             else -> {
-                ensureThat<BigMathException>(!sigNum.isZero()) { "Signum magnitude mismatch" }
+                ensure(!sigNum.isZero()) { BigMathException("Signum magnitude mismatch") }
                 sigNum
             }
         }
