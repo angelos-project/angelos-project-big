@@ -17,7 +17,6 @@ package org.angproj.big
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
-import kotlin.test.assertFalse
 
 class ModTest {
 
