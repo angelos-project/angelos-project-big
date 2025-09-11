@@ -596,5 +596,18 @@ class DivisionTest {
      * */
     @Test
     fun testDivideAndRemainder() {
+
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    @Test
+    fun testDivideAndRemainderEmptyEmpty() {
+        val x = "7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a".hexToByteArray()
+        val y = "7a7a7a7a7a7a7a7a7affffffff".hexToByteArray()
+
+        val dividend = bigIntOf(x)
+        val divisor = bigIntOf(y)
+
+        proof(dividend, divisor)
     }
 }

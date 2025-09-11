@@ -18,7 +18,9 @@ public object DivisionFuzzerExporterKt {
      * Fill out new states at the end of the list.
      */
     public val base64Bytes: List<String> = listOf(
-        "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABBTU1NTU1NTU1NTU1NTU1NTdXEAfgACAAAADVNTU1NTU1NTU1NTU/94"
+        "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABChoaGhoaGhoaGhoaGhoaGhdXEAfgACAAAADaGhoaGhoaGhoaGhoQp4",
+        "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABD//////+/v7+/v7+/v7+/vdXEAfgACAAAACO/v7+/v7+/veA==",
+        "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABD/AAAAAAAAAAAA/wAAAAAAdXEAfgACAAAADgD/////////////Jv8seA=="
     )
 
     @OptIn(ExperimentalEncodingApi::class, ExperimentalStdlibApi::class)
