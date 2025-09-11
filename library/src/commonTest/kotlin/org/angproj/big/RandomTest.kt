@@ -44,4 +44,6 @@ class RandomTest {
             assertTrue { max.compareSpecial(inBetween).isGreaterOrEqual() }
         }
     }
+
+
 }

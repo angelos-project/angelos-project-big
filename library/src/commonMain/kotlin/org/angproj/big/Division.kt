@@ -260,6 +260,7 @@ internal fun divideMagnitude(dividend: IntArray, divisor: IntArray): Pair<IntArr
         remArr[quotLen - 1] = 0
         val borrow = mulSub(remArr, sorArr, qhat, sorLen, quotLen - 1)
 
+
         if (borrow + -0x80000000 > nh2) {
             divAdd(sorArr, remArr, quotLen)
             qhat--

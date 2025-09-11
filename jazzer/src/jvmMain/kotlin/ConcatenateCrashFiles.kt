@@ -3,7 +3,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-public object ConcatenateCrashFilesKt {
+public object ConcatenateCrashFiles {
     @JvmStatic
     public fun main(args: Array<String>) {
         try {
@@ -15,10 +15,17 @@ public object ConcatenateCrashFilesKt {
                     .filter { path: Path? -> path!!.getFileName().toString().startsWith("Crash_") }
                     .forEach { path: Path? ->
                         try {
-                            // Read single line from each file
-                            val line = Files.readString(path).trim { it <= ' ' }
-                            // Write line followed by comma and newline
-                            writer.write(line + ",\n")
+                            // Read all lines from the file
+                            val lines: Array<String?> =
+                                Files.readString(path).split("\n".toRegex()).dropLastWhile { it.isEmpty() }
+                                    .toTypedArray()
+                            // Check if file has at least 5 lines
+                            if (lines.size >= 5) {
+                                // Get the 5th line (index 4) and trim commas
+                                val line = lines[4]!!.replace("^,+|,+$".toRegex(), "")
+                                // Write line followed by comma and newline
+                                writer.write(line + ",\n")
+                            }
                         } catch (e: IOException) {
                             System.err.println("Error reading file " + path + ": " + e.message)
                         }
