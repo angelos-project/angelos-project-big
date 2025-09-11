@@ -241,7 +241,7 @@ internal fun divideMagnitude(dividend: IntArray, divisor: IntArray): Pair<IntArr
             qrem = (tmp ushr Int.SIZE_BITS).toInt()
         }
     }
-    if (qhat != 0) {
+    /*if (qhat != 0) { // appendectomy
         if (!skipCorrection) {
             val nl = remArr[quotLen + 1].longMask()
             var rs = qrem.longMask() shl Int.SIZE_BITS or nl
@@ -260,14 +260,13 @@ internal fun divideMagnitude(dividend: IntArray, divisor: IntArray): Pair<IntArr
         remArr[quotLen - 1] = 0
         val borrow = mulSub(remArr, sorArr, qhat, sorLen, quotLen - 1)
 
-
         if (borrow + -0x80000000 > nh2) {
             divAdd(sorArr, remArr, quotLen)
             qhat--
         }
 
         quotArr[quotLen - 1] = qhat
-    }
+    }*/
 
     return Pair(
         quotArr,
