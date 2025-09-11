@@ -220,27 +220,27 @@ internal fun divideMagnitude(dividend: IntArray, divisor: IntArray): Pair<IntArr
         quotArr[idx] = qhat
     }
 
-    var qhat: Int
-    var qrem: Int
-    var skipCorrection = false
-    val nh = remArr[quotLen - 1]
-    val nh2 = nh + -0x80000000
-    val nm = remArr[quotLen]
-    if (nh == sorHigh) {
-        qhat = 0.inv()
-        qrem = nh + nm
-        skipCorrection = qrem + -0x80000000 < nh2
+    //var qhat: Int
+    //var qrem: Int
+    //var skipCorrection = false
+    //val nh = remArr[quotLen - 1]
+    //val nh2 = nh + -0x80000000
+    //val nm = remArr[quotLen]
+    /*if (nh == sorHigh) {
+        //qhat = 0.inv()
+        //qrem = nh + nm
+        //skipCorrection = qrem + -0x80000000 < nh2
     } else {
-        val nChunk = nh.toLong() shl Int.SIZE_BITS or nm.longMask()
-        if (nChunk >= 0) {
-            qhat = (nChunk / sorHighLong).toInt()
-            qrem = (nChunk - qhat * sorHighLong).toInt()
+        //val nChunk = nh.toLong() shl Int.SIZE_BITS or nm.longMask()
+        /*if (nChunk >= 0) {
+            //qhat = (nChunk / sorHighLong).toInt()
+            //qrem = (nChunk - qhat * sorHighLong).toInt()
         } else {
-            val tmp = divWord(nChunk, sorHigh)
-            qhat = (tmp and 0xffffffffL).toInt()
-            qrem = (tmp ushr Int.SIZE_BITS).toInt()
-        }
-    }
+            //val tmp = divWord(nChunk, sorHigh)
+            //qhat = (tmp and 0xffffffffL).toInt()
+            //qrem = (tmp ushr Int.SIZE_BITS).toInt()
+        }*/
+    }*/
     /*if (qhat != 0) { // appendectomy
         if (!skipCorrection) {
             val nl = remArr[quotLen + 1].longMask()
