@@ -3,26 +3,3 @@ import java.lang.reflect.Method;
 
 public class Crash_c3037e916816350ceea0d8005836f8e6ceaa9f58 {
     static final String base64Bytes = String.join("", "rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACdXIAAltCrPMX+AYIVOACAAB4cAAAABD5+fn5+fn5+fn5+fn5+fn5dXEAfgACAAAAD/n5+fn5+fn5+fn5+fkAAHg=");
-
-    public static void main(String[] args) throws Throwable {
-        Crash_c3037e916816350ceea0d8005836f8e6ceaa9f58.class.getClassLoader().setDefaultAssertionStatus(true);
-        try {
-            Method fuzzerInitialize = org.angproj.big.FuzzerDivisionSelfKt.class.getMethod("fuzzerInitialize");
-            fuzzerInitialize.invoke(null);
-        } catch (NoSuchMethodException ignored) {
-            try {
-                Method fuzzerInitialize = org.angproj.big.FuzzerDivisionSelfKt.class.getMethod("fuzzerInitialize", String[].class);
-                fuzzerInitialize.invoke(null, (Object) args);
-            } catch (NoSuchMethodException ignored1) {
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        com.code_intelligence.jazzer.api.CannedFuzzedDataProvider input = new com.code_intelligence.jazzer.api.CannedFuzzedDataProvider(base64Bytes);
-        org.angproj.big.FuzzerDivisionSelfKt.fuzzerTestOneInput(input);
-    }
-}
