@@ -1,6 +1,5 @@
 import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-import java.net.URL
+import java.net.URI
 
 object This {
     const val longName = "Big Integer implementation - Angelos Project™"
@@ -17,7 +16,7 @@ plugins {
 }
 
 group = "org.angproj.big"
-version = "0.9.6"
+version = "0.9.7"
 
 kotlin {
     explicitApi()
@@ -28,14 +27,12 @@ kotlin {
         browser()
         nodejs()
     }
-    // WASM and similar
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
+    // Wasm
+    /*wasmJs {
         browser()
         nodejs()
     }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmWasi { nodejs() }
+    wasmWasi { nodejs() }*/
     // Android
     androidTarget {
         publishLibraryVariants("release")
@@ -68,7 +65,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.angproj.sec:angelos-project-secrand:0.11.7")
+            implementation("org.angproj.sec:angelos-project-secrand:0.12.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -136,7 +133,7 @@ tasks.dokkaHtml {
             includes.from("Module.md")
             sourceLink {
                 localDirectory.set(file("src/commonMain/kotlin"))
-                remoteUrl.set(URL(This.url + "/tree/master/src/commonMain/kotlin"))
+                remoteUrl.set(URI(This.url + "/tree/master/src/commonMain/kotlin").toURL())
                 remoteLineSuffix.set("#L")
             }
         }
