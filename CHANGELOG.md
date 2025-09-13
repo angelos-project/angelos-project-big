@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - UnaryMinus / Negate / Abs according to Java BigInteger
 - Pow according to Java BigInteger
 - CompareTo according to Java BigInteger
-- CreateRandomBigInt / CreateRandomInRange mimic behaviour according to Bouncy Castle BigInteger
+- CreateRandomBigInt / CreateRandomInRange mimic behavior according to Bouncy Castle BigInteger
 
 ### Changed 
 ### Deprecated 

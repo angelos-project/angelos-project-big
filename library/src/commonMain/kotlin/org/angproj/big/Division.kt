@@ -75,19 +75,15 @@ internal fun divideOneWord(
     val dividendNz = dividend.firstNonzero()
     val divisorNz = divisor.firstNonzero()
 
-    //val sorLong = divisor.getIdxL(divisor.lastIndex)
     val sorLong = divisor.intGetComp(
         divisor.lastIndex, divisorSig, divisorNz).longMask()
     val sorInt = sorLong.toInt()
 
     if (dividend.size == 1) {
-        //val dendValue: Long = dividend.getIdxL(dividend.lastIndex)
         val dendValue: Long = dividend.intGetComp(
             dividend.lastIndex, dividendSig, dividendNz).longMask()
-        val q = (dendValue / sorLong) // Int ?
-        val r = (dendValue - q * sorLong) // Int ?
-        //val q: Int = (dividendValue / divisorLong).toInt()
-        //val r: Int = (dividendValue - q * divisorLong).toInt()
+        val q = (dendValue / sorLong)
+        val r = (dendValue - q * sorLong)
         return Pair(
             intArrayOf(q.toInt()),
             intArrayOf(r.toInt()),
@@ -96,23 +92,18 @@ internal fun divideOneWord(
     val quotient = IntArray(dividend.size)
 
     val shift: Int = sorInt.countLeadingZeroBits()
-    //var rem: Int = dividend.getUnreversedIdx(0)
     var rem: Int = dividend.intGetCompUnrev(
         0, dividendSig, dividendNz)
     var remLong = rem.longMask()
     if (remLong < sorLong) {
-        // quotient.setUnreversedIdx(0, 0)
         quotient[0] = 0
     } else {
-        //quotient.setUnreversedIdxL(0, remLong / sorLong)
         quotient[0] = (remLong / sorLong).toInt()
-        //rem = (remLong - quotient.getUnreversedIdx(0) * sorLong).toInt()
         rem = (remLong - quotient[0] * sorLong).toInt()
         remLong = rem.longMask()
     }
 
     (dividend.lastIndex downTo 1).forEach { idx ->
-        //val dendEst = remLong shl Int.SIZE_BITS or dividend.getIdxL(idx - 1)
         val dendEst = remLong shl Int.SIZE_BITS or dividend.intGetComp(
             idx - 1, dividendSig, dividendNz).longMask()
         var q: Int
@@ -124,7 +115,6 @@ internal fun divideOneWord(
             q = (tmp and 0xffffffffL).toInt()
             rem = (tmp ushr Int.SIZE_BITS).toInt()
         }
-        //quotient.setIdx(idx - 1, q)
         quotient.intSet(idx - 1, q)
         remLong = rem.longMask()
     }
@@ -219,54 +209,6 @@ internal fun divideMagnitude(dividend: IntArray, divisor: IntArray): Pair<IntArr
 
         quotArr[idx] = qhat
     }
-
-    //var qhat: Int
-    //var qrem: Int
-    //var skipCorrection = false
-    //val nh = remArr[quotLen - 1]
-    //val nh2 = nh + -0x80000000
-    //val nm = remArr[quotLen]
-    /*if (nh == sorHigh) {
-        //qhat = 0.inv()
-        //qrem = nh + nm
-        //skipCorrection = qrem + -0x80000000 < nh2
-    } else {
-        //val nChunk = nh.toLong() shl Int.SIZE_BITS or nm.longMask()
-        /*if (nChunk >= 0) {
-            //qhat = (nChunk / sorHighLong).toInt()
-            //qrem = (nChunk - qhat * sorHighLong).toInt()
-        } else {
-            //val tmp = divWord(nChunk, sorHigh)
-            //qhat = (tmp and 0xffffffffL).toInt()
-            //qrem = (tmp ushr Int.SIZE_BITS).toInt()
-        }*/
-    }*/
-    /*if (qhat != 0) { // appendectomy
-        if (!skipCorrection) {
-            val nl = remArr[quotLen + 1].longMask()
-            var rs = qrem.longMask() shl Int.SIZE_BITS or nl
-            var estProd = sorLow.longMask() * qhat.longMask()
-            if (estProd + Long.MIN_VALUE > rs + Long.MIN_VALUE) {
-                qhat--
-                qrem = (qrem.longMask() + sorHighLong).toInt()
-                if (qrem.longMask() >= sorHighLong) {
-                    estProd -= sorLow.longMask()
-                    rs = qrem.longMask() shl Int.SIZE_BITS or nl
-                    if (estProd + Long.MIN_VALUE > rs + Long.MIN_VALUE) qhat--
-                }
-            }
-        }
-
-        remArr[quotLen - 1] = 0
-        val borrow = mulSub(remArr, sorArr, qhat, sorLen, quotLen - 1)
-
-        if (borrow + -0x80000000 > nh2) {
-            divAdd(sorArr, remArr, quotLen)
-            qhat--
-        }
-
-        quotArr[quotLen - 1] = qhat
-    }*/
 
     return Pair(
         quotArr,

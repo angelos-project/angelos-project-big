@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ *
+ * This software is available under the terms of the MIT license. Parts are licensed
+ * under different terms if stated. The legal terms are attached to the LICENSE file
+ * and are made available on:
+ *
+ *      https://opensource.org/licenses/MIT
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ * Contributors:
+ *      Kristoffer Paulsson - adaption to Angelos Project
+ */
 package org.angproj.big
 
 import org.angproj.sec.util.TypeSize
@@ -113,12 +127,4 @@ public object ExportImportBigInt {
         for (i in 1 downTo 0) result = (result shl TypeSize.intBits) + (x.intGetComp(i, xSig, firstNonZero).longMask())
         return result
     }
-
-    //Remove completely if not used
-    //public fun asComplemented(big: BigInt): IntArray = asComplemented(big.mag, big.sigNum)
-
-    /*public fun asComplemented(mag: IntArray, sigNum: BigSigned): IntArray {
-        val firstNonZero = LoadAndSaveBigInt.firstNonZeroIntNum(mag)
-        return IntArray(mag.size) { mag.intGetComp(it, sigNum, firstNonZero) }
-    }*/
 }

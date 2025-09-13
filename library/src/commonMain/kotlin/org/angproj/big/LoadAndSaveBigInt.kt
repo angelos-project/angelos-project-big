@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2023-2025 by Kristoffer Paulsson <kristoffer.paulsson@talenten.se>.
+ *
+ * This software is available under the terms of the MIT license. Parts are licensed
+ * under different terms if stated. The legal terms are attached to the LICENSE file
+ * and are made available on:
+ *
+ *      https://opensource.org/licenses/MIT
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ * Contributors:
+ *      Kristoffer Paulsson - adaption to Angelos Project
+ */
 package org.angproj.big
 
 import org.angproj.sec.util.TypeSize
@@ -5,13 +19,6 @@ import org.angproj.sec.util.ensure
 
 
 public fun Int.longMask(): Long = this.toLong() and 0xFFFFFFFFL
-
-// Marked for removal, as it is not used in the current codebase.
-//public fun Long.intMask(): Int = (this and 0xFFFFFFFFL).toInt()
-
-//public fun Long.lowerHalf(): Long = this and 0xFFFFFFFFL
-
-//public fun Long.upUnsigned(): Long = this ushr TypeSize.intBits
 
 public fun IntArray.longSet(index: Int, value: Long) { this[lastIndex - index] = value.toInt() }
 
@@ -32,9 +39,6 @@ public fun IntArray.intGetCompUnrev(
 ): Int = LoadAndSaveBigInt.getIntUnrev(index, this,  sigNum, firstNonZero)
 
 public fun IntArray.rev(index: Int): Int = this.lastIndex - index
-
-// Marked for removal, as it is not used in the current codebase.
-//public fun Int.rev(): Int = TypeSize.intBits - this
 
 
 public object LoadAndSaveBigInt {
