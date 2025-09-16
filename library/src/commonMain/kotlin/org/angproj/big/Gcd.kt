@@ -14,11 +14,16 @@
  */
 package org.angproj.big
 
+/**
+ * Finds the greatest common divisor between [BigInt] and [b].
+ *
+ * @param b The second number to compute [BigInt] against.
+ * @return A new [BigInt] representing the GCD.
+ */
+public fun BigInt.gcd(b: BigInt): BigInt = BigInt.innerGcd(this.abs(), b.abs())
 
-public fun BigInt.gcd(b: BigInt): BigInt = BigInt.innerGcd(this, b)
-
-internal fun BigInt.Companion.innerGcd(a: BigInt, b: BigInt): BigInt {
+internal tailrec fun BigInt.Companion.innerGcd(a: BigInt, b: BigInt): BigInt {
     if (b.compareSpecial(BigInt.zero).isEqual())
         return a
-    return innerGcd(b, a.mod(b));
+    return innerGcd(b, a.mod(b))
 }

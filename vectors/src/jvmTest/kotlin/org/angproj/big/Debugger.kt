@@ -33,6 +33,10 @@ public fun ByteArray.writeLongAt(index: Int, value: Long) {
 
 object Debugger {
 
+    fun printDebug(output: String) {
+        println("Implement again")
+    }
+
     private const val sigMagError = "sigNum and magnitude not equal, either bigger or not zero."
     private const val magSizeError = "Magnitude has leading zero integers."
 
@@ -65,7 +69,7 @@ object Debugger {
         // println("K$name: ${value.toByteArray().toHexString()}")
         println("K: ==== ==== START === ====")
         println(name)
-        value.printDebug()
+        //value.printDebug()
         println("K: ==== ==== OVER ==== ====")
     }
 
@@ -76,7 +80,7 @@ object Debugger {
     fun printKotlinRestult(value: BigInt) {
         //println("Rk: ${value.toByteArray().toHexString()}")
         println("Rk: ==== ==== START === ====")
-        value.printDebug()
+        //value.printDebug()
         println("Rk: ==== ==== OVER ==== ====")
     }
 
