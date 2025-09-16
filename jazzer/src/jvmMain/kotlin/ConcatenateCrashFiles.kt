@@ -3,7 +3,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-public object ConcatenateCrashFiles {
+public object ConcatenateCrashFilesKt {
     @JvmStatic
     public fun main(args: Array<String>) {
         try {
@@ -22,7 +22,7 @@ public object ConcatenateCrashFiles {
                             // Check if file has at least 5 lines
                             if (lines.size >= 5) {
                                 // Get the 5th line (index 4) and trim commas
-                                val line = lines[4]!!.replace("^,+|,+$".toRegex(), "")
+                                val line = lines[4]!!.split(',')[1].split(')')[0].trim()
                                 // Write line followed by comma and newline
                                 writer.write(line + ",\n")
                             }

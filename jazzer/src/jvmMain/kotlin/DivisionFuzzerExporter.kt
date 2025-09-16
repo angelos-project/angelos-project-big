@@ -194,9 +194,9 @@ public object DivisionFuzzerExporterKt {
         println("listOf(")
         base64Bytes.forEach { base64 ->
             val input = CannedFuzzedDataProvider(base64)
-            val f1  = input.consumeBytes(16)
+            val f1  = input.consumeBytes(64)
             print("Pair<ByteArray, ByteArray>(\"" + f1.toHexString() + "\".hexToByteArray(), ")
-            val f2  = input.consumeBytes(16)
+            val f2  = input.consumeBytes(64)
             print("\"" + f2.toHexString() + "\".hexToByteArray()),")
             println()
         }
