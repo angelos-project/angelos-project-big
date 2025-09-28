@@ -9,9 +9,6 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Acknowledgement of algorithm:
- *      Per Bothner
- *
  * Contributors:
  *      Kristoffer Paulsson - Port to Kotlin and adaption to Angelos Project
  */
