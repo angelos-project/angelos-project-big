@@ -1,5 +1,4 @@
 rootProject.name = "angelos-project-big"
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {

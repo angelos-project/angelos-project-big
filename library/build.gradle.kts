@@ -133,7 +133,7 @@ tasks.dokkaHtml {
             includes.from("Module.md")
             sourceLink {
                 localDirectory.set(file("src/commonMain/kotlin"))
-                remoteUrl.set(URI(This.url + "/tree/master/src/commonMain/kotlin").toURL())
+                remoteUrl.set(URI(This.url + "/tree/master/library/src/commonMain/kotlin").toURL())
                 remoteLineSuffix.set("#L")
             }
         }
