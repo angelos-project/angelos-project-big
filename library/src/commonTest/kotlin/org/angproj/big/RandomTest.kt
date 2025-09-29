@@ -7,6 +7,45 @@ import kotlin.test.assertTrue
 class RandomTest {
 
     @Test
+    fun testCreateEntropyBigInt() {
+        (0 until 256).forEach {
+            val rand = BigInt.createEntropyBigInt(it)
+            //println(rand.toByteArray().toHexString(HexFormat.Default))
+            assertEquals(rand.bitLength, it)
+        }
+    }
+
+    @Test
+    fun testCreateEntropyInRange() {
+        (0 until 128).forEach {
+            val min = BigInt.createEntropyBigInt(it).negate()
+            val max = min.subtract(BigInt.minusOne)
+            val inBetween = BigInt.createEntropyInRange(min, max)
+            //println(BinHex.encodeToHex(inBetween.toByteArray()))
+            assertTrue { min.compareSpecial(inBetween).isLesserOrEqual() }
+            assertTrue { max.compareSpecial(inBetween).isGreaterOrEqual() }
+        }
+
+        (0 until 128).forEach {
+            val min = BigInt.createEntropyBigInt(it).negate()
+            val max = min.add(BigInt.one)
+            val inBetween = BigInt.createEntropyInRange(min, max)
+            //println(BinHex.encodeToHex(inBetween.toByteArray()))
+            assertTrue { min.compareSpecial(inBetween).isLesserOrEqual() }
+            assertTrue { max.compareSpecial(inBetween).isGreaterOrEqual() }
+        }
+
+        (0 until 128).forEach {
+            val min = BigInt.createEntropyBigInt(it)
+            val max = min.add(BigInt.one)
+            val inBetween = BigInt.createEntropyInRange(min, max)
+            //println(BinHex.encodeToHex(inBetween.toByteArray()))
+            assertTrue { min.compareSpecial(inBetween).isLesserOrEqual() }
+            assertTrue { max.compareSpecial(inBetween).isGreaterOrEqual() }
+        }
+    }
+
+    @Test
     fun testCreateRandomBigInt() {
         (0 until 256).forEach {
             val rand = BigInt.createRandomBigInt(it)
@@ -44,6 +83,4 @@ class RandomTest {
             assertTrue { max.compareSpecial(inBetween).isGreaterOrEqual() }
         }
     }
-
-
 }

@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "org.angproj.big"
-version = "0.10.1"
+version = "0.10.2"
 
 kotlin {
     explicitApi()
@@ -65,7 +65,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.angproj.sec:angelos-project-secrand:0.12.1")
+            implementation("org.angproj.sec:angelos-project-secrand:0.12.2")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
