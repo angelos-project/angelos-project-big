@@ -43,13 +43,12 @@ public operator fun BigInt.inc(): BigInt = add(BigInt.one)
 public fun BigInt.add(value: BigInt): BigInt = when {
     sigNum.isZero() -> value
     value.sigNum.isZero() -> this
-    else -> biggerFirst(this, value) { big, little ->
-        ExportImportBigInt.internalOf(
-            BigInt.innerAdd(
-                big.mag, big.sigNum,
-                little.mag, little.sigNum
-            )
-        )
+    else -> {
+        val result = when {
+            this.mag.size < value.mag.size -> BigInt.innerAdd(value.mag, value.sigNum, this.mag, this.sigNum)
+            else -> BigInt.innerAdd(this.mag, this.sigNum, value.mag, value.sigNum)
+        }
+        ExportImportBigInt.internalOf(result)
     }
 }
 

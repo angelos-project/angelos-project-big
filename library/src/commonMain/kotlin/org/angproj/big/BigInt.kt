@@ -17,6 +17,17 @@
  */
 package org.angproj.big
 
+/**
+ * Arbitrary precision integer.
+ *
+ * The magnitude is represented as an array of integers in big-endian order, where each integer
+ * represents 32 bits of the number. The most significant integer is at index 0.
+ *
+ * The sign is represented by the [sigNum] property, which can be positive, negative, or zero.
+ *
+ * @property mag The magnitude of the BigInt as an array of integers.
+ * @property sigNum The sign of the BigInt.
+ */
 public data class BigInt(
     public val mag: IntArray,
     public val sigNum: BigSigned
@@ -43,6 +54,11 @@ public data class BigInt(
         return hash * sigNum.state
     }
 
+    /**
+     * Checks if this BigInt is the null object representation.
+     *
+     * @return true if this BigInt represents the null object, false otherwise.
+     */
     public fun isNull(): Boolean = nullObject === this
 
     public companion object {
@@ -55,31 +71,60 @@ public data class BigInt(
     }
 }
 
+/**
+ * Converts the BigInt to an Int representation.
+ *
+ * @return An Int representing the value of the BigInt.
+ */
 public fun BigInt.toInt(): Int = ExportImportBigInt.intValue(mag, sigNum)
 
+/**
+ * Converts the BigInt to a Long representation.
+ *
+ * @return A Long representing the value of the BigInt.
+ */
 public fun BigInt.toLong(): Long = ExportImportBigInt.longValue(mag, sigNum)
-
 
 public val BigInt.bitLength: Int
     get() = LoadAndSaveBigInt.bitLength(mag, sigNum)
 
-
 public val BigInt.bitCount: Int
     get() = LoadAndSaveBigInt.bitCount(mag, sigNum)
 
-
+/**
+ * Converts the BigInt to a ByteArray representation.
+ *
+ * @return A ByteArray representing the value of the BigInt.
+ */
 public fun BigInt.toByteArray(): ByteArray = LoadAndSaveBigInt.toByteArray(mag, sigNum)
 
+/**
+ * Returns the number of bytes required to represent the BigInt.
+ *
+ * @return The number of bytes required to represent the BigInt.
+ */
 public fun BigInt.getByteSize(): Int = bitLength / 8 + 1
 
+/**
+ * Creates a BigInt from a ByteArray.
+ *
+ * @param value The ByteArray to convert to BigInt.
+ * @return A BigInt representing the given ByteArray.
+ */
 public fun bigIntOf(value: ByteArray): BigInt = LoadAndSaveBigInt.internalOf(value)
+
+/**
+ * Creates a BigInt from a Long value.
+ *
+ * @param value The Long value to convert to BigInt.
+ * @return A BigInt representing the given Long value.
+ */
 public fun bigIntOf(value: Long): BigInt = ExportImportBigInt.valueOf(value)
 
+/**
+ * Creates a BigInt from a ByteArray, treating the bytes as an unsigned value.
+ *
+ * @param value The ByteArray to convert to BigInt.
+ * @return A BigInt representing the given ByteArray.
+ */
 public fun unsignedBigIntOf(value: ByteArray): BigInt = Unsigned.internalOf(value)
-
-public fun biggerFirst(
-    x: BigInt, y: BigInt, block: (x: BigInt, y: BigInt) -> BigInt
-): BigInt = when (x.mag.size < y.mag.size) {
-    true -> block(y, x)
-    else -> block(x, y)
-}
