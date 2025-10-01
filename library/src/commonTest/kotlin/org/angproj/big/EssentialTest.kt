@@ -20,7 +20,7 @@ import kotlin.test.assertTrue
 class EssentialTest {
     @Test
     fun testCompareTo() {
-        val large = BigInt.createRandomBigInt(256)
+        val large = BigInt.createEntropyBigInt(256)
         val small = large.dec()
 
         assertTrue { large > small }
@@ -37,7 +37,7 @@ class EssentialTest {
      * */
     @Test
     fun testNegate() {
-        assertTrue { BigInt.createRandomBigInt(256).abs().negate() < BigInt.zero }
+        assertTrue { BigInt.createEntropyBigInt(256).abs().negate() < BigInt.zero }
     }
 
     /**
@@ -45,7 +45,7 @@ class EssentialTest {
      * */
     @Test
     fun testUnaryMinus() {
-        assertTrue { BigInt.createRandomBigInt(256).abs().unaryMinus() < BigInt.zero }
+        assertTrue { BigInt.createEntropyBigInt(256).abs().unaryMinus() < BigInt.zero }
     }
 
     /**
@@ -54,7 +54,7 @@ class EssentialTest {
      * */
     @Test
     fun testAbs() {
-        assertTrue { BigInt.createRandomBigInt(256).negate().abs() > BigInt.zero }
+        assertTrue { BigInt.createEntropyBigInt(256).negate().abs() > BigInt.zero }
     }
 
     /**
@@ -63,7 +63,7 @@ class EssentialTest {
      * */
     @Test
     fun testMin() {
-        val large = BigInt.createRandomBigInt(256)
+        val large = BigInt.createEntropyBigInt(256)
         val small = large.dec()
 
         assertTrue { large.min(small) == small }
@@ -76,7 +76,7 @@ class EssentialTest {
      * */
     @Test
     fun testMax() {
-        val small = BigInt.createRandomBigInt(256)
+        val small = BigInt.createEntropyBigInt(256)
         val large = small.inc()
 
         assertTrue { large.max(small) == large }

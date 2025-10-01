@@ -34,7 +34,7 @@ class NotTest {
         assertEquals(small.not().not(), small)
 
         // Validate that NOT with random values works
-        val random1 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
         val result = random1.not()
         assertContentEquals(result.toByteArray(), random1.not().toByteArray())
     }
@@ -56,15 +56,15 @@ class NotTest {
         assertEquals(small.inv().inv(), small)
 
         // Validate that inv with random values works
-        val random1 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
         val result = random1.inv()
         assertContentEquals(result.toByteArray(), random1.inv().toByteArray())
     }
 
     @Test
     fun testNotWithAndIncludingAndNotUsingRandom() {
-        val random1 = BigInt.createRandomBigInt(256)
-        val random2 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
+        val random2 = BigInt.createEntropyBigInt(256)
 
         // Validate that NOT with AND operation works correctly
         val andResult = random1 and random2

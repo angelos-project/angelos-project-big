@@ -23,7 +23,7 @@ class ShiftLeftTest {
 
     @Test
     fun testShiftLeft() {
-        val number = BigInt.createRandomBigInt(256)
+        val number = BigInt.createEntropyBigInt(256)
 
         // Validate that shiftLeft works
         assertEquals(number.shiftLeft(1), number shl 1)
@@ -36,7 +36,7 @@ class ShiftLeftTest {
      * */
     @Test
     fun testShl() {
-        val number = BigInt.createRandomBigInt(256)
+        val number = BigInt.createEntropyBigInt(256)
 
         // Validate that shl works
         assertEquals(number shl 1, number.shiftLeft(1))
@@ -44,7 +44,7 @@ class ShiftLeftTest {
         assertEquals(number shl -1, number.shiftRight(1))
 
         // Validate that shl works with SecureRandom
-        val secureNumber = BigInt.createRandomBigInt(256)
+        val secureNumber = BigInt.createEntropyBigInt(256)
         assertEquals(secureNumber shl 1, secureNumber.shiftLeft(1))
     }
 
@@ -53,7 +53,7 @@ class ShiftLeftTest {
      * */
     @Test
     fun testPosIfZero() {
-        val number = BigInt.createRandomBigInt(256)
+        val number = BigInt.createEntropyBigInt(256)
 
         assertSame(number, number.shiftLeft(0))
         assertContentEquals(number.toByteArray(), number.shiftLeft(0).toByteArray())

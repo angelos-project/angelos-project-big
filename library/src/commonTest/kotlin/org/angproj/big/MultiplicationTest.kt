@@ -23,7 +23,7 @@ class MultiplicationTest {
 
     @Test
     fun testMultiply() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertEquals(number + number, number.multiply(BigInt.two))
         assertEquals((number + number).negate(), number.multiply(BigInt.two.negate()))
@@ -34,7 +34,7 @@ class MultiplicationTest {
      * */
     @Test
     fun testTimes() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertEquals(number + number, number * BigInt.two)
     }
@@ -44,7 +44,7 @@ class MultiplicationTest {
      * */
     @Test
     fun testFirstIfZero() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(BigInt.zero, BigInt.zero.multiply(number))
         assertContentEquals(BigInt.zero.toByteArray(), BigInt.zero.multiply(number).toByteArray())
@@ -55,7 +55,7 @@ class MultiplicationTest {
      * */
     @Test
     fun testSecondIfZero() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(BigInt.zero, number.multiply(BigInt.zero))
         assertContentEquals(BigInt.zero.toByteArray(), number.multiply(BigInt.zero).toByteArray())

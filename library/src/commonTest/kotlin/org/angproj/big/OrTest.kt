@@ -42,8 +42,8 @@ class OrTest {
         assertEquals(small or small, small)
 
         // Validate that OR with random values works
-        val random1 = BigInt.createRandomBigInt(256)
-        val random2 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
+        val random2 = BigInt.createEntropyBigInt(256)
         val result = random1 or random2
         assertContentEquals(result.toByteArray(), (random1 or random2).toByteArray())
     }

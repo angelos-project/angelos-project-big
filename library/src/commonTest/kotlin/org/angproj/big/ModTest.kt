@@ -22,8 +22,8 @@ class ModTest {
 
     @Test
     fun testMod() {
-        val large = BigInt.createRandomBigInt(256)
-        val small = BigInt.createRandomBigInt(128)
+        val large = BigInt.createEntropyBigInt(256)
+        val small = BigInt.createEntropyBigInt(128)
 
         // Ensure that the modulus is less than the dividend
         assertTrue{ large > small }
@@ -35,8 +35,8 @@ class ModTest {
 
     @Test
     fun testModNeg() {
-        val large = BigInt.createRandomBigInt(256).negate()
-        val small = BigInt.createRandomBigInt(128)
+        val large = BigInt.createEntropyBigInt(256).negate()
+        val small = BigInt.createEntropyBigInt(128)
 
         // Ensure that the modulus is less than the dividend
         assertTrue{ large < small }
@@ -51,7 +51,7 @@ class ModTest {
      * */
     @Test
     fun testModulusNotPositive() {
-        val large = BigInt.createRandomBigInt(256)
+        val large = BigInt.createEntropyBigInt(256)
 
         // Validate that modulus zero throws an exception
         assertFailsWith<BigMathException> {

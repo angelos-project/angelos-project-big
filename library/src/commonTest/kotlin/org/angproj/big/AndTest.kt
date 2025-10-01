@@ -43,8 +43,8 @@ class AndTest {
         assertEquals(small and small, small)
 
         // Validate that AND with random values works
-        val random1 = BigInt.createRandomBigInt(256)
-        val random2 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
+        val random2 = BigInt.createEntropyBigInt(256)
         val result = random1 and random2
         assertContentEquals(result.toByteArray(), (random1 and random2).toByteArray())
     }
@@ -76,8 +76,8 @@ class AndTest {
 
     @Test
     fun testAndWithAndNotIncludingNotUsingRandom() {
-        val random1 = BigInt.createRandomBigInt(256)
-        val random2 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
+        val random2 = BigInt.createEntropyBigInt(256)
 
         // Validate that AND with AND NOT operation works correctly
         val andResult = random1 and random2

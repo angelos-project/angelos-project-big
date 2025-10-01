@@ -50,7 +50,7 @@ class TestBitTest {
      * */
     @Test
     fun testNegPos() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertFailsWith<BigMathException> { number.testBit(-100) }
     }

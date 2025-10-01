@@ -20,8 +20,8 @@ class SubtractionTest {
 
     @Test
     fun testSubtract() {
-        val value1 = BigInt.createRandomBigInt(192)
-        val value2 = BigInt.createRandomBigInt(193)
+        val value1 = BigInt.createEntropyBigInt(192)
+        val value2 = BigInt.createEntropyBigInt(193)
 
         val result = value1.subtract(value2)
         assertEquals(result + value2, value1)
@@ -34,8 +34,8 @@ class SubtractionTest {
      * */
     @Test
     fun testMinus() {
-        val value1 = BigInt.createRandomBigInt(192)
-        val value2 = BigInt.createRandomBigInt(193)
+        val value1 = BigInt.createEntropyBigInt(192)
+        val value2 = BigInt.createEntropyBigInt(193)
 
         val result = value1 - value2
         assertEquals(result + value2, value1)
@@ -48,7 +48,7 @@ class SubtractionTest {
      * */
     @Test
     fun testDec() {
-        val value = BigInt.createRandomBigInt(192)
+        val value = BigInt.createEntropyBigInt(192)
 
         val result = value.dec()
         assertEquals(result + BigInt.one, value)
@@ -60,7 +60,7 @@ class SubtractionTest {
      * */
     @Test
     fun testFirstIfZero() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertContentEquals(number.negate().toByteArray(), BigInt.zero.subtract(number).toByteArray())
     }
@@ -70,7 +70,7 @@ class SubtractionTest {
      * */
     @Test
     fun testSecondIfZero() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(number, number.subtract(BigInt.zero))
         assertContentEquals(number.toByteArray(), number.subtract(BigInt.zero).toByteArray())

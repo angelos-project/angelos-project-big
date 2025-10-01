@@ -34,7 +34,7 @@ class DivisionSelfProof {
     var longBits = 32
     var shortBits = 16
 
-    private val loops = 0
+    private val loops = 1
 
     fun generateRanges() {
         shortBits = SecureRandom.readInt().absoluteValue.floorMod(maxShort)
@@ -61,8 +61,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testLongPosDivShortPos(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(longBits).abs()
-        val bigIntShortPos = BigInt.createRandomBigInt(shortBits)
+        val bigIntLongPos = BigInt.createEntropyBigInt(longBits).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(shortBits)
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortPos
@@ -75,8 +75,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testLongPosDivShortNeg(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(longBits).abs()
-        val bigIntShortNeg = BigInt.createRandomBigInt(shortBits).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(longBits).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(shortBits).abs().negate()
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortNeg
@@ -89,8 +89,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testLongNegDivShortPos(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(longBits).abs().negate()
-        val bigIntShortPos = BigInt.createRandomBigInt(shortBits).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(longBits).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(shortBits).abs()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortPos
@@ -103,8 +103,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testLongNegDivShortNeg(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(longBits).abs().negate()
-        val bigIntShortNeg = BigInt.createRandomBigInt(shortBits).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(longBits).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(shortBits).abs().negate()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortNeg
@@ -117,8 +117,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testShortPosDivLongPos(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(shortBits).abs()
-        val bigIntLongPos = BigInt.createRandomBigInt(longBits).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(shortBits).abs()
+        val bigIntLongPos = BigInt.createEntropyBigInt(longBits).abs()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongPos
@@ -131,8 +131,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testShortNegDivLongPos(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(shortBits).abs().negate()
-        val bigIntLongPos = BigInt.createRandomBigInt(longBits).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(shortBits).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(longBits).abs()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongPos
@@ -145,8 +145,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testShortPosDivLongNeg(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(shortBits).abs()
-        val bigIntLongNeg = BigInt.createRandomBigInt(longBits).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(shortBits).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(longBits).abs().negate()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongNeg
@@ -159,8 +159,8 @@ class DivisionSelfProof {
      * */
     @Test
     fun testShortNegDivLongNeg(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(shortBits).abs().negate()
-        val bigIntLongNeg = BigInt.createRandomBigInt(longBits).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(shortBits).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(longBits).abs().negate()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongNeg
@@ -174,7 +174,7 @@ class DivisionSelfProof {
     @Test
     fun testZeroDivShortPos(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortPos = BigInt.createRandomBigInt(shortBits).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(shortBits).abs()
 
         val dividend = bigIntZero
         val divisor = bigIntShortPos
@@ -188,7 +188,7 @@ class DivisionSelfProof {
     @Test
     fun testZeroDivShortNeg(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortNeg = BigInt.createRandomBigInt(shortBits).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(shortBits).abs().negate()
 
         val dividend = bigIntZero
         val divisor = bigIntShortNeg
@@ -201,7 +201,7 @@ class DivisionSelfProof {
      * */
     @Test
     fun testShortPosDivZero(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(shortBits).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(shortBits).abs()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortPos
@@ -215,7 +215,7 @@ class DivisionSelfProof {
      * */
     @Test
     fun testShortNegDivZero(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(shortBits).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(shortBits).abs().negate()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortNeg

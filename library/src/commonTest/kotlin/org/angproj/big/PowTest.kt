@@ -20,7 +20,7 @@ class PowTest {
 
     @Test
     fun testPow() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertEquals(number * number, number.pow(2))
     }
@@ -30,7 +30,7 @@ class PowTest {
      * */
     @Test
     fun testExponentIfNegative() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertFailsWith<BigMathException> { number.pow(-1) }
     }
@@ -40,7 +40,7 @@ class PowTest {
      * */
     @Test
     fun testExponentIfZero() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(BigInt.one, number.pow(0))
         assertContentEquals(BigInt.one.toByteArray(), number.pow(0).toByteArray())
@@ -51,7 +51,7 @@ class PowTest {
      * */
     @Test
     fun testExponentIfOne() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(number, number.pow(1))
         assertContentEquals(number.toByteArray(), number.pow(1).toByteArray())

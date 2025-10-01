@@ -20,8 +20,8 @@ class AdditionTest {
 
     @Test
     fun testAdd() {
-        val value1 = BigInt.createRandomBigInt(192)
-        val value2 = BigInt.createRandomBigInt(193)
+        val value1 = BigInt.createEntropyBigInt(192)
+        val value2 = BigInt.createEntropyBigInt(193)
 
         val result = value1.add(value2)
         assertEquals(result - value1, value2)
@@ -33,8 +33,8 @@ class AdditionTest {
      * */
     @Test
     fun testPlus() {
-        val value1 = BigInt.createRandomBigInt(192)
-        val value2 = BigInt.createRandomBigInt(193)
+        val value1 = BigInt.createEntropyBigInt(192)
+        val value2 = BigInt.createEntropyBigInt(193)
 
         val result = value1 + value2
         assertEquals(result - value1, value2)
@@ -46,7 +46,7 @@ class AdditionTest {
      * */
     @Test
     fun testInc() {
-        val value = BigInt.createRandomBigInt(192)
+        val value = BigInt.createEntropyBigInt(192)
 
         val result = value.inc()
         assertEquals(result - value, BigInt.one)
@@ -58,7 +58,7 @@ class AdditionTest {
      * */
     @Test
     fun testZeroWithValue() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(number, BigInt.zero.add(number))
         assertContentEquals(number.toByteArray(), BigInt.zero.add(number).toByteArray())
@@ -69,7 +69,7 @@ class AdditionTest {
      * */
     @Test
     fun testValueWithZero() {
-        val number = BigInt.createRandomBigInt(192)
+        val number = BigInt.createEntropyBigInt(192)
 
         assertSame(number, number.add(BigInt.zero))
         assertContentEquals(number.toByteArray(), number.add(BigInt.zero).toByteArray())

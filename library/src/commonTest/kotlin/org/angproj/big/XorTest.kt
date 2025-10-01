@@ -42,8 +42,8 @@ class XorTest {
         assertEquals(small xor small, BigInt.zero)
 
         // Validate that XOR with random values works
-        val random1 = BigInt.createRandomBigInt(256)
-        val random2 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
+        val random2 = BigInt.createEntropyBigInt(256)
         val result = random1 xor random2
         assertContentEquals(result.toByteArray(), (random1 xor random2).toByteArray())
     }
@@ -72,8 +72,8 @@ class XorTest {
         assertEquals(small xor small, BigInt.zero)
 
         // Validate that infix XOR with random values works
-        val random1 = BigInt.createRandomBigInt(256)
-        val random2 = BigInt.createRandomBigInt(256)
+        val random1 = BigInt.createEntropyBigInt(256)
+        val random2 = BigInt.createEntropyBigInt(256)
         val result = random1 xor random2
         assertContentEquals(result.toByteArray(), (random1 xor random2).toByteArray())
     }

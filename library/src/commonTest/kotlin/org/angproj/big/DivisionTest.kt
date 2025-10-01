@@ -85,8 +85,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongPosDivShortPos32x17(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(32).abs()
-        val bigIntShortPos = BigInt.createRandomBigInt(17)
+        val bigIntLongPos = BigInt.createEntropyBigInt(32).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(17)
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortPos
@@ -99,8 +99,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongPosDivShortNeg32x17(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(32).abs()
-        val bigIntShortNeg = BigInt.createRandomBigInt(17).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(32).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(17).abs().negate()
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortNeg
@@ -113,8 +113,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongNegDivShortPos32x17(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(32).abs().negate()
-        val bigIntShortPos = BigInt.createRandomBigInt(17).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(32).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(17).abs()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortPos
@@ -127,8 +127,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongNegDivShortNeg32x17(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(32).abs().negate()
-        val bigIntShortNeg = BigInt.createRandomBigInt(17).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(32).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(17).abs().negate()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortNeg
@@ -141,8 +141,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivLongPos32x17(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(17).abs()
-        val bigIntLongPos = BigInt.createRandomBigInt(32).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(17).abs()
+        val bigIntLongPos = BigInt.createEntropyBigInt(32).abs()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongPos
@@ -155,8 +155,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivLongPos32x17(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(17).abs().negate()
-        val bigIntLongPos = BigInt.createRandomBigInt(32).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(17).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(32).abs()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongPos
@@ -169,8 +169,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivLongNeg32x17(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(17).abs()
-        val bigIntLongNeg = BigInt.createRandomBigInt(32).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(17).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(32).abs().negate()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongNeg
@@ -183,8 +183,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivLongNeg32x17(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(17).abs().negate()
-        val bigIntLongNeg = BigInt.createRandomBigInt(32).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(17).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(32).abs().negate()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongNeg
@@ -198,7 +198,7 @@ class DivisionTest {
     @Test
     fun testZeroDivShortPos32x17(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortPos = BigInt.createRandomBigInt(17).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(17).abs()
 
         val dividend = bigIntZero
         val divisor = bigIntShortPos
@@ -212,7 +212,7 @@ class DivisionTest {
     @Test
     fun testZeroDivShortNeg32x17(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortNeg = BigInt.createRandomBigInt(17).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(17).abs().negate()
 
         val dividend = bigIntZero
         val divisor = bigIntShortNeg
@@ -225,7 +225,7 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivZero32x17(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(17).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(17).abs()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortPos
@@ -239,7 +239,7 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivZero32x17(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(17).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(17).abs().negate()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortNeg
@@ -255,8 +255,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongPosDivShortPos125x31(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(125).abs()
-        val bigIntShortPos = BigInt.createRandomBigInt(31)
+        val bigIntLongPos = BigInt.createEntropyBigInt(125).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(31)
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortPos
@@ -269,8 +269,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongPosDivShortNeg125x31(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(125).abs()
-        val bigIntShortNeg = BigInt.createRandomBigInt(31).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(125).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(31).abs().negate()
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortNeg
@@ -283,8 +283,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongNegDivShortPos125x31(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(125).abs().negate()
-        val bigIntShortPos = BigInt.createRandomBigInt(31).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(125).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(31).abs()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortPos
@@ -297,8 +297,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongNegDivShortNeg125x31(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(125).abs().negate()
-        val bigIntShortNeg = BigInt.createRandomBigInt(31).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(125).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(31).abs().negate()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortNeg
@@ -311,8 +311,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivLongPos125x31(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(31).abs()
-        val bigIntLongPos = BigInt.createRandomBigInt(125).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(31).abs()
+        val bigIntLongPos = BigInt.createEntropyBigInt(125).abs()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongPos
@@ -325,8 +325,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivLongPos125x31(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(31).abs().negate()
-        val bigIntLongPos = BigInt.createRandomBigInt(125).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(31).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(125).abs()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongPos
@@ -339,8 +339,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivLongNeg125x31(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(31).abs()
-        val bigIntLongNeg = BigInt.createRandomBigInt(125).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(31).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(125).abs().negate()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongNeg
@@ -353,8 +353,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivLongNeg125x31(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(31).abs().negate()
-        val bigIntLongNeg = BigInt.createRandomBigInt(125).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(31).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(125).abs().negate()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongNeg
@@ -368,7 +368,7 @@ class DivisionTest {
     @Test
     fun testZeroDivShortPos125x31(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortPos = BigInt.createRandomBigInt(31).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(31).abs()
 
         val dividend = bigIntZero
         val divisor = bigIntShortPos
@@ -382,7 +382,7 @@ class DivisionTest {
     @Test
     fun testZeroDivShortNeg125x31(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortNeg = BigInt.createRandomBigInt(31).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(31).abs().negate()
 
         val dividend = bigIntZero
         val divisor = bigIntShortNeg
@@ -395,7 +395,7 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivZero125x31(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(31).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(31).abs()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortPos
@@ -409,7 +409,7 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivZero125x31(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(31).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(31).abs().negate()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortNeg
@@ -425,8 +425,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongPosDivShortPos255x191(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(255).abs()
-        val bigIntShortPos = BigInt.createRandomBigInt(191)
+        val bigIntLongPos = BigInt.createEntropyBigInt(255).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(191)
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortPos
@@ -439,8 +439,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongPosDivShortNeg255x191(): Unit = repeat(loops) {
-        val bigIntLongPos = BigInt.createRandomBigInt(255).abs()
-        val bigIntShortNeg = BigInt.createRandomBigInt(191).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(255).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(191).abs().negate()
 
         val dividend = bigIntLongPos
         val divisor = bigIntShortNeg
@@ -453,8 +453,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongNegDivShortPos255x191(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(255).abs().negate()
-        val bigIntShortPos = BigInt.createRandomBigInt(191).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(255).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(191).abs()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortPos
@@ -467,8 +467,8 @@ class DivisionTest {
      * */
     @Test
     fun testLongNegDivShortNeg255x191(): Unit = repeat(loops) {
-        val bigIntLongNeg = BigInt.createRandomBigInt(255).abs().negate()
-        val bigIntShortNeg = BigInt.createRandomBigInt(191).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(255).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(191).abs().negate()
 
         val dividend = bigIntLongNeg
         val divisor = bigIntShortNeg
@@ -481,8 +481,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivLongPos255x191(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(191).abs()
-        val bigIntLongPos = BigInt.createRandomBigInt(255).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(191).abs()
+        val bigIntLongPos = BigInt.createEntropyBigInt(255).abs()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongPos
@@ -495,8 +495,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivLongPos255x191(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(191).abs().negate()
-        val bigIntLongPos = BigInt.createRandomBigInt(255).abs()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(191).abs().negate()
+        val bigIntLongPos = BigInt.createEntropyBigInt(255).abs()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongPos
@@ -509,8 +509,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivLongNeg255x191(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(191).abs()
-        val bigIntLongNeg = BigInt.createRandomBigInt(255).abs().negate()
+        val bigIntShortPos = BigInt.createEntropyBigInt(191).abs()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(255).abs().negate()
 
         val dividend = bigIntShortPos
         val divisor = bigIntLongNeg
@@ -523,8 +523,8 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivLongNeg255x191(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(191).abs().negate()
-        val bigIntLongNeg = BigInt.createRandomBigInt(255).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(191).abs().negate()
+        val bigIntLongNeg = BigInt.createEntropyBigInt(255).abs().negate()
 
         val dividend = bigIntShortNeg
         val divisor = bigIntLongNeg
@@ -538,7 +538,7 @@ class DivisionTest {
     @Test
     fun testZeroDivShortPos255x191(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortPos = BigInt.createRandomBigInt(191).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(191).abs()
 
         val dividend = bigIntZero
         val divisor = bigIntShortPos
@@ -552,7 +552,7 @@ class DivisionTest {
     @Test
     fun testZeroDivShortNeg255x191(): Unit = repeat(loops) {
         val bigIntZero = BigInt.zero
-        val bigIntShortNeg = BigInt.createRandomBigInt(191).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(191).abs().negate()
 
         val dividend = bigIntZero
         val divisor = bigIntShortNeg
@@ -565,7 +565,7 @@ class DivisionTest {
      * */
     @Test
     fun testShortPosDivZero255x191(): Unit = repeat(loops) {
-        val bigIntShortPos = BigInt.createRandomBigInt(191).abs()
+        val bigIntShortPos = BigInt.createEntropyBigInt(191).abs()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortPos
@@ -579,7 +579,7 @@ class DivisionTest {
      * */
     @Test
     fun testShortNegDivZero255x191(): Unit = repeat(loops) {
-        val bigIntShortNeg = BigInt.createRandomBigInt(191).abs().negate()
+        val bigIntShortNeg = BigInt.createEntropyBigInt(191).abs().negate()
         val bigIntZero = BigInt.zero
 
         val dividend = bigIntShortNeg
@@ -597,9 +597,9 @@ class DivisionTest {
     @Test
     fun testDivideAndRemainder() {
         repeat(256 - 33) { xLen ->
-            val dividend = BigInt.createRandomBigInt(xLen + 33)
+            val dividend = BigInt.createEntropyBigInt(xLen + 33)
             repeat(256 - 33) { yLen ->
-                val divisor = BigInt.createRandomBigInt(yLen + 33)
+                val divisor = BigInt.createEntropyBigInt(yLen + 33)
 
                 proof(dividend, divisor)
             }
