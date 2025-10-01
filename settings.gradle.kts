@@ -33,5 +33,4 @@ plugins {
 }
 
 include(":library")
-include(":vectors")
 include(":jazzer")
