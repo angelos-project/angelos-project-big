@@ -21,14 +21,50 @@ package org.angproj.big
 import org.angproj.sec.util.ensure
 
 
+/**
+ * Returns the quotient when this [BigInt] is divided by the [other] [BigInt].
+ *
+ * @param other The divisor [BigInt].
+ * @return A new [BigInt] representing the quotient.
+ * @throws BigMathException if the divisor is zero.
+ * */
 public operator fun BigInt.div(other: BigInt): BigInt = divide(other)
 
+/**
+ * Returns the remainder when this [BigInt] is divided by the [other] [BigInt].
+ *
+ * @param other The divisor [BigInt].
+ * @return A new [BigInt] representing the remainder.
+ * @throws BigMathException if the divisor is zero.
+ * */
 public operator fun BigInt.rem(other: BigInt): BigInt = remainder(other)
 
+/**
+ * Returns the quotient when this [BigInt] is divided by the [value] [BigInt].
+ *
+ * @param value The divisor [BigInt].
+ * @return A new [BigInt] representing the quotient.
+ * @throws BigMathException if the divisor is zero.
+ * */
 public fun BigInt.divide(value: BigInt): BigInt = divideAndRemainder(value).first
 
+/**
+ * Returns the remainder when this [BigInt] is divided by the [value] [BigInt].
+ *
+ * @param value The divisor [BigInt].
+ * @return A new [BigInt] representing the remainder.
+ * @throws BigMathException if the divisor is zero.
+ * */
 public fun BigInt.remainder(value: BigInt): BigInt = divideAndRemainder(value).second
 
+/**
+ * Returns a pair of [BigInt] where the first value is the quotient and the second value is the remainder
+ * when this [BigInt] is divided by the [value] [BigInt].
+ *
+ * @param value The divisor [BigInt].
+ * @return A pair of [BigInt] representing the quotient and remainder.
+ * @throws BigMathException if the divisor is zero.
+ * */
 public fun BigInt.divideAndRemainder(
     value: BigInt
 ): Pair<BigInt, BigInt> = when {
