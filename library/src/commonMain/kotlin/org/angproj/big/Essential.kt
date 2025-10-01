@@ -21,14 +21,6 @@ package org.angproj.big
  * Compares this BigInt with another BigInt.
  *
  * @param other the BigInt to compare with.
- * @return a negative integer, zero, or a positive integer as this BigInt is less than, equal to, or greater than the specified BigInt.
- */
-public operator fun BigInt.compareTo(other: BigInt): Int = compareSpecial(other).state
-
-/**
- * Compares this BigInt with another BigInt.
- *
- * @param other the BigInt to compare with.
  * @return a [BigCompare] indicating whether this BigInt is less than, equal to, or greater than the specified BigInt.
  */
 public fun BigInt.compareSpecial(other: BigInt): BigCompare = when {

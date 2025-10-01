@@ -31,7 +31,8 @@ package org.angproj.big
 public data class BigInt(
     public val mag: IntArray,
     public val sigNum: BigSigned
-) {
+): Comparable<BigInt> {
+
     override fun equals(other: Any?): Boolean {
         if (other == null) return false
         return equalsCompare(other)
@@ -44,6 +45,14 @@ public data class BigInt(
         if (mag.size != x.mag.size) return false
         return mag.indices.indexOfFirst { mag[it] != x.mag[it] } == -1
     }
+
+    /**
+     * Compares this BigInt with another BigInt.
+     *
+     * @param other the BigInt to compare with.
+     * @return a negative integer, zero, or a positive integer as this BigInt is less than, equal to, or greater than the specified BigInt.
+     */
+    override fun compareTo(other: BigInt): Int = compareSpecial(other).state
 
     override fun hashCode(): Int {
         // Truth is, different corporate implementations may have different hash algos.
