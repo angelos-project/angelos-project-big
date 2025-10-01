@@ -10,8 +10,8 @@ android-compileSdk = "34"
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
-kotlin-jazzer = { module = "com.code-intelligence.jazzer:jazzer", version.ref = "jazzer" }
-kotlin-jazzer-api = { module = "com.code-intelligence.jazzer:jazzer-api", version.ref = "jazzer" }
+kotlin-jazzer = { module = "com.code-intelligence:jazzer", version.ref = "jazzer" }
+kotlin-jazzer-api = { module = "com.code-intelligence:jazzer-api", version.ref = "jazzer" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
