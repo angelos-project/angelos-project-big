@@ -52,7 +52,7 @@ internal fun BigInt.Companion.innerCreateInRange(min: BigInt, max: BigInt, rando
  */
 public fun BigInt.Companion.createEntropyBigInt(bitLength: Int): BigInt {
     return innerCreateBigint(bitLength) {
-        JitterEntropy.exportBytes(it, 0, it.size) { index, value -> it[index] = value }
+        JitterEntropy.readBytes(it, 0, it.size) { index, value -> it[index] = value }
     }
 }
 
@@ -66,7 +66,7 @@ public fun BigInt.Companion.createEntropyBigInt(bitLength: Int): BigInt {
  */
 public fun BigInt.Companion.createEntropyInRange(min: BigInt, max: BigInt): BigInt {
     return innerCreateInRange(min, max) {
-        JitterEntropy.exportBytes(it, 0, it.size) { index, value -> it[index] = value }
+        JitterEntropy.readBytes(it, 0, it.size) { index, value -> it[index] = value }
     }
 }
 
@@ -78,9 +78,8 @@ public fun BigInt.Companion.createEntropyInRange(min: BigInt, max: BigInt): BigI
  * @throws BigMathException If the random generation fails.
  */
 public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
-    SecureFeed.securityHealthCheck()
     return innerCreateBigint(bitLength) {
-        SecureFeed.exportBytes(it, 0, it.size) { index, value -> it[index] = value }
+        SecureFeed.readBytes(it, 0, it.size) { index, value -> it[index] = value }
     }
 }
 
@@ -93,8 +92,7 @@ public fun BigInt.Companion.createRandomBigInt(bitLength: Int): BigInt {
  * @throws BigMathException If min is greater than or equal to max.
  */
 public fun BigInt.Companion.createRandomInRange(min: BigInt, max: BigInt): BigInt {
-    SecureFeed.securityHealthCheck()
     return innerCreateInRange(min, max) {
-        SecureFeed.exportBytes(it, 0, it.size) { index, value -> it[index] = value }
+        SecureFeed.readBytes(it, 0, it.size) { index, value -> it[index] = value }
     }
 }
