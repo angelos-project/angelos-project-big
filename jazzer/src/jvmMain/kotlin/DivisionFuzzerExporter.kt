@@ -35,7 +35,7 @@ public object DivisionFuzzerExporterKt {
                     "fuzzerInitialize",
                     Array<String>::class.java
                 )
-                fuzzerInitialize.invoke(null, args as Object?)
+                fuzzerInitialize.invoke(null, args as Any?)
             } catch (_: NoSuchMethodException) {
             } catch (e: IllegalAccessException) {
                 e.printStackTrace()
