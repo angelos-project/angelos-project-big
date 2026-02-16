@@ -15,18 +15,45 @@
 package org.angproj.big
 
 import org.angproj.sec.SecureFeed
+import org.angproj.sec.SecureRandomException
 import org.angproj.sec.util.TypeSize
 import org.angproj.sec.util.ceilDiv
 import org.angproj.sec.util.ensure
 import org.angproj.sec.rand.JitterEntropy
-
+import org.angproj.sec.stat.bitStatisticOf
+import org.angproj.sec.stat.cryptoHealthCheck
+import org.angproj.sec.stat.securityHealthCheck
+import kotlin.math.max
 
 internal fun BigInt.Companion.innerCreateBigint(bitLength: Int, random: (ByteArray) -> Unit): BigInt {
-    ensure(bitLength >= 0) { BigMathException("Bit length must be greater than zero") }
-    val randomBytes = ByteArray(bitLength.ceilDiv(TypeSize.byteBits)+4)
+    ensure(bitLength in 0..4096) { BigMathException("Bit length must be between 0 and 4096 bits (1Kb)") }
+    val randomBytes = ByteArray(1024)
+    val sampleBytes = ByteArray(bitLength.ceilDiv(TypeSize.byteBits)+4)
+    val testBytes = ByteArray(max(sampleBytes.size, 32))
+    var success = false
 
-    random(randomBytes)
-    val value = bigIntOf(randomBytes).abs()
+    do {
+        random(randomBytes)
+        if(!bitStatisticOf(randomBytes).securityHealthCheck()) {
+            random(randomBytes) // Attempt a second time, else the security is compromised.
+            ensure<SecureRandomException>(bitStatisticOf(randomBytes).securityHealthCheck()) {
+                SecureRandomException("Random generation failed security health checks")
+            }
+        }
+        var pos = 0
+        do {
+            if(randomBytes.size - pos >= testBytes.size) {
+                randomBytes.copyInto(testBytes, 0, 0, testBytes.size)
+                if(bitStatisticOf(testBytes).cryptoHealthCheck()) {
+                    randomBytes.copyInto(sampleBytes, 0, 0, sampleBytes.size)
+                    success = true
+                }
+                pos += testBytes.size
+            }
+        } while (!success)
+    } while (!success)
+
+    val value = bigIntOf(sampleBytes).abs()
     val valueBitLength = value.bitLength
 
     return when {

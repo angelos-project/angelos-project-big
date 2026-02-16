@@ -16,11 +16,11 @@ plugins {
 }
 
 group = "org.angproj.big"
-version = "0.10.2"
+version = "0.10.3"
 
 kotlin {
     explicitApi()
-    jvmToolchain(19)
+    jvmToolchain(libs.versions.jvm.toolchain.get().toInt())
 
     jvm()
     js {
@@ -65,7 +65,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.angproj.sec:angelos-project-secrand:0.12.2")
+            implementation("org.angproj.sec:angelos-project-secrand:0.12.5")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

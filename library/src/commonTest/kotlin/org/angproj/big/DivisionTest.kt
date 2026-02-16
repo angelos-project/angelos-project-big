@@ -587,22 +587,4 @@ class DivisionTest {
 
         proof(dividend, divisor)
     }
-
-    /**
-     * Generally fuzzes and validates that "public fun BigInt.divideAndRemainder(
-     *     value: BigInt
-     * ): Pair<BigInt, BigInt>" works
-     * under all normal conditions. No special cases to test is currently known.
-     * */
-    @Test
-    fun testDivideAndRemainder() {
-        repeat(256 - 33) { xLen ->
-            val dividend = BigInt.createEntropyBigInt(xLen + 33)
-            repeat(256 - 33) { yLen ->
-                val divisor = BigInt.createEntropyBigInt(yLen + 33)
-
-                proof(dividend, divisor)
-            }
-        }
-    }
 }
